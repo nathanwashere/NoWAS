@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "jmF4LMsRfyw=",
+  "dgSpecHash": "kxRpEIZbYoTjbn1cOCyQIkltXR0Ak7A0S9Nybvd6af+HphY+4J2y/IPpOqJSnP2yRIJaF/1KwD3FCN5j/q0E7w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\natan\\OneDrive\\Documents\\GitHub\\NoWAS\\WinFormsApp1\\WinFormsApp1\\WinFormsApp1.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\29ida\\OneDrive\\Documents\\GitHub\\NoWAS\\WinFormsApp1\\WinFormsApp1\\WinFormsApp1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\29ida\\.nuget\\packages\\winforms.datavisualization\\1.10.0\\winforms.datavisualization.1.10.0.nupkg.sha512"
+  ],
   "logs": []
 }
