@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WinFormsApp1
@@ -16,13 +10,14 @@ namespace WinFormsApp1
         {
             InitializeComponent();
             SetupButtons();
+            
         }
+
         private void SetupButtons()
         {
             SetupButton(btnTakeTest, "Take Test", new Point(150, 180));
             SetupButton(btnGrades, "My Grades", new Point(400, 180));
             SetupButton(btnProgress, "Progress", new Point(150, 250));
-            SetupButton(btnProgress2, "Progress", new Point(400, 250));
             SetupButton(btnSettings, "Settings", new Point(200, 340), small: true);
             SetupButton(btnLogout, "Logout", new Point(380, 340), small: true);
         }
@@ -38,9 +33,11 @@ namespace WinFormsApp1
             btn.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
         }
 
+      
+
         private void btnGrades_Click(object sender, EventArgs e)
         {
-
+            // Your grades logic
         }
     }
 }

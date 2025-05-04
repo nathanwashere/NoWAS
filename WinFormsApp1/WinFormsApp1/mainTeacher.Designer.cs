@@ -1,14 +1,15 @@
 ﻿namespace WinFormsApp1
 {
-    partial class mainForm
+    partial class mainTeacher
     {
         private System.ComponentModel.IContainer components = null;
+
         private System.Windows.Forms.Label lblWelcome;
         private System.Windows.Forms.Panel pnlStats;
-        private System.Windows.Forms.Label lblActiveTests;
+        private System.Windows.Forms.Label lblTestsCreated;
         private System.Windows.Forms.Label lblAvgScore;
-        private System.Windows.Forms.Button btnTakeTest;
-        private System.Windows.Forms.Button btnGrades;
+        private System.Windows.Forms.Button btnCreateTest;
+        private System.Windows.Forms.Button btnCheckSubmissions;
         private System.Windows.Forms.Button btnProgress;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button btnLogout;
@@ -24,16 +25,16 @@
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             lblWelcome = new Label();
             pnlStats = new Panel();
-            lblActiveTests = new Label();
+            lblTestsCreated = new Label();
             lblAvgScore = new Label();
-            btnTakeTest = new Button();
-            btnGrades = new Button();
+            btnCreateTest = new Button();
+            btnCheckSubmissions = new Button();
             btnProgress = new Button();
             btnSettings = new Button();
             btnLogout = new Button();
+            button1 = new Button();
             pnlStats.SuspendLayout();
             SuspendLayout();
             // 
@@ -44,30 +45,30 @@
             lblWelcome.ForeColor = Color.Black;
             lblWelcome.Location = new Point(280, 20);
             lblWelcome.Name = "lblWelcome";
-            lblWelcome.Size = new Size(235, 41);
+            lblWelcome.Size = new Size(270, 41);
             lblWelcome.TabIndex = 0;
-            lblWelcome.Text = "Welcome, LizVa";
+            lblWelcome.Text = "Welcome, Teacher";
             // 
             // pnlStats
             // 
             pnlStats.BackColor = Color.LightSteelBlue;
             pnlStats.BorderStyle = BorderStyle.FixedSingle;
-            pnlStats.Controls.Add(lblActiveTests);
+            pnlStats.Controls.Add(lblTestsCreated);
             pnlStats.Controls.Add(lblAvgScore);
             pnlStats.Location = new Point(152, 81);
             pnlStats.Name = "pnlStats";
             pnlStats.Size = new Size(465, 80);
             pnlStats.TabIndex = 1;
             // 
-            // lblActiveTests
+            // lblTestsCreated
             // 
-            lblActiveTests.AutoSize = true;
-            lblActiveTests.Font = new Font("Segoe UI", 12F);
-            lblActiveTests.Location = new Point(20, 25);
-            lblActiveTests.Name = "lblActiveTests";
-            lblActiveTests.Size = new Size(115, 28);
-            lblActiveTests.TabIndex = 0;
-            lblActiveTests.Text = "Tests taken: ";
+            lblTestsCreated.AutoSize = true;
+            lblTestsCreated.Font = new Font("Segoe UI", 12F);
+            lblTestsCreated.Location = new Point(20, 25);
+            lblTestsCreated.Name = "lblTestsCreated";
+            lblTestsCreated.Size = new Size(132, 28);
+            lblTestsCreated.TabIndex = 0;
+            lblTestsCreated.Text = "Tests created: ";
             // 
             // lblAvgScore
             // 
@@ -79,36 +80,31 @@
             lblAvgScore.TabIndex = 1;
             lblAvgScore.Text = "Average score:";
             // 
-            // btnTakeTest
+            // btnCreateTest
             // 
-            btnTakeTest.BackColor = Color.SteelBlue;
-            btnTakeTest.FlatStyle = FlatStyle.Flat;
-            btnTakeTest.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnTakeTest.ForeColor = Color.White;
-            btnTakeTest.Image = (Image)resources.GetObject("btnTakeTest.Image");
-            btnTakeTest.ImageAlign = ContentAlignment.MiddleLeft;
-            btnTakeTest.Location = new Point(280, 179);
-            btnTakeTest.Name = "btnTakeTest";
-            btnTakeTest.Size = new Size(200, 50);
-            btnTakeTest.TabIndex = 2;
-            btnTakeTest.Text = "Take Test";
-            btnTakeTest.UseVisualStyleBackColor = false;
+            btnCreateTest.BackColor = Color.SteelBlue;
+            btnCreateTest.FlatStyle = FlatStyle.Flat;
+            btnCreateTest.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnCreateTest.ForeColor = Color.White;
+            btnCreateTest.Location = new Point(280, 179);
+            btnCreateTest.Name = "btnCreateTest";
+            btnCreateTest.Size = new Size(200, 50);
+            btnCreateTest.TabIndex = 2;
+            btnCreateTest.Text = "Create Test";
+            btnCreateTest.UseVisualStyleBackColor = false;
             // 
-            // btnGrades
+            // btnCheckSubmissions
             // 
-            btnGrades.BackColor = Color.SteelBlue;
-            btnGrades.FlatStyle = FlatStyle.Flat;
-            btnGrades.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnGrades.ForeColor = Color.White;
-            btnGrades.Image = (Image)resources.GetObject("btnGrades.Image");
-            btnGrades.ImageAlign = ContentAlignment.MiddleLeft;
-            btnGrades.Location = new Point(280, 256);
-            btnGrades.Name = "btnGrades";
-            btnGrades.Size = new Size(200, 50);
-            btnGrades.TabIndex = 3;
-            btnGrades.Text = "My Grades";
-            btnGrades.UseVisualStyleBackColor = false;
-            btnGrades.Click += btnGrades_Click;
+            btnCheckSubmissions.BackColor = Color.SteelBlue;
+            btnCheckSubmissions.FlatStyle = FlatStyle.Flat;
+            btnCheckSubmissions.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnCheckSubmissions.ForeColor = Color.White;
+            btnCheckSubmissions.Location = new Point(280, 252);
+            btnCheckSubmissions.Name = "btnCheckSubmissions";
+            btnCheckSubmissions.Size = new Size(200, 50);
+            btnCheckSubmissions.TabIndex = 3;
+            btnCheckSubmissions.Text = "Create Questions";
+            btnCheckSubmissions.UseVisualStyleBackColor = false;
             // 
             // btnProgress
             // 
@@ -116,13 +112,11 @@
             btnProgress.FlatStyle = FlatStyle.Flat;
             btnProgress.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnProgress.ForeColor = Color.White;
-            btnProgress.Image = (Image)resources.GetObject("btnProgress.Image");
-            btnProgress.ImageAlign = ContentAlignment.MiddleLeft;
-            btnProgress.Location = new Point(280, 327);
+            btnProgress.Location = new Point(280, 317);
             btnProgress.Name = "btnProgress";
             btnProgress.Size = new Size(200, 50);
             btnProgress.TabIndex = 4;
-            btnProgress.Text = "Progress";
+            btnProgress.Text = "Student Data";
             btnProgress.UseVisualStyleBackColor = false;
             // 
             // btnSettings
@@ -131,8 +125,6 @@
             btnSettings.FlatStyle = FlatStyle.Flat;
             btnSettings.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnSettings.ForeColor = Color.White;
-            btnSettings.Image = (Image)resources.GetObject("btnSettings.Image");
-            btnSettings.ImageAlign = ContentAlignment.MiddleLeft;
             btnSettings.Location = new Point(12, 12);
             btnSettings.Name = "btnSettings";
             btnSettings.Size = new Size(154, 40);
@@ -146,8 +138,6 @@
             btnLogout.FlatStyle = FlatStyle.Flat;
             btnLogout.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnLogout.ForeColor = Color.White;
-            btnLogout.Image = Properties.Resources.log_out;
-            btnLogout.ImageAlign = ContentAlignment.MiddleLeft;
             btnLogout.Location = new Point(620, 421);
             btnLogout.Name = "btnLogout";
             btnLogout.Size = new Size(149, 40);
@@ -155,21 +145,35 @@
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = false;
             // 
-            // mainForm
+            // button1
+            // 
+            button1.BackColor = Color.SteelBlue;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(280, 383);
+            button1.Name = "button1";
+            button1.Size = new Size(200, 50);
+            button1.TabIndex = 8;
+            button1.Text = "Statistical Data";
+            button1.UseVisualStyleBackColor = false;
+            // 
+            // mainTeacher
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(800, 500);
+            Controls.Add(button1);
             Controls.Add(lblWelcome);
             Controls.Add(pnlStats);
-            Controls.Add(btnTakeTest);
-            Controls.Add(btnGrades);
+            Controls.Add(btnCreateTest);
+            Controls.Add(btnCheckSubmissions);
             Controls.Add(btnProgress);
             Controls.Add(btnSettings);
             Controls.Add(btnLogout);
-            Name = "mainForm";
-            Text = "Main Dashboard";
+            Name = "mainTeacher";
+            Text = "Teacher Dashboard";
             pnlStats.ResumeLayout(false);
             pnlStats.PerformLayout();
             ResumeLayout(false);
@@ -177,5 +181,7 @@
         }
 
         #endregion
+
+        private Button button1;
     }
 }
