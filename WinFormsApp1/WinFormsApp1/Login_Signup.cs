@@ -161,8 +161,25 @@ namespace WinFormsApp1
         private void buttonLoginEnter_Click(object sender, EventArgs e)
         {
             string userName = textBoxLoginUsername.Text;
-            string password = textBoxLoginPassword.Text;       
-            logIn(userName, password);
+            string password = textBoxLoginPassword.Text;
+
+            // Log in attempt
+            var result = OpenOrCreateExcel();
+            var worksheet = result.Item2;
+
+            if (checkLogin(worksheet, userName, password))
+            {
+                MessageBox.Show("Login successful!");
+                mainForm mainForm = new mainForm();
+                mainForm.Show();
+                this.Hide(); // hide current form
+            }
+            else
+            {
+                MessageBox.Show("Invalid username or password.");
+            }
+
+            result.Item1.Dispose(); // Dispose workbook
             clearInputs();
         }
     }

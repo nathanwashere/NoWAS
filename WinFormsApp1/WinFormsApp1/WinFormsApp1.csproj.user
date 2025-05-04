@@ -4,6 +4,9 @@
     <Compile Update="Login_Signup.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="mainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Student tracking of grades.cs">
       <SubType>Form</SubType>
     </Compile>
