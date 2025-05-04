@@ -37,7 +37,9 @@ namespace WinFormsApp1
 
         private void btnGrades_Click(object sender, EventArgs e)
         {
-            // Your grades logic
+            StudentTracking studentTracking = new StudentTracking();
+            studentTracking.Show();
+            this.Close();
         }
     }
 }
