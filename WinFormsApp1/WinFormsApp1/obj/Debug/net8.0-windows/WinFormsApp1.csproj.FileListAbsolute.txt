@@ -6,7 +6,6 @@ C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Deb
 C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinForms.DataVisualization.Utilities.dll
 C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinForms.DataVisualization.dll
 C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.AssemblyReference.cache
-C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Form1.resources
 C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Student_tracking_of_grades.resources
 C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.GenerateResource.cache
 C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.GeneratedMSBuildEditorConfig.editorconfig
@@ -52,3 +51,14 @@ C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Deb
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\RBush.dll
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\SixLabors.Fonts.dll
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\System.IO.Packaging.dll
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\ClosedXML.dll
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\ClosedXML.Parser.dll
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\DocumentFormat.OpenXml.dll
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\DocumentFormat.OpenXml.Framework.dll
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\ExcelNumberFormat.dll
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\RBush.dll
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\SixLabors.Fonts.dll
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\System.IO.Packaging.dll
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\Interop.Microsoft.Office.Interop.Excel.dll
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.ResolveComReference.cache
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Login_Signup.resources
