@@ -188,7 +188,7 @@ namespace WinFormsApp1
                     teacherForm.Show();
                 }
 
-                this.Hide(); 
+                this.Hide();
             }
             else
             {
@@ -197,6 +197,11 @@ namespace WinFormsApp1
 
             result.Item1.Dispose();
             clearInputs();
+        }
+
+        private void panelSignup_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

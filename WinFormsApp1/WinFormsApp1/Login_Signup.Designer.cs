@@ -24,6 +24,8 @@
             buttonLoginEnter = new Button();
             buttonLoginToSignup = new Button();
             panelSignup = new Panel();
+            rbStudent = new RadioButton();
+            rbProf = new RadioButton();
             labelSignupTitleApp = new Label();
             labelSignupUsername = new Label();
             textBoxSignupUsername = new TextBox();
@@ -31,8 +33,6 @@
             textBoxSignupPassword = new TextBox();
             buttonSignupEnter = new Button();
             buttonSignupToLogin = new Button();
-            rbStudent = new RadioButton();
-            rbProf = new RadioButton();
             panelLogin.SuspendLayout();
             panelSignup.SuspendLayout();
             SuspendLayout();
@@ -134,6 +134,29 @@
             panelSignup.Name = "panelSignup";
             panelSignup.Size = new Size(981, 595);
             panelSignup.TabIndex = 3;
+            panelSignup.Paint += panelSignup_Paint;
+            // 
+            // rbStudent
+            // 
+            rbStudent.AutoSize = true;
+            rbStudent.Location = new Point(413, 349);
+            rbStudent.Name = "rbStudent";
+            rbStudent.Size = new Size(81, 24);
+            rbStudent.TabIndex = 0;
+            rbStudent.TabStop = true;
+            rbStudent.Text = "Student";
+            rbStudent.UseVisualStyleBackColor = true;
+            // 
+            // rbProf
+            // 
+            rbProf.AutoSize = true;
+            rbProf.Location = new Point(413, 379);
+            rbProf.Name = "rbProf";
+            rbProf.Size = new Size(91, 24);
+            rbProf.TabIndex = 1;
+            rbProf.TabStop = true;
+            rbProf.Text = "Professor";
+            rbProf.UseVisualStyleBackColor = true;
             // 
             // labelSignupTitleApp
             // 
@@ -200,28 +223,6 @@
             buttonSignupToLogin.Text = "כניסה";
             buttonSignupToLogin.UseVisualStyleBackColor = true;
             buttonSignupToLogin.Click += buttonSignupToLogin_Click;
-            // 
-            // rbStudent
-            // 
-            rbStudent.AutoSize = true;
-            rbStudent.Location = new Point(413, 349);
-            rbStudent.Name = "rbStudent";
-            rbStudent.Size = new Size(81, 24);
-            rbStudent.TabIndex = 0;
-            rbStudent.TabStop = true;
-            rbStudent.Text = "Student";
-            rbStudent.UseVisualStyleBackColor = true;
-            // 
-            // rbProf
-            // 
-            rbProf.AutoSize = true;
-            rbProf.Location = new Point(413, 379);
-            rbProf.Name = "rbProf";
-            rbProf.Size = new Size(91, 24);
-            rbProf.TabIndex = 1;
-            rbProf.TabStop = true;
-            rbProf.Text = "Professor";
-            rbProf.UseVisualStyleBackColor = true;
             // 
             // Login_Signup
             // 

@@ -105,6 +105,7 @@
             btnCheckSubmissions.TabIndex = 3;
             btnCheckSubmissions.Text = "Create Questions";
             btnCheckSubmissions.UseVisualStyleBackColor = false;
+            btnCheckSubmissions.Click += btnCheckSubmissions_Click;
             // 
             // btnProgress
             // 
