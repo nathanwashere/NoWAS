@@ -255,3 +255,6 @@ C:\Users\zecha\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0
 C:\Users\zecha\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.genruntimeconfig.cache
 C:\Users\zecha\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\ref\WinFormsApp1.dll
 C:\Users\zecha\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\DataBase.db
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\DataBase.db
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Deleting_questions.resources
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.InsertingQuestions.resources

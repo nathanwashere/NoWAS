@@ -20,11 +20,11 @@ namespace WinFormsApp1
 
         private void Deleting_questions_Load(object sender, EventArgs e)
         {
-            if (!File.Exists(@"C:\Users\zecha\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\DataBase.db"))
-            {
-                MessageBox.Show("Database file not found!");
-                return;
-            }
+            //if (!File.Exists(@"C:\Users\zecha\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\DataBase.db"))
+            //{
+            //    MessageBox.Show("Database file not found!");
+            //    return;
+            //}
             string dbPath = Path.Combine(Application.StartupPath, "DataBase.db");
             string connectionString = $"Data Source={dbPath};Version=3;";
             using (SQLiteConnection connection = new SQLiteConnection(connectionString)) // Declare and initialize 'connection'
