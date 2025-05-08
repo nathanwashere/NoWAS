@@ -19,8 +19,13 @@ namespace WinFormsApp1
 
         private void btnCheckSubmissions_Click(object sender, EventArgs e)
         {
-            InsertingQuestions i_q= new InsertingQuestions();
+            InsertingQuestions i_q = new InsertingQuestions();
             i_q.Show();
+        }
+
+        private void mainTeacher_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
