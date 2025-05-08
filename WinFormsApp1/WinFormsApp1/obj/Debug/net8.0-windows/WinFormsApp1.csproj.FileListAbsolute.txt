@@ -335,3 +335,4 @@ C:\Users\seanm\Source\Repos\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-win
 C:\Users\seanm\Source\Repos\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.pdb
 C:\Users\seanm\Source\Repos\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.genruntimeconfig.cache
 C:\Users\seanm\Source\Repos\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\ref\WinFormsApp1.dll
+C:\Users\seanm\Source\Repos\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.StudentTestForm.resources

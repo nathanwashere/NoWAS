@@ -10,7 +10,7 @@ namespace WinFormsApp1
         {
             InitializeComponent();
             SetupButtons();
-            
+
         }
 
         private void SetupButtons()
@@ -33,13 +33,19 @@ namespace WinFormsApp1
             btn.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
         }
 
-      
+
 
         private void btnGrades_Click(object sender, EventArgs e)
         {
             StudentTracking studentTracking = new StudentTracking();
             studentTracking.Show();
             this.Close();
+        }
+
+        private void btnTakeTest_Click(object sender, EventArgs e)
+        {
+            Form testForm = new StudentTestForm();
+            testForm.Show();
         }
     }
 }
