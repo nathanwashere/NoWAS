@@ -40,9 +40,10 @@
             // labelLoginTitleApp
             // 
             labelLoginTitleApp.Font = new Font("Segoe UI", 25F, FontStyle.Bold);
-            labelLoginTitleApp.Location = new Point(374, 26);
+            labelLoginTitleApp.Location = new Point(468, 32);
+            labelLoginTitleApp.Margin = new Padding(4, 0, 4, 0);
             labelLoginTitleApp.Name = "labelLoginTitleApp";
-            labelLoginTitleApp.Size = new Size(273, 61);
+            labelLoginTitleApp.Size = new Size(341, 76);
             labelLoginTitleApp.TabIndex = 0;
             labelLoginTitleApp.Text = "שם של האתר";
             // 
@@ -50,34 +51,38 @@
             // 
             labelLoginUsername.AutoSize = true;
             labelLoginUsername.Font = new Font("Segoe UI", 15F, FontStyle.Underline);
-            labelLoginUsername.Location = new Point(737, 130);
+            labelLoginUsername.Location = new Point(921, 162);
+            labelLoginUsername.Margin = new Padding(4, 0, 4, 0);
             labelLoginUsername.Name = "labelLoginUsername";
-            labelLoginUsername.Size = new Size(151, 35);
+            labelLoginUsername.Size = new Size(181, 41);
             labelLoginUsername.TabIndex = 1;
             labelLoginUsername.Text = "שם משתמש";
             // 
             // textBoxLoginUsername
             // 
-            textBoxLoginUsername.Location = new Point(413, 175);
+            textBoxLoginUsername.Location = new Point(516, 219);
+            textBoxLoginUsername.Margin = new Padding(4);
             textBoxLoginUsername.Name = "textBoxLoginUsername";
-            textBoxLoginUsername.Size = new Size(470, 27);
+            textBoxLoginUsername.Size = new Size(586, 31);
             textBoxLoginUsername.TabIndex = 2;
             // 
             // labelLoginPassword
             // 
             labelLoginPassword.AutoSize = true;
             labelLoginPassword.Font = new Font("Segoe UI", 15F, FontStyle.Underline);
-            labelLoginPassword.Location = new Point(804, 210);
+            labelLoginPassword.Location = new Point(1005, 262);
+            labelLoginPassword.Margin = new Padding(4, 0, 4, 0);
             labelLoginPassword.Name = "labelLoginPassword";
-            labelLoginPassword.Size = new Size(90, 35);
+            labelLoginPassword.Size = new Size(106, 41);
             labelLoginPassword.TabIndex = 3;
             labelLoginPassword.Text = "סיסמה";
             // 
             // textBoxLoginPassword
             // 
-            textBoxLoginPassword.Location = new Point(413, 246);
+            textBoxLoginPassword.Location = new Point(516, 308);
+            textBoxLoginPassword.Margin = new Padding(4);
             textBoxLoginPassword.Name = "textBoxLoginPassword";
-            textBoxLoginPassword.Size = new Size(470, 27);
+            textBoxLoginPassword.Size = new Size(586, 31);
             textBoxLoginPassword.TabIndex = 4;
             // 
             // panelLogin
@@ -91,17 +96,19 @@
             panelLogin.Controls.Add(textBoxLoginPassword);
             panelLogin.Dock = DockStyle.Fill;
             panelLogin.Location = new Point(0, 0);
+            panelLogin.Margin = new Padding(4);
             panelLogin.Name = "panelLogin";
-            panelLogin.Size = new Size(981, 595);
+            panelLogin.Size = new Size(1226, 744);
             panelLogin.TabIndex = 2;
             // 
             // buttonLoginEnter
             // 
             buttonLoginEnter.BackColor = Color.FromArgb(235, 63, 33);
             buttonLoginEnter.Font = new Font("Segoe UI", 15F);
-            buttonLoginEnter.Location = new Point(413, 301);
+            buttonLoginEnter.Location = new Point(516, 376);
+            buttonLoginEnter.Margin = new Padding(4);
             buttonLoginEnter.Name = "buttonLoginEnter";
-            buttonLoginEnter.Size = new Size(466, 38);
+            buttonLoginEnter.Size = new Size(582, 48);
             buttonLoginEnter.TabIndex = 7;
             buttonLoginEnter.Text = "כניסה";
             buttonLoginEnter.UseVisualStyleBackColor = false;
@@ -110,9 +117,10 @@
             // buttonLoginToSignup
             // 
             buttonLoginToSignup.Font = new Font("Segoe UI", 15F);
-            buttonLoginToSignup.Location = new Point(330, 493);
+            buttonLoginToSignup.Location = new Point(412, 616);
+            buttonLoginToSignup.Margin = new Padding(4);
             buttonLoginToSignup.Name = "buttonLoginToSignup";
-            buttonLoginToSignup.Size = new Size(316, 35);
+            buttonLoginToSignup.Size = new Size(395, 44);
             buttonLoginToSignup.TabIndex = 6;
             buttonLoginToSignup.Text = "הרשמה";
             buttonLoginToSignup.UseVisualStyleBackColor = true;
@@ -131,17 +139,19 @@
             panelSignup.Controls.Add(buttonSignupToLogin);
             panelSignup.Dock = DockStyle.Fill;
             panelSignup.Location = new Point(0, 0);
+            panelSignup.Margin = new Padding(4);
             panelSignup.Name = "panelSignup";
-            panelSignup.Size = new Size(981, 595);
+            panelSignup.Size = new Size(1226, 744);
             panelSignup.TabIndex = 3;
             panelSignup.Paint += panelSignup_Paint;
             // 
             // rbStudent
             // 
             rbStudent.AutoSize = true;
-            rbStudent.Location = new Point(413, 349);
+            rbStudent.Location = new Point(516, 436);
+            rbStudent.Margin = new Padding(4);
             rbStudent.Name = "rbStudent";
-            rbStudent.Size = new Size(81, 24);
+            rbStudent.Size = new Size(98, 29);
             rbStudent.TabIndex = 0;
             rbStudent.TabStop = true;
             rbStudent.Text = "Student";
@@ -150,9 +160,10 @@
             // rbProf
             // 
             rbProf.AutoSize = true;
-            rbProf.Location = new Point(413, 379);
+            rbProf.Location = new Point(516, 474);
+            rbProf.Margin = new Padding(4);
             rbProf.Name = "rbProf";
-            rbProf.Size = new Size(91, 24);
+            rbProf.Size = new Size(112, 29);
             rbProf.TabIndex = 1;
             rbProf.TabStop = true;
             rbProf.Text = "Professor";
@@ -161,9 +172,10 @@
             // labelSignupTitleApp
             // 
             labelSignupTitleApp.Font = new Font("Segoe UI", 25F, FontStyle.Bold);
-            labelSignupTitleApp.Location = new Point(374, 26);
+            labelSignupTitleApp.Location = new Point(468, 32);
+            labelSignupTitleApp.Margin = new Padding(4, 0, 4, 0);
             labelSignupTitleApp.Name = "labelSignupTitleApp";
-            labelSignupTitleApp.Size = new Size(273, 61);
+            labelSignupTitleApp.Size = new Size(341, 76);
             labelSignupTitleApp.TabIndex = 4;
             labelSignupTitleApp.Text = "שם של האתר";
             // 
@@ -171,43 +183,48 @@
             // 
             labelSignupUsername.AutoSize = true;
             labelSignupUsername.Font = new Font("Segoe UI", 15F, FontStyle.Underline);
-            labelSignupUsername.Location = new Point(737, 130);
+            labelSignupUsername.Location = new Point(921, 162);
+            labelSignupUsername.Margin = new Padding(4, 0, 4, 0);
             labelSignupUsername.Name = "labelSignupUsername";
-            labelSignupUsername.Size = new Size(151, 35);
+            labelSignupUsername.Size = new Size(181, 41);
             labelSignupUsername.TabIndex = 2;
             labelSignupUsername.Text = "שם משתמש";
             // 
             // textBoxSignupUsername
             // 
-            textBoxSignupUsername.Location = new Point(413, 175);
+            textBoxSignupUsername.Location = new Point(516, 219);
+            textBoxSignupUsername.Margin = new Padding(4);
             textBoxSignupUsername.Name = "textBoxSignupUsername";
-            textBoxSignupUsername.Size = new Size(470, 27);
+            textBoxSignupUsername.Size = new Size(586, 31);
             textBoxSignupUsername.TabIndex = 3;
             // 
             // labelSignupPassword
             // 
             labelSignupPassword.AutoSize = true;
             labelSignupPassword.Font = new Font("Segoe UI", 15F, FontStyle.Underline);
-            labelSignupPassword.Location = new Point(804, 210);
+            labelSignupPassword.Location = new Point(1005, 262);
+            labelSignupPassword.Margin = new Padding(4, 0, 4, 0);
             labelSignupPassword.Name = "labelSignupPassword";
-            labelSignupPassword.Size = new Size(90, 35);
+            labelSignupPassword.Size = new Size(106, 41);
             labelSignupPassword.TabIndex = 5;
             labelSignupPassword.Text = "סיסמה";
             // 
             // textBoxSignupPassword
             // 
-            textBoxSignupPassword.Location = new Point(413, 246);
+            textBoxSignupPassword.Location = new Point(516, 308);
+            textBoxSignupPassword.Margin = new Padding(4);
             textBoxSignupPassword.Name = "textBoxSignupPassword";
-            textBoxSignupPassword.Size = new Size(470, 27);
+            textBoxSignupPassword.Size = new Size(586, 31);
             textBoxSignupPassword.TabIndex = 6;
             // 
             // buttonSignupEnter
             // 
             buttonSignupEnter.BackColor = Color.FromArgb(235, 63, 33);
             buttonSignupEnter.Font = new Font("Segoe UI", 15F);
-            buttonSignupEnter.Location = new Point(413, 301);
+            buttonSignupEnter.Location = new Point(516, 376);
+            buttonSignupEnter.Margin = new Padding(4);
             buttonSignupEnter.Name = "buttonSignupEnter";
-            buttonSignupEnter.Size = new Size(466, 39);
+            buttonSignupEnter.Size = new Size(582, 49);
             buttonSignupEnter.TabIndex = 9;
             buttonSignupEnter.Text = "הרשמה";
             buttonSignupEnter.UseVisualStyleBackColor = false;
@@ -216,9 +233,10 @@
             // buttonSignupToLogin
             // 
             buttonSignupToLogin.Font = new Font("Segoe UI", 15F);
-            buttonSignupToLogin.Location = new Point(330, 493);
+            buttonSignupToLogin.Location = new Point(412, 616);
+            buttonSignupToLogin.Margin = new Padding(4);
             buttonSignupToLogin.Name = "buttonSignupToLogin";
-            buttonSignupToLogin.Size = new Size(316, 35);
+            buttonSignupToLogin.Size = new Size(395, 44);
             buttonSignupToLogin.TabIndex = 8;
             buttonSignupToLogin.Text = "כניסה";
             buttonSignupToLogin.UseVisualStyleBackColor = true;
@@ -226,11 +244,12 @@
             // 
             // Login_Signup
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(981, 595);
+            ClientSize = new Size(1226, 744);
             Controls.Add(panelSignup);
             Controls.Add(panelLogin);
+            Margin = new Padding(4);
             Name = "Login_Signup";
             Text = "Login";
             Load += Login_Signup_Load;

@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Windows.Forms;
 using ClosedXML.Excel;
+using System.Data.SQLite;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace WinFormsApp1
 {
@@ -10,6 +12,51 @@ namespace WinFormsApp1
         public Login_Signup()
         {
             InitializeComponent();
+        }
+
+        private SQLiteConnection connectDataBase()
+        {
+            var dbPath = "DataBase.db";
+
+            if (!File.Exists(dbPath))
+            {
+                MessageBox.Show("Database file not found!");
+                return null;
+            }
+            try
+            {
+                var connectString = new SQLiteConnectionStringBuilder
+                {
+                    DataSource = dbPath,
+                    Version = 3,
+                }.ToString();
+
+                var conn = new SQLiteConnection(connectString);
+                conn.Open();
+                return conn;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to open database:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
+
+        private string getUserType(string username)
+        {
+            using (var conn = connectDataBase())
+            {
+                if (conn == null) return null;
+
+                string query = "SELECT type FROM Person WHERE userName = @username";
+
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@username", username);
+                    var result = cmd.ExecuteScalar();
+                    return result?.ToString();  
+                }
+            }
         }
 
         private (XLWorkbook, IXLWorksheet) OpenOrCreateExcel()
@@ -35,6 +82,23 @@ namespace WinFormsApp1
             return (workbook, worksheet);
         }
 
+        private void addUserToDataBase( string userName, string type)
+        {
+
+            using (var conn = connectDataBase())
+            {
+                if (conn == null) return;
+                string query = "INSERT INTO Person (userName, type) VALUES (@userName, @type)";
+
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@userName", userName);
+                    cmd.Parameters.AddWithValue("@type", type);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         private void signUp(string userName, string password)
         {
             XLWorkbook workbook = null;
@@ -46,7 +110,8 @@ namespace WinFormsApp1
 
                 int lastRow = worksheet.LastRowUsed()?.RowNumber() ?? 1;
 
-                if (userNameExists(worksheet, userName))
+                if (userNameExistsExcel(worksheet, userName) && 
+                    userNameExistsDataBase(userName))
                 {
                     MessageBox.Show("User already exists");
                 }
@@ -55,6 +120,8 @@ namespace WinFormsApp1
                     worksheet.Cell(lastRow + 1, 1).Value = userName;
                     worksheet.Cell(lastRow + 1, 2).Value = password;
                     workbook.SaveAs("Info.xlsx");
+
+                    addUserToDataBase(userName, rbStudent.Checked ? "Student" : "Professor");
                 }
             }
             catch (Exception ex)
@@ -85,6 +152,17 @@ namespace WinFormsApp1
                 if (checkLogin(worksheet, userName, password))
                 {
                     MessageBox.Show("Login successful!");
+
+                    if (getUserType(userName) == "Student")
+                    {
+                        new mainForm().Show();
+                    }
+                    else if (getUserType(userName) == "Professor")
+                    {
+                        new mainTeacher().Show();
+                    }
+
+                    this.Hide();
                 }
                 else
                 {
@@ -109,7 +187,7 @@ namespace WinFormsApp1
             textBoxSignupPassword.Text = "";
         }
 
-        private bool userNameExists(IXLWorksheet worksheet, string userName)
+        private bool userNameExistsExcel(IXLWorksheet worksheet, string userName)
         {
             foreach (var row in worksheet.RowsUsed().Skip(1))
             {
@@ -119,7 +197,23 @@ namespace WinFormsApp1
                     return true;
                 }
             }
+
             return false;
+        }
+
+        private bool userNameExistsDataBase(string username)
+        {
+            using (var conn = connectDataBase())
+            {
+                if (conn == null) return false;
+                string query = "SELECT COUNT(*) FROM Person WHERE userName = @username";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@username", username);
+                    long count = (long)cmd.ExecuteScalar();
+                    return count > 0;
+                }
+            }
         }
 
         private bool checkLogin(IXLWorksheet worksheet, string userName, string password)
@@ -169,33 +263,7 @@ namespace WinFormsApp1
         {
             string userName = textBoxLoginUsername.Text;
             string password = textBoxLoginPassword.Text;
-
-            var result = OpenOrCreateExcel();
-            var worksheet = result.Item2;
-
-            if (checkLogin(worksheet, userName, password))
-            {
-                MessageBox.Show("Login successful!");
-
-                if (rbStudent.Checked)
-                {
-                    mainForm studentForm = new mainForm();
-                    studentForm.Show();
-                }
-                else if (rbProf.Checked)
-                {
-                    mainTeacher teacherForm = new mainTeacher();
-                    teacherForm.Show();
-                }
-
-                this.Hide();
-            }
-            else
-            {
-                MessageBox.Show("Invalid username or password.");
-            }
-
-            result.Item1.Dispose();
+            logIn(userName, password);
             clearInputs();
         }
 

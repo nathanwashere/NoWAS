@@ -9,6 +9,7 @@ namespace WinFormsApp1
 {
     public partial class StudentTracking : Form
     {
+        private bool isCLosing = false;
         public StudentTracking()
         {
             InitializeComponent();
@@ -68,6 +69,14 @@ namespace WinFormsApp1
             // Display average score
             var avg = table.AsEnumerable().Average(r => r.Field<int>("Score"));
             lblAverage.Text = $"Average Score: {avg:F2}";
+        }
+
+        private void StudentTracking_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (!isCLosing)
+            {
+                Application.Exit();
+            }
         }
     }
 }

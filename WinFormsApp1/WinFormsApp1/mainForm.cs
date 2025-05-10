@@ -6,11 +6,11 @@ namespace WinFormsApp1
 {
     public partial class mainForm : Form
     {
+        private bool isCLosing = false;
         public mainForm()
         {
             InitializeComponent();
             SetupButtons();
-            
         }
 
         private void SetupButtons()
@@ -33,13 +33,20 @@ namespace WinFormsApp1
             btn.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
         }
 
-      
-
         private void btnGrades_Click(object sender, EventArgs e)
         {
             StudentTracking studentTracking = new StudentTracking();
             studentTracking.Show();
+            isCLosing = true;
             this.Close();
+        }
+
+        private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if(!isCLosing)
+            {
+                Application.Exit();
+            }
         }
     }
 }
