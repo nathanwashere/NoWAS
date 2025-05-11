@@ -42,11 +42,11 @@ namespace WinFormsApp1
 
             using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-               conn.Open();
+                conn.Open();
 
-               string query = "SELECT * FROM Question";
-               using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
-               using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd))
+                string query = "SELECT * FROM Question";
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd))
                 {
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
@@ -54,6 +54,11 @@ namespace WinFormsApp1
                 }
             }
             dataGridViewQuestions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private void dataGridViewQuestions_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
