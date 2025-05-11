@@ -42,6 +42,7 @@
             dataGridViewQuestions.RowHeadersWidth = 51;
             dataGridViewQuestions.Size = new Size(718, 380);
             dataGridViewQuestions.TabIndex = 0;
+            dataGridViewQuestions.CellContentClick += dataGridViewQuestions_CellContentClick;
             // 
             // Deleting_questions
             // 
