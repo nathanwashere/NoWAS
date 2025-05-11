@@ -25,7 +25,9 @@ namespace WinFormsApp1
             //    MessageBox.Show("Database file not found!");
             //    return;
             //}
-            string dbPath = Path.Combine(Application.StartupPath, "DataBase.db");
+
+            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
+            dbPath = Path.GetFullPath(dbPath);
             string connectionString = $"Data Source={dbPath};Version=3;";
             using (SQLiteConnection connection = new SQLiteConnection(connectionString)) // Declare and initialize 'connection'
             {
