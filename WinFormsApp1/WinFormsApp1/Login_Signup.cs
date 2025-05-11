@@ -16,7 +16,10 @@ namespace WinFormsApp1
 
         private SQLiteConnection connectDataBase()
         {
-            var dbPath = "DataBase.db";
+            // go two levels up from bin/Debug
+            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
+            dbPath = Path.GetFullPath(dbPath);
+
 
             if (!File.Exists(dbPath))
             {
