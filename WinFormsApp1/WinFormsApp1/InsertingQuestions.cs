@@ -83,19 +83,31 @@ namespace WinFormsApp1
             string cText = course_text.Text;
             string caText = c_a_text.Text;
             string lvlText = level_text.Text;
+            string p_a1Text = Possible_answer_1.Text;
+            string p_a2Text = Possible_answer_2.Text;
+            string p_a3Text = Possible_answer_3.Text;
 
-            if (tText == "Multiple Choice")
+
+
+            // בדיקת שדות חובה
+            if ((string.IsNullOrWhiteSpace(question_text.Text) ||
+                string.IsNullOrWhiteSpace(type_text.Text) ||
+                string.IsNullOrWhiteSpace(course_text.Text) ||
+                string.IsNullOrWhiteSpace(c_a_text.Text) ||
+                string.IsNullOrWhiteSpace(level_text.Text)) || (type_text.Text == "Multiple Choice" && (string.IsNullOrWhiteSpace(Possible_answer_1.Text) || 
+                string.IsNullOrWhiteSpace(Possible_answer_2.Text) || 
+                string.IsNullOrWhiteSpace(Possible_answer_3.Text))))
             {
-
-
+                MessageBox.Show("אנא מלא את כל שדות החובה: שאלה, סוג שאלה, קורס, תשובה ורמת קושי.",
+                                "שגיאת קלט", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // מפסיק את הפעולה אם שדות לא מולאו
             }
-
             // 3. שאילתת INSERT
             string query = @"
             INSERT INTO Question 
-                (Body, type, [The course], answer, [Difficulty level]) 
+                (Body, type, [The course],answer, [Difficulty level],[Possible answer 1],[Possible answer 2],[Possible answer 3]) 
             VALUES 
-                (@q, @t, @c, @ca, @lvl);";
+                (@q, @t, @c, @ca, @lvl,@p_a1,@p_a2,@p_a3);";
 
 
 
@@ -109,6 +121,10 @@ namespace WinFormsApp1
                 cmd.Parameters.AddWithValue("@c", cText);
                 cmd.Parameters.AddWithValue("@ca", caText);
                 cmd.Parameters.AddWithValue("@lvl", lvlText);
+
+                cmd.Parameters.AddWithValue("@p_a1", p_a1Text);
+                cmd.Parameters.AddWithValue("@p_a2", p_a2Text);
+                cmd.Parameters.AddWithValue("@p_a3", p_a3Text);
 
                 try
                 {
@@ -137,18 +153,22 @@ namespace WinFormsApp1
             if (type_text.Text == "Multiple Choice")
             {
                 // הצגת תיבות טקסט עבור תשובות אפשריות
-                answer1_label.Visible = true;
-                answer1_text.Visible = true;
-                answer2_label.Visible = true;
-                answer2_text.Visible = true;
+                label1.Visible = true;
+                label2.Visible = true;
+                label3.Visible = true;
+                Possible_answer_1.Visible = true;
+                Possible_answer_2.Visible = true;
+                Possible_answer_3.Visible = true;
             }
             else
             {
                 // הסתרת תיבות טקסט עבור תשובות אפשריות
-                answer1_label.Visible = false;
-                answer1_text.Visible = false;
-                answer2_label.Visible = false;
-                answer2_text.Visible = false;
+                label1.Visible = false;
+                label2.Visible = false;
+                label3.Visible = false;
+                Possible_answer_1.Visible = false;
+                Possible_answer_2.Visible = false;
+                Possible_answer_3.Visible = false;
             }
         }
 

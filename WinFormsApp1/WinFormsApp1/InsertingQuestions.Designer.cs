@@ -42,10 +42,10 @@
             button1 = new Button();
             label1 = new Label();
             label2 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
+            Possible_answer_1 = new TextBox();
+            Possible_answer_2 = new TextBox();
             label3 = new Label();
-            textBox3 = new TextBox();
+            Possible_answer_3 = new TextBox();
             SuspendLayout();
             // 
             // course
@@ -85,7 +85,7 @@
             // 
             type.AutoSize = true;
             type.Font = new Font("Segoe UI", 16F);
-            type.Location = new Point(29, 115);
+            type.Location = new Point(30, 113);
             type.Name = "type";
             type.Size = new Size(189, 37);
             type.TabIndex = 3;
@@ -122,11 +122,11 @@
             type_text.Font = new Font("Segoe UI", 14F);
             type_text.FormattingEnabled = true;
             type_text.Items.AddRange(new object[] { "Multiple Choice", "True/False", "Sentence Completion" });
-            type_text.Location = new Point(373, 113);
+            type_text.Location = new Point(373, 115);
             type_text.Name = "type_text";
             type_text.Size = new Size(400, 39);
             type_text.TabIndex = 6;
-            type_text.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            type_text.SelectedIndexChanged += type_text_SelectedIndexChanged;
             // 
             // course_text
             // 
@@ -174,7 +174,7 @@
             // button1
             // 
             button1.BackColor = Color.Lime;
-            button1.Location = new Point(450, 686);
+            button1.Location = new Point(489, 686);
             button1.Name = "button1";
             button1.Size = new Size(166, 47);
             button1.TabIndex = 11;
@@ -191,6 +191,7 @@
             label1.Size = new Size(231, 37);
             label1.TabIndex = 12;
             label1.Text = "Possible answer 1:";
+            label1.Visible = false;
             // 
             // label2
             // 
@@ -201,24 +202,27 @@
             label2.Size = new Size(231, 37);
             label2.TabIndex = 13;
             label2.Text = "Possible answer 2:";
+            label2.Visible = false;
             label2.Click += label2_Click_1;
             // 
-            // textBox1
+            // Possible_answer_1
             // 
-            textBox1.Font = new Font("Segoe UI", 14F);
-            textBox1.Location = new Point(373, 448);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(400, 39);
-            textBox1.TabIndex = 14;
+            Possible_answer_1.Font = new Font("Segoe UI", 14F);
+            Possible_answer_1.Location = new Point(373, 448);
+            Possible_answer_1.Name = "Possible_answer_1";
+            Possible_answer_1.Size = new Size(400, 39);
+            Possible_answer_1.TabIndex = 14;
+            Possible_answer_1.Visible = false;
             // 
-            // textBox2
+            // Possible_answer_2
             // 
-            textBox2.Font = new Font("Segoe UI", 14F);
-            textBox2.Location = new Point(373, 530);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(400, 39);
-            textBox2.TabIndex = 15;
-            textBox2.TextChanged += textBox2_TextChanged_1;
+            Possible_answer_2.Font = new Font("Segoe UI", 14F);
+            Possible_answer_2.Location = new Point(373, 530);
+            Possible_answer_2.Name = "Possible_answer_2";
+            Possible_answer_2.Size = new Size(400, 39);
+            Possible_answer_2.TabIndex = 15;
+            Possible_answer_2.Visible = false;
+            Possible_answer_2.TextChanged += textBox2_TextChanged_1;
             // 
             // label3
             // 
@@ -229,24 +233,26 @@
             label3.Size = new Size(231, 37);
             label3.TabIndex = 16;
             label3.Text = "Possible answer 3:";
+            label3.Visible = false;
             // 
-            // textBox3
+            // Possible_answer_3
             // 
-            textBox3.Font = new Font("Segoe UI", 14F);
-            textBox3.Location = new Point(373, 613);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(400, 39);
-            textBox3.TabIndex = 17;
+            Possible_answer_3.Font = new Font("Segoe UI", 14F);
+            Possible_answer_3.Location = new Point(373, 613);
+            Possible_answer_3.Name = "Possible_answer_3";
+            Possible_answer_3.Size = new Size(400, 39);
+            Possible_answer_3.TabIndex = 17;
+            Possible_answer_3.Visible = false;
             // 
             // InsertingQuestions
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1162, 745);
-            Controls.Add(textBox3);
+            ClientSize = new Size(1162, 776);
+            Controls.Add(Possible_answer_3);
             Controls.Add(label3);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(Possible_answer_2);
+            Controls.Add(Possible_answer_1);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(button1);
@@ -261,7 +267,6 @@
             Controls.Add(c_a);
             Controls.Add(level);
             Controls.Add(course);
-            Enabled = false;
             Name = "InsertingQuestions";
             Text = "InsertingQuestions";
             Load += InsertingQuestions_Load;
@@ -285,9 +290,9 @@
         private Button button1;
         private Label label1;
         private Label label2;
-        private TextBox textBox1;
-        private TextBox textBox2;
+        private TextBox Possible_answer_1;
+        private TextBox Possible_answer_2;
         private Label label3;
-        private TextBox textBox3;
+        private TextBox Possible_answer_3;
     }
 }
