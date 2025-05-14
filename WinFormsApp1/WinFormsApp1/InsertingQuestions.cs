@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
+using DocumentFormat.OpenXml.Drawing.Diagrams;
 
 namespace WinFormsApp1
 {
@@ -83,12 +84,20 @@ namespace WinFormsApp1
             string caText = c_a_text.Text;
             string lvlText = level_text.Text;
 
+            if (tText == "Multiple Choice")
+            {
+
+
+            }
+
             // 3. שאילתת INSERT
             string query = @"
             INSERT INTO Question 
                 (Body, type, [The course], answer, [Difficulty level]) 
             VALUES 
                 (@q, @t, @c, @ca, @lvl);";
+
+
 
             // 4. ביצוע ההכנסה
             using (var conn = new SQLiteConnection(connectionString))
@@ -122,6 +131,35 @@ namespace WinFormsApp1
             deleting_Questions.Show();
         }
 
-        
+        private void type_text_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // בודק אם סוג השאלה הוא "Multiple Choice"
+            if (type_text.Text == "Multiple Choice")
+            {
+                // הצגת תיבות טקסט עבור תשובות אפשריות
+                answer1_label.Visible = true;
+                answer1_text.Visible = true;
+                answer2_label.Visible = true;
+                answer2_text.Visible = true;
+            }
+            else
+            {
+                // הסתרת תיבות טקסט עבור תשובות אפשריות
+                answer1_label.Visible = false;
+                answer1_text.Visible = false;
+                answer2_label.Visible = false;
+                answer2_text.Visible = false;
+            }
+        }
+
+        private void textBox2_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
