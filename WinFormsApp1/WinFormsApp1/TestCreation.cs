@@ -16,5 +16,15 @@ namespace WinFormsApp1
         {
             InitializeComponent();
         }
+
+        private void grpTestSettings_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TestCreation_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
