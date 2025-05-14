@@ -24,6 +24,7 @@
 
         private System.Windows.Forms.Button btnDeleteTest;
         private System.Windows.Forms.Button btnViewDetails;
+        private System.Windows.Forms.ListBox lstSelectedQuestions;
 
         protected override void Dispose(bool disposing)
         {
@@ -34,123 +35,200 @@
 
         private void InitializeComponent()
         {
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.grpTestSettings = new System.Windows.Forms.GroupBox();
-            this.numQuestions = new System.Windows.Forms.NumericUpDown();
-            this.chkTopics = new System.Windows.Forms.CheckedListBox();
-            this.chkDifficulty = new System.Windows.Forms.CheckedListBox();
-            this.btnCreate = new System.Windows.Forms.Button();
-            this.btnClear = new System.Windows.Forms.Button();
-            this.btnAddQuestion = new System.Windows.Forms.Button();
-
-            this.grpCreatedTests = new System.Windows.Forms.GroupBox();
-            this.lvTests = new System.Windows.Forms.ListView();
-            this.colTestID = new System.Windows.Forms.ColumnHeader();
-            this.colDate = new System.Windows.Forms.ColumnHeader();
-            this.colQuestionCount = new System.Windows.Forms.ColumnHeader();
-            this.colTopics = new System.Windows.Forms.ColumnHeader();
-            this.btnDeleteTest = new System.Windows.Forms.Button();
-            this.btnViewDetails = new System.Windows.Forms.Button();
-
-            // Form
-            this.SuspendLayout();
-            this.Text = "Create New Test";
-            this.ClientSize = new System.Drawing.Size(880, 480);
-            this.BackColor = System.Drawing.Color.White;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-
-            // Title
-            this.lblTitle.Text = "Create New Test";
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblTitle.Height = 50;
-
-            // GroupBox: Test Settings
-            this.grpTestSettings.Text = "Test Settings";
-            this.grpTestSettings.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.grpTestSettings.Location = new System.Drawing.Point(30, 70);
-            this.grpTestSettings.Size = new System.Drawing.Size(380, 300);
-
-            // NumericUpDown: Number of Questions
-            this.numQuestions.Location = new System.Drawing.Point(20, 30);
-            this.numQuestions.Minimum = 1;
-            this.numQuestions.Maximum = 100;
-            this.numQuestions.Value = 10;
-
-            // Topics
-            this.chkTopics.Items.AddRange(new object[] {
-                "Algorithms", "Software Testing", "Databases" });
-            this.chkTopics.Location = new System.Drawing.Point(20, 70);
-            this.chkTopics.Size = new System.Drawing.Size(160, 60);
-
-            // Difficulty
-            this.chkDifficulty.Items.AddRange(new object[] {
-                "Easy", "Medium", "Hard" });
-            this.chkDifficulty.Location = new System.Drawing.Point(200, 70);
-            this.chkDifficulty.Size = new System.Drawing.Size(160, 60);
-
-            // Buttons (left)
-            this.btnCreate.Text = "Create Test";
-            this.btnCreate.Location = new System.Drawing.Point(20, 220);
-            this.btnCreate.Size = new System.Drawing.Size(100, 30);
-
-            this.btnAddQuestion.Text = "Add Question";
-            this.btnAddQuestion.Location = new System.Drawing.Point(130, 220);
-            this.btnAddQuestion.Size = new System.Drawing.Size(100, 30);
-
-            this.btnClear.Text = "Clear";
-            this.btnClear.Location = new System.Drawing.Point(240, 220);
-            this.btnClear.Size = new System.Drawing.Size(100, 30);
-
-            this.grpTestSettings.Controls.Add(this.numQuestions);
-            this.grpTestSettings.Controls.Add(this.chkTopics);
-            this.grpTestSettings.Controls.Add(this.chkDifficulty);
-            this.grpTestSettings.Controls.Add(this.btnCreate);
-            this.grpTestSettings.Controls.Add(this.btnClear);
-            this.grpTestSettings.Controls.Add(this.btnAddQuestion);
-
-            // GroupBox: Created Tests
-            this.grpCreatedTests.Text = "Created Tests";
-            this.grpCreatedTests.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.grpCreatedTests.Location = new System.Drawing.Point(460, 70);
-            this.grpCreatedTests.Size = new System.Drawing.Size(380, 300);
-
-            // ListView
-            this.lvTests.Location = new System.Drawing.Point(15, 30);
-            this.lvTests.Size = new System.Drawing.Size(350, 200);
-            this.lvTests.View = System.Windows.Forms.View.Details;
-            this.lvTests.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-                this.colTestID, this.colDate, this.colQuestionCount, this.colTopics });
-
-            this.colTestID.Text = "Test ID";
-            this.colTestID.Width = 60;
-            this.colDate.Text = "Date Created";
-            this.colDate.Width = 90;
-            this.colQuestionCount.Text = "Questions";
-            this.colQuestionCount.Width = 80;
-            this.colTopics.Text = "Topics";
-            this.colTopics.Width = 100;
-
-            // Buttons (right)
-            this.btnDeleteTest.Text = "Delete Test";
-            this.btnDeleteTest.Location = new System.Drawing.Point(15, 240);
-            this.btnDeleteTest.Size = new System.Drawing.Size(100, 30);
-
-            this.btnViewDetails.Text = "View Details";
-            this.btnViewDetails.Location = new System.Drawing.Point(125, 240);
-            this.btnViewDetails.Size = new System.Drawing.Size(100, 30);
-
-            this.grpCreatedTests.Controls.Add(this.lvTests);
-            this.grpCreatedTests.Controls.Add(this.btnDeleteTest);
-            this.grpCreatedTests.Controls.Add(this.btnViewDetails);
-
-            // Add to Form
-            this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.grpTestSettings);
-            this.Controls.Add(this.grpCreatedTests);
-
-            this.ResumeLayout(false);
+            lblTitle = new Label();
+            grpTestSettings = new GroupBox();
+            label1 = new Label();
+            numQuestions = new NumericUpDown();
+            chkTopics = new CheckedListBox();
+            chkDifficulty = new CheckedListBox();
+            btnCreate = new Button();
+            btnClear = new Button();
+            btnAddQuestion = new Button();
+            grpCreatedTests = new GroupBox();
+            lvTests = new ListView();
+            colTestID = new ColumnHeader();
+            colDate = new ColumnHeader();
+            colQuestionCount = new ColumnHeader();
+            colTopics = new ColumnHeader();
+            btnDeleteTest = new Button();
+            btnViewDetails = new Button();
+            lstSelectedQuestions = new ListBox();
+            grpTestSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numQuestions).BeginInit();
+            grpCreatedTests.SuspendLayout();
+            SuspendLayout();
+            // 
+            // lblTitle
+            // 
+            lblTitle.Dock = DockStyle.Top;
+            lblTitle.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblTitle.Location = new Point(0, 0);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(880, 50);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "Create New Test";
+            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // grpTestSettings
+            // 
+            grpTestSettings.Controls.Add(label1);
+            grpTestSettings.Controls.Add(numQuestions);
+            grpTestSettings.Controls.Add(chkTopics);
+            grpTestSettings.Controls.Add(chkDifficulty);
+            grpTestSettings.Controls.Add(btnCreate);
+            grpTestSettings.Controls.Add(btnClear);
+            grpTestSettings.Controls.Add(btnAddQuestion);
+            grpTestSettings.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            grpTestSettings.Location = new Point(30, 53);
+            grpTestSettings.Name = "grpTestSettings";
+            grpTestSettings.Size = new Size(380, 317);
+            grpTestSettings.TabIndex = 1;
+            grpTestSettings.TabStop = false;
+            grpTestSettings.Text = "Test Settings";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(36, 36);
+            label1.Name = "label1";
+            label1.Size = new Size(88, 23);
+            label1.TabIndex = 6;
+            label1.Text = "Questions";
+            // 
+            // numQuestions
+            // 
+            numQuestions.Location = new Point(130, 29);
+            numQuestions.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numQuestions.Name = "numQuestions";
+            numQuestions.Size = new Size(120, 30);
+            numQuestions.TabIndex = 0;
+            numQuestions.Value = new decimal(new int[] { 10, 0, 0, 0 });
+            // 
+            // chkTopics
+            // 
+            chkTopics.Items.AddRange(new object[] { "Physics", "Intro to CS", "Calculus" });
+            chkTopics.Location = new Point(20, 70);
+            chkTopics.Name = "chkTopics";
+            chkTopics.Size = new Size(160, 79);
+            chkTopics.TabIndex = 1;
+            // 
+            // chkDifficulty
+            // 
+            chkDifficulty.Items.AddRange(new object[] { "Easy", "Medium", "Hard" });
+            chkDifficulty.Location = new Point(200, 70);
+            chkDifficulty.Name = "chkDifficulty";
+            chkDifficulty.Size = new Size(160, 79);
+            chkDifficulty.TabIndex = 2;
+            // 
+            // btnCreate
+            // 
+            btnCreate.Location = new Point(20, 220);
+            btnCreate.Name = "btnCreate";
+            btnCreate.Size = new Size(100, 30);
+            btnCreate.TabIndex = 3;
+            btnCreate.Text = "Create Test";
+            // 
+            // btnClear
+            // 
+            btnClear.Location = new Point(240, 220);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(100, 30);
+            btnClear.TabIndex = 4;
+            btnClear.Text = "Clear";
+            // 
+            // btnAddQuestion
+            // 
+            btnAddQuestion.Location = new Point(130, 220);
+            btnAddQuestion.Name = "btnAddQuestion";
+            btnAddQuestion.Size = new Size(100, 30);
+            btnAddQuestion.TabIndex = 5;
+            btnAddQuestion.Text = "Add Question";
+            btnAddQuestion.Click += btnAddQuestion_Click;
+            // 
+            // grpCreatedTests
+            // 
+            grpCreatedTests.Controls.Add(lvTests);
+            grpCreatedTests.Controls.Add(btnDeleteTest);
+            grpCreatedTests.Controls.Add(btnViewDetails);
+            grpCreatedTests.Controls.Add(lstSelectedQuestions);
+            grpCreatedTests.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            grpCreatedTests.Location = new Point(460, 53);
+            grpCreatedTests.Name = "grpCreatedTests";
+            grpCreatedTests.Size = new Size(380, 415);
+            grpCreatedTests.TabIndex = 2;
+            grpCreatedTests.TabStop = false;
+            grpCreatedTests.Text = "Created Tests";
+            // 
+            // lvTests
+            // 
+            lvTests.Columns.AddRange(new ColumnHeader[] { colTestID, colDate, colQuestionCount, colTopics });
+            lvTests.Location = new Point(15, 30);
+            lvTests.Name = "lvTests";
+            lvTests.Size = new Size(350, 151);
+            lvTests.TabIndex = 0;
+            lvTests.UseCompatibleStateImageBehavior = false;
+            lvTests.View = View.Details;
+            // 
+            // colTestID
+            // 
+            colTestID.Text = "Test ID";
+            colTestID.Width = 80;
+            // 
+            // colDate
+            // 
+            colDate.Text = "Date";
+            colDate.Width = 70;
+            // 
+            // colQuestionCount
+            // 
+            colQuestionCount.Text = "Questions";
+            colQuestionCount.Width = 100;
+            // 
+            // colTopics
+            // 
+            colTopics.Text = "Topics";
+            colTopics.Width = 100;
+            // 
+            // btnDeleteTest
+            // 
+            btnDeleteTest.Location = new Point(6, 370);
+            btnDeleteTest.Name = "btnDeleteTest";
+            btnDeleteTest.Size = new Size(100, 30);
+            btnDeleteTest.TabIndex = 1;
+            btnDeleteTest.Text = "Delete Test";
+            // 
+            // btnViewDetails
+            // 
+            btnViewDetails.Location = new Point(112, 370);
+            btnViewDetails.Name = "btnViewDetails";
+            btnViewDetails.Size = new Size(100, 30);
+            btnViewDetails.TabIndex = 2;
+            btnViewDetails.Text = "View Details";
+            // 
+            // lstSelectedQuestions
+            // 
+            lstSelectedQuestions.ItemHeight = 23;
+            lstSelectedQuestions.Location = new Point(15, 187);
+            lstSelectedQuestions.Name = "lstSelectedQuestions";
+            lstSelectedQuestions.Size = new Size(350, 165);
+            lstSelectedQuestions.TabIndex = 3;
+            // 
+            // TestCreation
+            // 
+            BackColor = Color.White;
+            ClientSize = new Size(880, 480);
+            Controls.Add(lblTitle);
+            Controls.Add(grpTestSettings);
+            Controls.Add(grpCreatedTests);
+            Name = "TestCreation";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Create New Test";
+            grpTestSettings.ResumeLayout(false);
+            grpTestSettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numQuestions).EndInit();
+            grpCreatedTests.ResumeLayout(false);
+            ResumeLayout(false);
         }
+        private Label label1;
     }
 }
