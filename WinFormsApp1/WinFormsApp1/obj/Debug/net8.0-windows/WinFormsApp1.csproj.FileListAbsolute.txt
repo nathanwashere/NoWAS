@@ -79,7 +79,6 @@ C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Deb
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\Interop.Microsoft.Office.Interop.Excel.dll
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.ResolveComReference.cache
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Login_Signup.resources
-C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Student_tracking_of_grades.resources
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.GenerateResource.cache
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfoInputs.cache
@@ -301,5 +300,13 @@ C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Deb
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.mainTeacher.resources
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Properties.Resources.resources
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.StudentTracking.resources
+<<<<<<< Updated upstream
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.StudentTestForm.resources
 C:\Users\zecha\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.StudentTestForm.resources
+=======
+C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Deleting_questions.resources
+C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.InsertingQuestions.resources
+C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.StudentTestForm.resources
+C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.StudentTracking.resources
+C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.TestCreation.resources
+>>>>>>> Stashed changes

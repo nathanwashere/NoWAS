@@ -14,7 +14,12 @@ namespace WinFormsApp1
     {
         public TestCreation()
         {
-            InitializeComponent();
+            InitializeCompoent();
+        }
+
+        private void InitializeCompoent()
+        {
+            throw new NotImplementedException();
         }
     }
 }
