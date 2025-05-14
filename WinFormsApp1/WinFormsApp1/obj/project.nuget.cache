@@ -1,5 +1,6 @@
 {
   "version": 2,
+
   "dgSpecHash": "KAIbT94idfs=",
   "success": true,
   "projectFilePath": "C:\\Users\\zecha\\Documents\\GitHub\\NoWAS\\WinFormsApp1\\WinFormsApp1\\WinFormsApp1.csproj",
@@ -121,6 +122,7 @@
     "C:\\Users\\zecha\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\zecha\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
     "C:\\Users\\zecha\\.nuget\\packages\\winforms.datavisualization\\1.10.0\\winforms.datavisualization.1.10.0.nupkg.sha512"
+
   ],
   "logs": []
 }
