@@ -122,22 +122,49 @@ namespace WinFormsApp1
                 cmd.Parameters.AddWithValue("@ca", caText);
                 cmd.Parameters.AddWithValue("@lvl", lvlText);
 
-                cmd.Parameters.AddWithValue("@p_a1", p_a1Text);
-                cmd.Parameters.AddWithValue("@p_a2", p_a2Text);
-                cmd.Parameters.AddWithValue("@p_a3", p_a3Text);
+                if (type_text.Text== "Multiple choice") {
+                    cmd.Parameters.AddWithValue("@p_a1", p_a1Text);
+                    cmd.Parameters.AddWithValue("@p_a2", p_a2Text);
+                    cmd.Parameters.AddWithValue("@p_a3", p_a3Text);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@p_a1", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@p_a2", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@p_a3", DBNull.Value);
+                }
 
                 try
-                {
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("השאלה הוכנסה בהצלחה!", "Success",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("שגיאה בהכנסה: " + ex.Message, "Error",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                    {
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("השאלה הוכנסה בהצלחה!", "Success",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // ניקוי שדות לאחר ההכנסה
+                        question_text.Clear();
+                        type_text.SelectedIndex = -1;
+                        course_text.SelectedIndex = -1;
+                        c_a_text.Clear();
+                        level_text.SelectedIndex = -1;
+
+                        Possible_answer_1.Clear();
+                        Possible_answer_2.Clear();
+                        Possible_answer_3.Clear();
+
+                        // הסתרת שדות של תשובות אפשריות אם לא נדרש
+                        label1.Visible = false;
+                        label2.Visible = false;
+                        label3.Visible = false;
+                        Possible_answer_1.Visible = false;
+                        Possible_answer_2.Visible = false;
+                        Possible_answer_3.Visible = false;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("שגיאה בהכנסה: " + ex.Message, "Error",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
             }
         }
 
