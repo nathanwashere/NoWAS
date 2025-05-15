@@ -13,7 +13,7 @@
     ],
     "additionalProbingPaths": [
       "C:\\Users\\zecha\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\avivb\\.nuget\\packages",
+      "C:\\Users\\zecha\\.nuget\\packages",
       "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
     ],
     "configProperties": {

@@ -213,6 +213,7 @@
             Possible_answer_1.Size = new Size(400, 39);
             Possible_answer_1.TabIndex = 14;
             Possible_answer_1.Visible = false;
+            Possible_answer_1.TextChanged += Possible_answer_1_TextChanged;
             // 
             // Possible_answer_2
             // 

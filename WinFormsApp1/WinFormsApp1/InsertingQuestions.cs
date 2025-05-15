@@ -17,6 +17,7 @@ namespace WinFormsApp1
         public InsertingQuestions()
         {
             InitializeComponent();
+            type_text.SelectedIndexChanged += type_text_SelectedIndexChanged;
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -94,8 +95,8 @@ namespace WinFormsApp1
                 string.IsNullOrWhiteSpace(type_text.Text) ||
                 string.IsNullOrWhiteSpace(course_text.Text) ||
                 string.IsNullOrWhiteSpace(c_a_text.Text) ||
-                string.IsNullOrWhiteSpace(level_text.Text)) || (type_text.Text == "Multiple Choice" && (string.IsNullOrWhiteSpace(Possible_answer_1.Text) || 
-                string.IsNullOrWhiteSpace(Possible_answer_2.Text) || 
+                string.IsNullOrWhiteSpace(level_text.Text)) || (type_text.Text == "Multiple Choice" && (string.IsNullOrWhiteSpace(Possible_answer_1.Text) ||
+                string.IsNullOrWhiteSpace(Possible_answer_2.Text) ||
                 string.IsNullOrWhiteSpace(Possible_answer_3.Text))))
             {
                 MessageBox.Show("אנא מלא את כל שדות החובה: שאלה, סוג שאלה, קורס, תשובה ורמת קושי.",
@@ -122,7 +123,8 @@ namespace WinFormsApp1
                 cmd.Parameters.AddWithValue("@ca", caText);
                 cmd.Parameters.AddWithValue("@lvl", lvlText);
 
-                if (type_text.Text== "Multiple choice") {
+                if (type_text.Text == "Multiple choice")
+                {
                     cmd.Parameters.AddWithValue("@p_a1", p_a1Text);
                     cmd.Parameters.AddWithValue("@p_a2", p_a2Text);
                     cmd.Parameters.AddWithValue("@p_a3", p_a3Text);
@@ -135,36 +137,36 @@ namespace WinFormsApp1
                 }
 
                 try
-                    {
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-                        MessageBox.Show("השאלה הוכנסה בהצלחה!", "Success",
-                                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        // ניקוי שדות לאחר ההכנסה
-                        question_text.Clear();
-                        type_text.SelectedIndex = -1;
-                        course_text.SelectedIndex = -1;
-                        c_a_text.Clear();
-                        level_text.SelectedIndex = -1;
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("השאלה הוכנסה בהצלחה!", "Success",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // ניקוי שדות לאחר ההכנסה
+                    question_text.Clear();
+                    type_text.SelectedIndex = -1;
+                    course_text.SelectedIndex = -1;
+                    c_a_text.Clear();
+                    level_text.SelectedIndex = -1;
 
-                        Possible_answer_1.Clear();
-                        Possible_answer_2.Clear();
-                        Possible_answer_3.Clear();
+                    Possible_answer_1.Clear();
+                    Possible_answer_2.Clear();
+                    Possible_answer_3.Clear();
 
-                        // הסתרת שדות של תשובות אפשריות אם לא נדרש
-                        label1.Visible = false;
-                        label2.Visible = false;
-                        label3.Visible = false;
-                        Possible_answer_1.Visible = false;
-                        Possible_answer_2.Visible = false;
-                        Possible_answer_3.Visible = false;
+                    // הסתרת שדות של תשובות אפשריות אם לא נדרש
+                    label1.Visible = false;
+                    label2.Visible = false;
+                    label3.Visible = false;
+                    Possible_answer_1.Visible = false;
+                    Possible_answer_2.Visible = false;
+                    Possible_answer_3.Visible = false;
 
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("שגיאה בהכנסה: " + ex.Message, "Error",
-                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("שגיאה בהכנסה: " + ex.Message, "Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -174,29 +176,18 @@ namespace WinFormsApp1
             deleting_Questions.Show();
         }
 
+        private void SetMultipleChoiceVisibility(bool visible)
+        {
+            label1.Visible = visible;
+            label2.Visible = visible;
+            label3.Visible = visible;
+            Possible_answer_1.Visible = visible;
+            Possible_answer_2.Visible = visible;
+            Possible_answer_3.Visible = visible;
+        }
         private void type_text_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // בודק אם סוג השאלה הוא "Multiple Choice"
-            if (type_text.Text == "Multiple Choice")
-            {
-                // הצגת תיבות טקסט עבור תשובות אפשריות
-                label1.Visible = true;
-                label2.Visible = true;
-                label3.Visible = true;
-                Possible_answer_1.Visible = true;
-                Possible_answer_2.Visible = true;
-                Possible_answer_3.Visible = true;
-            }
-            else
-            {
-                // הסתרת תיבות טקסט עבור תשובות אפשריות
-                label1.Visible = false;
-                label2.Visible = false;
-                label3.Visible = false;
-                Possible_answer_1.Visible = false;
-                Possible_answer_2.Visible = false;
-                Possible_answer_3.Visible = false;
-            }
+            SetMultipleChoiceVisibility(type_text.Text == "Multiple Choice");
         }
 
         private void textBox2_TextChanged_1(object sender, EventArgs e)
@@ -205,6 +196,11 @@ namespace WinFormsApp1
         }
 
         private void label2_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Possible_answer_1_TextChanged(object sender, EventArgs e)
         {
 
         }
