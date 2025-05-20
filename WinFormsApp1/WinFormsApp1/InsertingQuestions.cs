@@ -86,7 +86,7 @@ namespace WinFormsApp1
             // 3. שאילתת INSERT
             string query = @"
             INSERT INTO Question 
-                (Body, type, [The cours], Awnser, [Difficulty level]) 
+                (Body, type, [The course], answer, [Difficulty level]) 
             VALUES 
                 (@q, @t, @c, @ca, @lvl);";
 

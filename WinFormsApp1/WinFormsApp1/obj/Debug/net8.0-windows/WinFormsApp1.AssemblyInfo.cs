@@ -14,15 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WinFormsApp1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+92a623c9e1e4bfca7ebf325cdfe544fbb6e6be55")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8d4454215cb32357266125f21c377b0097f262eb")]
->>>>>>> Stashed changes
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bfa8c33301c8a64fb970b124a9baf7532b98dbeb")]
->>>>>>> Stashed changes
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff94d59a02b99e01f7bcbbc14315ffb9658e6a48")]
 [assembly: System.Reflection.AssemblyProductAttribute("WinFormsApp1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WinFormsApp1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

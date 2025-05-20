@@ -300,13 +300,11 @@ C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Deb
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.mainTeacher.resources
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Properties.Resources.resources
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.StudentTracking.resources
-<<<<<<< Updated upstream
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.StudentTestForm.resources
 C:\Users\zecha\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.StudentTestForm.resources
-=======
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Deleting_questions.resources
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.InsertingQuestions.resources
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.StudentTestForm.resources
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.StudentTracking.resources
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.TestCreation.resources
->>>>>>> Stashed changes
+C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.QuestionSelectionForm.resources

@@ -10,15 +10,15 @@ namespace WinFormsApp1
     {
         public int QuestionID { get; set; }
         public string Body { get; set; }
-        public string Answer { get; set; }
+        public string Awnser { get; set; }
         public int TestID { get; set; }
         public string DifficultyLevel { get; set; }  // [Difficulty level]
-        public string Course { get; set; }           // [The course]
+        public string Cours { get; set; }           // [The course]
         public string Type { get; set; }             // type
 
         public override string ToString()
         {
-            return $"{Body} ({Course}, {DifficultyLevel})";
+            return $"{Body} ({Cours}, {DifficultyLevel})";
         }
     }
 }
