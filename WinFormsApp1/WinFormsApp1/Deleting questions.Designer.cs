@@ -36,11 +36,11 @@
             // 
             dataGridViewQuestions.AllowUserToAddRows = false;
             dataGridViewQuestions.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewQuestions.Location = new Point(28, 58);
+            dataGridViewQuestions.Location = new Point(12, 38);
             dataGridViewQuestions.Name = "dataGridViewQuestions";
             dataGridViewQuestions.ReadOnly = true;
             dataGridViewQuestions.RowHeadersWidth = 51;
-            dataGridViewQuestions.Size = new Size(718, 380);
+            dataGridViewQuestions.Size = new Size(1129, 592);
             dataGridViewQuestions.TabIndex = 0;
             dataGridViewQuestions.CellContentClick += dataGridViewQuestions_CellContentClick;
             // 
@@ -48,7 +48,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1200, 660);
             Controls.Add(dataGridViewQuestions);
             Name = "Deleting_questions";
             Text = "Deleting_questions";
