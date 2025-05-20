@@ -12,6 +12,7 @@
           "Microsoft.Data.Sqlite": "9.0.4",
           "Open-XML-SDK": "2.9.1",
           "System.Data.SQLite": "1.0.119",
+          "System.Data.SQLite.Core": "1.0.119",
           "WinForms.DataVisualization": "1.10.0"
         },
         "runtime": {

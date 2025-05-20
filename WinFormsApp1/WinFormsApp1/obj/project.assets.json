@@ -6831,35 +6831,50 @@
       "Microsoft.Data.Sqlite >= 9.0.4",
       "Open-XML-SDK >= 2.9.1",
       "System.Data.SQLite >= 1.0.119",
+      "System.Data.SQLite.Core >= 1.0.119",
       "WinForms.DataVisualization >= 1.10.0"
     ]
   },
   "packageFolders": {
+<<<<<<< Updated upstream
 
     "C:\\Users\\lizav\\.nuget\\packages\\": {},
 
+=======
+    "C:\\Users\\lizav\\.nuget\\packages\\": {},
+>>>>>>> Stashed changes
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
       "projectUniqueName": "C:\\Users\\lizav\\OneDrive\\Documents\\GitHub\\NoWAS\\WinFormsApp1\\WinFormsApp1\\WinFormsApp1.csproj",
       "projectName": "WinFormsApp1",
       "projectPath": "C:\\Users\\lizav\\OneDrive\\Documents\\GitHub\\NoWAS\\WinFormsApp1\\WinFormsApp1\\WinFormsApp1.csproj",
       "packagesPath": "C:\\Users\\lizav\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\lizav\\OneDrive\\Documents\\GitHub\\NoWAS\\WinFormsApp1\\WinFormsApp1\\obj\\",
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
+<<<<<<< Updated upstream
 
         "C:\\Users\\zecha\\AppData\\Roaming\\NuGet\\NuGet.Config",
 
         "C:\\Users\\lizav\\AppData\\Roaming\\NuGet\\NuGet.Config",
 
+=======
+        "C:\\Users\\lizav\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> Stashed changes
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -6906,6 +6921,10 @@
             "version": "[2.9.1, )"
           },
           "System.Data.SQLite": {
+            "target": "Package",
+            "version": "[1.0.119, )"
+          },
+          "System.Data.SQLite.Core": {
             "target": "Package",
             "version": "[1.0.119, )"
           },
