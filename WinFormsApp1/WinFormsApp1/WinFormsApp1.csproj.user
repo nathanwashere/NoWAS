@@ -4,6 +4,9 @@
     <Compile Update="Deleting questions.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="EditQuestionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="InsertingQuestions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -17,6 +20,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="QuestionSelectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="StudentStatisticsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="StudentTestForm.cs">
