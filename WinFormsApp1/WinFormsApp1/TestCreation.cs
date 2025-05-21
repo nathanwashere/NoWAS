@@ -40,7 +40,9 @@ namespace WinFormsApp1
                 return;
             }
 
-            string connectionString = @"Data Source=C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\DataBase.db;Version=3;";
+            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
+            dbPath = Path.GetFullPath(dbPath);
+            string connectionString = $"Data Source={dbPath};Version=3;";
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
@@ -59,19 +61,53 @@ namespace WinFormsApp1
                 // Step 3: Insert each question under this test
                 foreach (var q in selectedQuestions)
                 {
-                    string insertQuery = "INSERT INTO TestQuestions (TestID, TestName, Score, PersonID, Question, DateCreated) " +
-                                         "VALUES (@tid, @name, @score, @pid, @question, @date)";
+                    string insertQuery = @"
+        INSERT INTO TestQuestions 
+        (TestID, TestName, Score, PersonID, Body, Type, Answer, PossibleAnswer1, PossibleAnswer2, PossibleAnswer3, DifficultyLevel, Course, DateCreated) 
+        VALUES 
+        (@tid, @name, @score, @pid, @body, @type, @answer, @pa1, @pa2, @pa3, @level, @course, @date)";
                     using (var cmd = new SQLiteCommand(insertQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@tid", testId);
                         cmd.Parameters.AddWithValue("@name", currentTestName);
                         cmd.Parameters.AddWithValue("@score", 0);
                         cmd.Parameters.AddWithValue("@pid", currentPersonId);
-                        cmd.Parameters.AddWithValue("@question", q.Body);
+                        cmd.Parameters.AddWithValue("@body", q.Body);
+                        cmd.Parameters.AddWithValue("@type", q.Type); // הוסף Property Type במחלקה!
+                        cmd.Parameters.AddWithValue("@answer", q.Answer); // כנ"ל – תוודא שיש בכל שאלה
+                                                                          // בדוק לפי טיפוס השאלה:
+                        if (q is MultipleChoiceQuestion mcq)
+                        {
+                            // נבנה רשימה חדשה של אופציות, ודואגים שהתשובה הנכונה בפנים, בלי כפילויות
+                            var optionList = new List<string>(mcq.Options);
+                            if (!optionList.Contains(mcq.Answer))
+                                optionList[0] = mcq.Answer; // נחליף את הראשונה בתשובה הנכונה אם היא לא שם (או תוכל להכניס אותה במקום רנדומלי)
+
+                            // שמור שלוש אופציות בלבד (אם יש יותר)
+                            while (optionList.Count < 3)
+                                optionList.Add(""); // תשלים אם חסר
+
+                            // אם יש יותר משלוש אופציות, קח רק שלוש (כולל הנכונה!)
+                            var chosenOptions = optionList.Take(3).ToArray();
+
+                            cmd.Parameters.AddWithValue("@pa1", chosenOptions.Length > 0 ? chosenOptions[0] : DBNull.Value);
+                            cmd.Parameters.AddWithValue("@pa2", chosenOptions.Length > 1 ? chosenOptions[1] : DBNull.Value);
+                            cmd.Parameters.AddWithValue("@pa3", chosenOptions.Length > 2 ? chosenOptions[2] : DBNull.Value);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@pa1", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@pa2", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@pa3", DBNull.Value);
+                        }
+
+                        cmd.Parameters.AddWithValue("@level", q.DifficultyLevel ?? "");
+                        cmd.Parameters.AddWithValue("@course", q.Course ?? "");
                         cmd.Parameters.AddWithValue("@date", dateCreated);
                         cmd.ExecuteNonQuery();
                     }
                 }
+
 
                 // Step 4: Show test in ListView
                 var item = new ListViewItem(testId.ToString());
@@ -91,12 +127,15 @@ namespace WinFormsApp1
         private List<Question> LoadQuestionsFromDB()
         {
             List<Question> questions = new();
-            string connectionString = @"Data Source=C:\Users\avivb\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\DataBase.db";
+            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
+            dbPath = Path.GetFullPath(dbPath);
+            string connectionString = $"Data Source={dbPath};Version=3;";
 
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
-                string query = "SELECT QuestionID, Body, Answer, TestID, [Difficulty level], [Course], type FROM Question";
+                string query = "SELECT QuestionID, Body, Answer, TestID, [Difficulty level], [Course], type, [Possible answer 1], [Possible answer 2], [Possible answer 3] FROM Question_new";
+
 
                 using (var cmd = new SQLiteCommand(query, conn))
                 using (var reader = cmd.ExecuteReader())
@@ -108,20 +147,37 @@ namespace WinFormsApp1
                         switch (type)
                         {
                             case "Multiple Choice":
-                                
-                                string[] options = new string[] {
-            reader["Possible answer 1"].ToString(),
-            reader["Possible answer 2"].ToString(),
-            reader["Possible answer 3"].ToString()
-        };
-                                string correctAnswer = reader["Answer"].ToString();
-                                int correctIndex = Array.IndexOf(options, correctAnswer);
-                                questions.Add(new MultipleChoiceQuestion(
-                                    reader["Body"].ToString(),
-                                    options,
-                                    correctIndex
-                                ));
+                                // שליפת שלוש תשובות אפשריות מה־DB (היכן ששמרת Distractors)
+                                var optList = new List<string>
+    {
+        reader["Possible Answer 1"].ToString(),
+        reader["Possible Answer 2"].ToString(),
+        reader["Possible Answer 3"].ToString()
+    };
+                                string answer = reader["Answer"].ToString().Trim();
+
+                                // אם התשובה כבר בפנים, אין צורך להוסיף פעמיים
+                                if (!optList.Contains(answer))
+                                    optList.Add(answer);
+
+                                // אם יש יותר מ־4, קח רק 4 (זהירות על התשובה הנכונה!)
+                                if (optList.Count > 4)
+                                {
+                                    // נשאיר את התשובה הנכונה ובחר עוד 3 (בלי כפילויות)
+                                    var others = optList.Where(x => x != answer).Distinct().Take(3).ToList();
+                                    others.Add(answer); // הוספנו את התשובה הנכונה
+                                    optList = others;
+                                }
+
+                                // ערבוב (shuffle) כדי שהתשובה לא תמיד תהיה באותו מקום
+                                var rng = new Random();
+                                optList = optList.OrderBy(x => rng.Next()).ToList();
+
+                                int correctIndex = optList.IndexOf(answer);
+
+                                questions.Add(new MultipleChoiceQuestion(reader["Body"].ToString(), optList.ToArray(), correctIndex));
                                 break;
+
 
                             case "TrueFalse":
                                 bool tfAnswer = bool.TryParse(reader["Answer"].ToString(), out var val) && val;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -8,68 +9,57 @@ namespace WinFormsApp1
 {
     public partial class StudentStatisticsForm : Form
     {
-        private string connectionString = "Data Source=.;Initial Catalog=QuizDB;Integrated Security=True;";
+        private string connectionString = $"Data Source={System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db"))};Version=3;";
+
 
         private List<Student> students;
         private List<StudentResult> results;
+        //var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
+        //dbPath = Path.GetFullPath(dbPath);
+        //    string connectionString = $"Data Source={dbPath};Version=3;";
 
         public StudentStatisticsForm()
         {
             InitializeComponent();
             comboFilter.SelectedIndexChanged += comboFilter_SelectedIndexChanged;
-            LoadFakeData();
+            LoadResultsFromDatabase();
             LoadResultsToGrid();
         }
 
-        private void LoadFakeData()
+        private void LoadResultsFromDatabase()
         {
-            students = new List<Student>
+            DataTable table = new DataTable();
+            using (var conn = new SQLiteConnection(connectionString))
             {
-                new Student { StudentID = 1, FirstName = "Alice", LastName = "Levi" },
-                new Student { StudentID = 2, FirstName = "Bob", LastName = "Cohen" },
-                new Student { StudentID = 3, FirstName = "Charlie", LastName = "Dayan" }
-            };
+                conn.Open();
+                // שים לב שהשמות בהתאמה לטבלאות שלך
+                string query = @"
+            SELECT 
+                p.username AS StudentName,
+                r.Score,
+                r.TotalQuestions,
+                r.Grade,
+                r.TestDate
+            FROM StudentResults r
+            JOIN Person p ON p.Id = r.StudentId
+        ";
 
-            results = new List<StudentResult>
-            {
-                new StudentResult { StudentID = 1, Score = 8, TotalQuestions = 10, Grade = 80, TestDate = DateTime.Today.AddDays(-1) },
-                new StudentResult { StudentID = 1, Score = 9, TotalQuestions = 10, Grade = 90, TestDate = DateTime.Today.AddDays(-5) },
-                new StudentResult { StudentID = 2, Score = 5, TotalQuestions = 10, Grade = 50, TestDate = DateTime.Today.AddDays(-3) },
-                new StudentResult { StudentID = 3, Score = 7, TotalQuestions = 10, Grade = 70, TestDate = DateTime.Today }
-            };
-        }
-
-        private void LoadResultsToGrid()
-        {
-            var table = new DataTable();
-            table.Columns.Add("StudentName", typeof(string));
-            table.Columns.Add("Score", typeof(int));
-            table.Columns.Add("TotalQuestions", typeof(int));
-            table.Columns.Add("Grade", typeof(double));
-            table.Columns.Add("TestDate", typeof(DateTime));
-            table.Columns.Add("StudentAverage", typeof(double)); 
-
-            foreach (var result in results)
-            {
-                var student = students.FirstOrDefault(s => s.StudentID == result.StudentID);
-                if (student != null)
+                using (var adapter = new SQLiteDataAdapter(query, conn))
                 {
-                    string fullName = $"{student.FirstName} {student.LastName}";
-
-                    
-                    double average = results
-                        .Where(r => r.StudentID == student.StudentID)
-                        .Average(r => r.Grade);
-
-                    table.Rows.Add(
-                        fullName,
-                        result.Score,
-                        result.TotalQuestions,
-                        result.Grade,
-                        result.TestDate,
-                        average
-                    );
+                    adapter.Fill(table);
                 }
+            }
+
+            // הוספת ממוצע לכל שורה
+            if (!table.Columns.Contains("StudentAverage"))
+                table.Columns.Add("StudentAverage", typeof(double));
+
+            foreach (DataRow row in table.Rows)
+            {
+                string studentName = row["StudentName"].ToString();
+                var rows = table.AsEnumerable().Where(r => r.Field<string>("StudentName") == studentName);
+                double avg = rows.Average(r => Convert.ToDouble(r["Grade"]));
+                row["StudentAverage"] = avg;
             }
 
             dataGridViewResults.DataSource = table;
@@ -80,6 +70,52 @@ namespace WinFormsApp1
 
             ShowStatistics(table);
         }
+
+
+        private void LoadResultsToGrid()
+        {
+            DataTable table = new DataTable();
+            using (var conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+                string query = @"
+            SELECT 
+                p.username AS StudentName,
+                r.Score,
+                r.TotalQuestions,
+                r.Grade,
+                r.TestDate
+            FROM StudentResults r
+            JOIN Person p ON p.Id = r.StudentId
+        ";
+
+                using (var adapter = new SQLiteDataAdapter(query, conn))
+                {
+                    adapter.Fill(table);
+                }
+            }
+
+            // הוסף עמודת ממוצע
+            if (!table.Columns.Contains("StudentAverage"))
+                table.Columns.Add("StudentAverage", typeof(double));
+
+            foreach (DataRow row in table.Rows)
+            {
+                string studentName = row["StudentName"].ToString();
+                var rows = table.AsEnumerable().Where(r => r.Field<string>("StudentName") == studentName);
+                double avg = rows.Average(r => Convert.ToDouble(r["Grade"]));
+                row["StudentAverage"] = avg;
+            }
+
+            dataGridViewResults.DataSource = table;
+
+            comboFilter.Items.Clear();
+            comboFilter.Items.AddRange(new[] { "All", "Below 60", "60 - 80", "Above 80" });
+            comboFilter.SelectedIndex = 0;
+
+            ShowStatistics(table);
+        }
+
 
 
         private void ShowStatistics(DataTable dataTable)
@@ -166,6 +202,11 @@ namespace WinFormsApp1
         }
 
         private void dataGridViewResults_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void StudentStatisticsForm_Load(object sender, EventArgs e)
         {
 
         }

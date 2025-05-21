@@ -7,10 +7,11 @@ namespace WinFormsApp1
         private string correctAnswer;
 
         public FillInTheBlank(string questionText, string correctAnswer)
-            : base(questionText)
+     : base(questionText, "FillInTheBlank", correctAnswer)
         {
             this.correctAnswer = correctAnswer.Trim().ToLower();
         }
+
 
         public override void Display(Panel panel)
         {

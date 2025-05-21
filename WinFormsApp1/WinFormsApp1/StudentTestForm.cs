@@ -22,8 +22,10 @@ namespace WinFormsApp1
         private void StudentTestForm_Load(object sender, EventArgs e)
         {
             // בדוגמה - טען מבחן אמיתי
-            string connStr = @"Data Source=C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\Database.db;Version=3;";
-            LoadQuestionsFromDatabase(connStr, testId);
+            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
+            dbPath = Path.GetFullPath(dbPath);
+            string connectionString = $"Data Source={dbPath};Version=3;";
+            LoadQuestionsFromDatabase(connectionString, testId);
             ShowQuestion();
         }
 
@@ -31,9 +33,9 @@ namespace WinFormsApp1
         {
             SaveCurrentPanel();
 
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.Count)
+            if (currentQuestionIndex + 1 < questions.Count)
             {
+                currentQuestionIndex++;
                 ShowQuestion();
             }
             else
@@ -42,12 +44,13 @@ namespace WinFormsApp1
             }
         }
 
+
         private void btnPrevious_Click(object sender, EventArgs e)
         {
+            SaveCurrentPanel();
+
             if (currentQuestionIndex > 0)
             {
-                SaveCurrentPanel();
-
                 currentQuestionIndex--;
                 ShowQuestion();
             }
@@ -57,24 +60,30 @@ namespace WinFormsApp1
             }
         }
 
+
         private void ShowQuestion()
         {
+            if (questions == null || questions.Count == 0 || currentQuestionIndex < 0 || currentQuestionIndex >= questions.Count)
+            {
+                // אם אין שאלות או האינדקס לא חוקי – צא מהפונקציה!
+                return;
+            }
+
             panelQuestion.Controls.Clear();
             Panel newPanel = new Panel { Dock = DockStyle.Fill };
             questions[currentQuestionIndex].Display(newPanel);
-            panelQuestion.Controls.Add(newPanel);
 
-            // Reuse saved answer panel if exists
             if (currentQuestionIndex < allAnswerPanels.Count)
             {
-                panelQuestion.Controls.Clear();
                 panelQuestion.Controls.Add(allAnswerPanels[currentQuestionIndex]);
             }
             else
             {
                 allAnswerPanels.Add(newPanel);
+                panelQuestion.Controls.Add(newPanel);
             }
         }
+
 
         private void SaveCurrentPanel()
         {
@@ -89,7 +98,6 @@ namespace WinFormsApp1
             SaveCurrentPanel();
 
             int finalScore = 0;
-
             for (int i = 0; i < questions.Count; i++)
             {
                 if (questions[i].CheckAnswer(allAnswerPanels[i]))
@@ -106,11 +114,24 @@ namespace WinFormsApp1
                 MessageBoxIcon.Information
             );
 
-            //string studentName = Microsoft.VisualBasic.Interaction.InputBox("Enter your full name to save your result:", "Student Login", "Your Name");
-            //SaveResultForExistingStudent(studentName, finalScore, questions.Count, grade, connectionString);
+            // בקש שם משתמש מהסטודנט (או תמשוך אוטומטית אם יש לך)
+            string username = Microsoft.VisualBasic.Interaction.InputBox(
+                "הכנס שם משתמש (username) לשמירת התוצאה:",
+                "שמירת תוצאה",
+                ""
+            );
+
+            if (!string.IsNullOrWhiteSpace(username))
+            {
+                var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
+                dbPath = Path.GetFullPath(dbPath);
+                string connectionString = $"Data Source={dbPath};Version=3;";
+                SaveResultForExistingPerson(username, testId, finalScore, questions.Count, grade, connectionString);
+            }
 
             this.Close();
         }
+
 
         // === שליפת שאלות ממסד הנתונים ===
         private void LoadQuestionsFromDatabase(string connectionString, int testId)
@@ -121,46 +142,68 @@ namespace WinFormsApp1
             {
                 conn.Open();
                 string query = @"
-                    SELECT QuestionID, Body, Answer, type, [Possible answer 1], [Possible answer 2], [Possible answer 3]
-                    FROM Question
-                    WHERE TestID = @testId";
-
+            SELECT Body, Type, Answer, PossibleAnswer1, PossibleAnswer2, PossibleAnswer3
+            FROM TestQuestions
+            WHERE TestID = @testId";
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@testId", testId);
-
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            string text = reader["Body"].ToString();
-                            string answer = reader["Answer"].ToString();
-                            string type = reader["type"].ToString();
+                            string body = reader["Body"].ToString();
+                            string type = reader["Type"].ToString();
+                            string answer = reader["Answer"].ToString().Trim();
 
                             switch (type)
                             {
                                 case "Multiple Choice":
-                                    string[] opts = {
-                                        reader["Possible answer 1"].ToString(),
-                                        reader["Possible answer 2"].ToString(),
-                                        reader["Possible answer 3"].ToString()
-                                    };
-                                    // אפשר למצוא את האינדקס הנכון:
-                                    int correctIndex = Array.IndexOf(opts, answer);
-                                    questions.Add(new MultipleChoiceQuestion(text, opts, correctIndex));
+                                    // קרא שלוש Distractors
+                                    var optList = new List<string>
+                            {
+                                reader["PossibleAnswer1"].ToString(),
+                                reader["PossibleAnswer2"].ToString(),
+                                reader["PossibleAnswer3"].ToString()
+                            };
+
+                                    // הוסף את התשובה הנכונה אם לא בפנים
+                                    if (!optList.Contains(answer))
+                                        optList.Add(answer);
+
+                                    // תשלים ל-4 אופציות
+                                    while (optList.Count < 4)
+                                        optList.Add(""); // אפשר לשים " " או אופציה ריקה
+
+                                    // אם יש יותר מ-4, קח רק 4 (רצוי לשמור תמיד תשובה נכונה)
+                                    if (optList.Count > 4)
+                                    {
+                                        // שמור רק 3 Distractors ייחודיים + התשובה
+                                        var others = optList.Where(x => x != answer).Distinct().Take(3).ToList();
+                                        others.Add(answer);
+                                        optList = others;
+                                    }
+
+                                    // ערבוב אקראי (shuffle) של האופציות
+                                    var rng = new Random();
+                                    optList = optList.OrderBy(x => rng.Next()).ToList();
+
+                                    int correctIndex = optList.IndexOf(answer);
+
+                                    questions.Add(new MultipleChoiceQuestion(body, optList.ToArray(), correctIndex));
                                     break;
 
                                 case "TrueFalse":
-                                    bool tfAnswer = bool.TryParse(answer, out var val) && val;
-                                    questions.Add(new TrueFalseQuestion(text, tfAnswer));
+                                    bool tf = bool.TryParse(answer, out var val) && val;
+                                    questions.Add(new TrueFalseQuestion(body, tf));
                                     break;
 
                                 case "FillInTheBlank":
-                                    questions.Add(new FillInTheBlank(text, answer));
+                                    questions.Add(new FillInTheBlank(body, answer));
                                     break;
 
                                 default:
-                                    MessageBox.Show($"Unknown question type: {type}");
+                                    MessageBox.Show($"Unknown type: {type}");
                                     break;
                             }
                         }
@@ -169,33 +212,36 @@ namespace WinFormsApp1
             }
         }
 
+
+
         // דוגמה לשמירת תוצאות - תעדכן לפי מבנה הטבלאות שלך
-        private void SaveResultForExistingStudent(string studentName, int score, int total, double grade, string connectionString)
+        private void SaveResultForExistingPerson(string username, int testId, int score, int total, double grade, string connectionString)
         {
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
-                string getIdQuery = "SELECT Id FROM Students WHERE Name = @name";
+                string getIdQuery = "SELECT Id FROM Person WHERE username = @username";
                 using (var getIdCmd = new SQLiteCommand(getIdQuery, conn))
                 {
-                    getIdCmd.Parameters.AddWithValue("@name", studentName);
-
+                    getIdCmd.Parameters.AddWithValue("@username", username);
                     object result = getIdCmd.ExecuteScalar();
 
                     if (result == null)
                     {
-                        MessageBox.Show($"Student '{studentName}' not found in the system.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"המשתמש '{username}' לא נמצא במערכת.", "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
                     int studentId = Convert.ToInt32(result);
 
-                    string insertQuery = @"INSERT INTO StudentResults (StudentId, Score, TotalQuestions, Grade, TestDate)
-                                           VALUES (@studentId, @score, @total, @grade, @date)";
+                    string insertQuery = @"INSERT INTO StudentResults 
+                (StudentId, TestId, Score, TotalQuestions, Grade, TestDate)
+                VALUES (@studentId, @testId, @score, @total, @grade, @date)";
                     using (var insertCmd = new SQLiteCommand(insertQuery, conn))
                     {
                         insertCmd.Parameters.AddWithValue("@studentId", studentId);
+                        insertCmd.Parameters.AddWithValue("@testId", testId);
                         insertCmd.Parameters.AddWithValue("@score", score);
                         insertCmd.Parameters.AddWithValue("@total", total);
                         insertCmd.Parameters.AddWithValue("@grade", grade);
@@ -206,6 +252,7 @@ namespace WinFormsApp1
                 }
             }
         }
+
 
         private void panelQuestion_Paint(object sender, PaintEventArgs e)
         {

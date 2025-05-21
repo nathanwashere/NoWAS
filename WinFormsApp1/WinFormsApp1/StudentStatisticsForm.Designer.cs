@@ -71,6 +71,7 @@
             Controls.Add(dataGridViewResults);
             Name = "StudentStatisticsForm";
             Text = "StudentStatisticsForm";
+            Load += StudentStatisticsForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridViewResults).EndInit();
             ResumeLayout(false);
             PerformLayout();

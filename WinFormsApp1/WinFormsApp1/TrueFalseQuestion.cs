@@ -7,7 +7,7 @@ namespace WinFormsApp1
         private bool correctAnswer;
 
         public TrueFalseQuestion(string questionText, bool correctAnswer = false)
-            : base(questionText)
+        : base(questionText, "TrueFalse", correctAnswer.ToString())
         {
             this.correctAnswer = correctAnswer;
         }
