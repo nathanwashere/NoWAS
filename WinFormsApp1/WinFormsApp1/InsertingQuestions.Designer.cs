@@ -108,11 +108,11 @@
             Deleting_questions.AutoSize = true;
             Deleting_questions.BackColor = Color.FromArgb(255, 128, 128);
             Deleting_questions.Font = new Font("Segoe UI", 14F);
-            Deleting_questions.Location = new Point(912, 691);
+            Deleting_questions.Location = new Point(784, 729);
             Deleting_questions.Name = "Deleting_questions";
-            Deleting_questions.Size = new Size(225, 42);
+            Deleting_questions.Size = new Size(354, 42);
             Deleting_questions.TabIndex = 5;
-            Deleting_questions.Text = "Deleting questions";
+            Deleting_questions.Text = "Deleting and editing questions";
             Deleting_questions.UseVisualStyleBackColor = false;
             Deleting_questions.Click += Deleting_questions_Click;
             // 
@@ -249,7 +249,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1162, 776);
+            ClientSize = new Size(1162, 792);
             Controls.Add(Possible_answer_3);
             Controls.Add(label3);
             Controls.Add(Possible_answer_2);
