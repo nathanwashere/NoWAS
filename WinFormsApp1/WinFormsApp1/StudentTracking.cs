@@ -190,7 +190,6 @@ namespace WinFormsApp1
             scoreTable.Columns.Add("Date", typeof(DateTime));
             scoreTable.Columns.Add("Subject", typeof(string));
             scoreTable.Columns.Add("Score", typeof(double));
-            scoreTable.Columns.Add("Comments", typeof(string));
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -237,11 +236,8 @@ namespace WinFormsApp1
                             // Create a subject name from TestId (since there's no Tests table)
                             string subject = DetermineSubjectFromTestId(testId);
 
-                            // Generate a comment based on the score
-                            string comment = GenerateCommentBasedOnScore(percentScore);
-
                             // Add to our table
-                            scoreTable.Rows.Add(testDate, subject, percentScore, comment);
+                            scoreTable.Rows.Add(testDate, subject, percentScore);
                         }
                     }
                 }
@@ -272,21 +268,6 @@ namespace WinFormsApp1
                 default:
                     return $"Test {testId}";
             }
-        }
-
-        // Helper method to generate comments based on score
-        private string GenerateCommentBasedOnScore(double score)
-        {
-            if (score >= 90)
-                return "Excellent performance";
-            else if (score >= 80)
-                return "Good understanding of concepts";
-            else if (score >= 70)
-                return "Satisfactory performance";
-            else if (score >= 60)
-                return "Needs improvement";
-            else
-                return "Significant improvement required";
         }
 
         private void RefreshData()
@@ -475,14 +456,33 @@ namespace WinFormsApp1
             trendSeries.Points.AddXY(DateTime.FromOADate(startX), startY);
             trendSeries.Points.AddXY(DateTime.FromOADate(endX), endY);
 
-            // Calculate recent trend (last 2 data points if available)
-            if (n >= 2)
-            {
-                double recentSlope = (yValues[n - 1] - yValues[n - 2]) / (xValues[n - 1] - xValues[n - 2]);
-                double recentPercent = recentSlope * 30; // Scale for better visualization
+            // Calculate recent trend
+            // For just 2 points or when we only have a few data points, use the overall trend
+            double recentPercent;
 
-                UpdateRecentTrend(recentPercent);
+            if (n == 2)
+            {
+                // With only 2 points, calculate the percent change directly
+                double percentChange = ((yValues[1] - yValues[0]) / yValues[0]) * 100;
+                recentPercent = percentChange;
             }
+            else if (n > 2)
+            {
+                // With more than 2 points, focus on the most recent change
+                double recentSlope = (yValues[n - 1] - yValues[n - 2]) / (xValues[n - 1] - xValues[n - 2]);
+
+                // Convert the slope to a more meaningful percentage
+                // This is the rate of change over time, scaled to show meaningful change
+                double timeDiff = xValues[n - 1] - xValues[n - 2]; // Time difference in days
+                recentPercent = (recentSlope * timeDiff / yValues[n - 2]) * 100;
+            }
+            else
+            {
+                // Fallback, shouldn't happen as we check for n < 2 at the start
+                recentPercent = 0;
+            }
+
+            UpdateRecentTrend(recentPercent);
         }
 
         private void UpdateStatistics(DataTable data)
@@ -519,6 +519,10 @@ namespace WinFormsApp1
 
         private void UpdateRecentTrend(double trendPercentage)
         {
+            // Cap extreme values to avoid overwhelming UI
+            if (trendPercentage > 50) trendPercentage = 50;
+            if (trendPercentage < -50) trendPercentage = -50;
+
             string trendSymbol = trendPercentage > 0 ? "↑" : (trendPercentage < 0 ? "↓" : "→");
 
             // Update recent trend label
