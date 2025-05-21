@@ -229,7 +229,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(60, 10);
+            label1.Location = new Point(60, 0);
             label1.Name = "label1";
             label1.Size = new Size(395, 45);
             label1.TabIndex = 4;
@@ -252,20 +252,11 @@
             lblHeaderSubtitle.AutoSize = true;
             lblHeaderSubtitle.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblHeaderSubtitle.ForeColor = Color.WhiteSmoke;
-            lblHeaderSubtitle.Location = new Point(62, 40);
+            lblHeaderSubtitle.Location = new Point(62, 37);
             lblHeaderSubtitle.Name = "lblHeaderSubtitle";
-            lblHeaderSubtitle.Size = new Size(345, 25);
+            lblHeaderSubtitle.Size = new Size(345, 28);
             lblHeaderSubtitle.TabIndex = 5;
             lblHeaderSubtitle.Text = "Monitor and analyze student performance";
-            // 
-            // picLogo
-            // 
-            picLogo.Location = new Point(15, 10);
-            picLogo.Name = "picLogo";
-            picLogo.Size = new Size(40, 40);
-            picLogo.SizeMode = PictureBoxSizeMode.Zoom;
-            picLogo.TabIndex = 0;
-            picLogo.TabStop = false;
             // 
             // panelStats
             // 
@@ -353,7 +344,7 @@
             btnRefresh.ForeColor = Color.White;
             btnRefresh.Location = new Point(916, 142);
             btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(30, 25);
+            btnRefresh.Size = new Size(30, 30);
             btnRefresh.TabIndex = 4;
             btnRefresh.Text = "↻";
             btnRefresh.UseVisualStyleBackColor = false;
@@ -435,7 +426,7 @@
             btnSearch.ForeColor = Color.White;
             btnSearch.Location = new Point(866, 10);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(80, 29);
+            btnSearch.Size = new Size(93, 35);
             btnSearch.TabIndex = 1;
             btnSearch.Text = "Search";
             btnSearch.UseVisualStyleBackColor = false;
