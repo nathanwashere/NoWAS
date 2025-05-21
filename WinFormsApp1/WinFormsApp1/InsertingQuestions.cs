@@ -94,8 +94,8 @@ namespace WinFormsApp1
                 string.IsNullOrWhiteSpace(type_text.Text) ||
                 string.IsNullOrWhiteSpace(course_text.Text) ||
                 string.IsNullOrWhiteSpace(c_a_text.Text) ||
-                string.IsNullOrWhiteSpace(level_text.Text)) || (type_text.Text == "Multiple Choice" && (string.IsNullOrWhiteSpace(Possible_answer_1.Text) || 
-                string.IsNullOrWhiteSpace(Possible_answer_2.Text) || 
+                string.IsNullOrWhiteSpace(level_text.Text)) || (type_text.Text == "Multiple Choice" && (string.IsNullOrWhiteSpace(Possible_answer_1.Text) ||
+                string.IsNullOrWhiteSpace(Possible_answer_2.Text) ||
                 string.IsNullOrWhiteSpace(Possible_answer_3.Text))))
             {
                 MessageBox.Show("אנא מלא את כל שדות החובה: שאלה, סוג שאלה, קורס, תשובה ורמת קושי.",
@@ -122,7 +122,8 @@ namespace WinFormsApp1
                 cmd.Parameters.AddWithValue("@ca", caText);
                 cmd.Parameters.AddWithValue("@lvl", lvlText);
 
-                if (type_text.Text== "Multiple choice") {
+                if (type_text.Text == "Multiple choice")
+                {
                     cmd.Parameters.AddWithValue("@p_a1", p_a1Text);
                     cmd.Parameters.AddWithValue("@p_a2", p_a2Text);
                     cmd.Parameters.AddWithValue("@p_a3", p_a3Text);
@@ -135,36 +136,36 @@ namespace WinFormsApp1
                 }
 
                 try
-                    {
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-                        MessageBox.Show("השאלה הוכנסה בהצלחה!", "Success",
-                                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        // ניקוי שדות לאחר ההכנסה
-                        question_text.Clear();
-                        type_text.SelectedIndex = -1;
-                        course_text.SelectedIndex = -1;
-                        c_a_text.Clear();
-                        level_text.SelectedIndex = -1;
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("השאלה הוכנסה בהצלחה!", "Success",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // ניקוי שדות לאחר ההכנסה
+                    question_text.Clear();
+                    type_text.SelectedIndex = -1;
+                    course_text.SelectedIndex = -1;
+                    c_a_text.Clear();
+                    level_text.SelectedIndex = -1;
 
-                        Possible_answer_1.Clear();
-                        Possible_answer_2.Clear();
-                        Possible_answer_3.Clear();
+                    Possible_answer_1.Clear();
+                    Possible_answer_2.Clear();
+                    Possible_answer_3.Clear();
 
-                        // הסתרת שדות של תשובות אפשריות אם לא נדרש
-                        label1.Visible = false;
-                        label2.Visible = false;
-                        label3.Visible = false;
-                        Possible_answer_1.Visible = false;
-                        Possible_answer_2.Visible = false;
-                        Possible_answer_3.Visible = false;
+                    // הסתרת שדות של תשובות אפשריות אם לא נדרש
+                    label1.Visible = false;
+                    label2.Visible = false;
+                    label3.Visible = false;
+                    Possible_answer_1.Visible = false;
+                    Possible_answer_2.Visible = false;
+                    Possible_answer_3.Visible = false;
 
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("שגיאה בהכנסה: " + ex.Message, "Error",
-                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("שגיאה בהכנסה: " + ex.Message, "Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -205,6 +206,11 @@ namespace WinFormsApp1
         }
 
         private void label2_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void question_Click(object sender, EventArgs e)
         {
 
         }
