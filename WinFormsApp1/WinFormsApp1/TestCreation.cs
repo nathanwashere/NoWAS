@@ -179,12 +179,12 @@ namespace WinFormsApp1
                                 break;
 
 
-                            case "TrueFalse":
+                            case "True/False":
                                 bool tfAnswer = bool.TryParse(reader["Answer"].ToString(), out var val) && val;
                                 questions.Add(new TrueFalseQuestion(reader["Body"].ToString(), tfAnswer));
                                 break;
 
-                            case "FillInTheBlank":
+                            case "Sentence Completion":
                                 questions.Add(new FillInTheBlank(reader["Body"].ToString(), reader["Answer"].ToString()));
                                 break;
 
