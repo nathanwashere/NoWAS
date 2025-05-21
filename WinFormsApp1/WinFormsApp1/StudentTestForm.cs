@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Windows.Forms;
 
 namespace WinFormsApp1
@@ -21,18 +21,9 @@ namespace WinFormsApp1
 
         private void StudentTestForm_Load(object sender, EventArgs e)
         {
-            questions = new List<Question>
-            {
-                new MultipleChoiseQuestion("What is 2 + 2?", new[] { "3", "4", "5", "6" }, 1),
-                new TrueFalseQuestion("The Earth is flat.", false),
-                new FillInTheBlank("Complete: The capital of France is ____.", "Paris")
-            };
-            //string connStr = "Data Source=.;Initial Catalog=QuizDB;Integrated Security=True;";
-            //LoadQuestionsFromDatabase(connStr, testId);
-            //ShowQuestion();
-
-
-
+            // בדוגמה - טען מבחן אמיתי
+            string connStr = @"Data Source=C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\Database.db;Version=3;";
+            LoadQuestionsFromDatabase(connStr, testId);
             ShowQuestion();
         }
 
@@ -120,94 +111,105 @@ namespace WinFormsApp1
 
             this.Close();
         }
+
+        // === שליפת שאלות ממסד הנתונים ===
         private void LoadQuestionsFromDatabase(string connectionString, int testId)
         {
             questions = new List<Question>();
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
                 string query = @"
-            SELECT QuestionID, Body, Answer, Type
-            FROM Question
-            WHERE TestID = @testId";
+                    SELECT QuestionID, Body, Answer, type, [Possible answer 1], [Possible answer 2], [Possible answer 3]
+                    FROM Question
+                    WHERE TestID = @testId";
 
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@testId", testId);
-
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var cmd = new SQLiteCommand(query, conn))
                 {
-                    string text = reader["Body"].ToString();
-                    string answer = reader["Answer"].ToString();
-                    string type = reader["Type"].ToString();
+                    cmd.Parameters.AddWithValue("@testId", testId);
 
-                    switch (type)
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        case "MultipleChoice":
-                           
-                            string[] opts = answer.Split(';');
-                            int correctIndex = 0; // ← זמני
-                            questions.Add(new MultipleChoiseQuestion(text, opts, correctIndex));
-                            break;
+                        while (reader.Read())
+                        {
+                            string text = reader["Body"].ToString();
+                            string answer = reader["Answer"].ToString();
+                            string type = reader["type"].ToString();
 
-                        case "TrueFalse":
-                            bool tfAnswer = bool.TryParse(answer, out var val) && val;
-                            questions.Add(new TrueFalseQuestion(text, tfAnswer));
-                            break;
+                            switch (type)
+                            {
+                                case "Multiple Choice":
+                                    string[] opts = {
+                                        reader["Possible answer 1"].ToString(),
+                                        reader["Possible answer 2"].ToString(),
+                                        reader["Possible answer 3"].ToString()
+                                    };
+                                    // אפשר למצוא את האינדקס הנכון:
+                                    int correctIndex = Array.IndexOf(opts, answer);
+                                    questions.Add(new MultipleChoiceQuestion(text, opts, correctIndex));
+                                    break;
 
-                        case "FillInTheBlank":
-                            questions.Add(new FillInTheBlank(text, answer));
-                            break;
+                                case "TrueFalse":
+                                    bool tfAnswer = bool.TryParse(answer, out var val) && val;
+                                    questions.Add(new TrueFalseQuestion(text, tfAnswer));
+                                    break;
 
-                        default:
-                            MessageBox.Show($"Unknown question type: {type}");
-                            break;
+                                case "FillInTheBlank":
+                                    questions.Add(new FillInTheBlank(text, answer));
+                                    break;
+
+                                default:
+                                    MessageBox.Show($"Unknown question type: {type}");
+                                    break;
+                            }
+                        }
                     }
                 }
-
-                reader.Close();
             }
         }
 
-
-
+        // דוגמה לשמירת תוצאות - תעדכן לפי מבנה הטבלאות שלך
         private void SaveResultForExistingStudent(string studentName, int score, int total, double grade, string connectionString)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
-       
                 string getIdQuery = "SELECT Id FROM Students WHERE Name = @name";
-                SqlCommand getIdCmd = new SqlCommand(getIdQuery, conn);
-                getIdCmd.Parameters.AddWithValue("@name", studentName);
-
-                object result = getIdCmd.ExecuteScalar();
-
-                if (result == null)
+                using (var getIdCmd = new SQLiteCommand(getIdQuery, conn))
                 {
-                    MessageBox.Show($"Student '{studentName}' not found in the system.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    getIdCmd.Parameters.AddWithValue("@name", studentName);
+
+                    object result = getIdCmd.ExecuteScalar();
+
+                    if (result == null)
+                    {
+                        MessageBox.Show($"Student '{studentName}' not found in the system.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    int studentId = Convert.ToInt32(result);
+
+                    string insertQuery = @"INSERT INTO StudentResults (StudentId, Score, TotalQuestions, Grade, TestDate)
+                                           VALUES (@studentId, @score, @total, @grade, @date)";
+                    using (var insertCmd = new SQLiteCommand(insertQuery, conn))
+                    {
+                        insertCmd.Parameters.AddWithValue("@studentId", studentId);
+                        insertCmd.Parameters.AddWithValue("@score", score);
+                        insertCmd.Parameters.AddWithValue("@total", total);
+                        insertCmd.Parameters.AddWithValue("@grade", grade);
+                        insertCmd.Parameters.AddWithValue("@date", DateTime.Now);
+
+                        insertCmd.ExecuteNonQuery();
+                    }
                 }
-
-                int studentId = Convert.ToInt32(result);
-
-                
-                string insertQuery = @"INSERT INTO StudentResults (StudentId, Score, TotalQuestions, Grade, TestDate)
-                               VALUES (@studentId, @score, @total, @grade, @date)";
-                SqlCommand insertCmd = new SqlCommand(insertQuery, conn);
-                insertCmd.Parameters.AddWithValue("@studentId", studentId);
-                insertCmd.Parameters.AddWithValue("@score", score);
-                insertCmd.Parameters.AddWithValue("@total", total);
-                insertCmd.Parameters.AddWithValue("@grade", grade);
-                insertCmd.Parameters.AddWithValue("@date", DateTime.Now);
-
-                insertCmd.ExecuteNonQuery();
             }
         }
 
+        private void panelQuestion_Paint(object sender, PaintEventArgs e)
+        {
 
+        }
     }
 }

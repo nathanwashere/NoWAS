@@ -33,6 +33,7 @@ namespace WinFormsApp1
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
+            long testId;
             if (selectedQuestions.Count == 0)
             {
                 MessageBox.Show("Please add at least one question before creating the test.");
@@ -45,7 +46,7 @@ namespace WinFormsApp1
                 conn.Open();
 
                 // Step 1: Generate a new TestID manually
-                long testId;
+               
                 string getIdQuery = "SELECT IFNULL(MAX(TestID), 0) + 1 FROM TestQuestions";
                 using (var getIdCmd = new SQLiteCommand(getIdQuery, conn))
                 {
@@ -83,12 +84,14 @@ namespace WinFormsApp1
             MessageBox.Show("Test created successfully!");
             selectedQuestions.Clear();
             lstSelectedQuestions.Items.Clear();
+            StudentTestForm studentTestForm = new StudentTestForm((int)testId);
+            studentTestForm.Show();
         }
 
         private List<Question> LoadQuestionsFromDB()
         {
             List<Question> questions = new();
-            string connectionString = @"Data Source=C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\DataBase.db;Version=3;";
+            string connectionString = @"Data Source=C:\Users\avivb\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\DataBase.db";
 
             using (var conn = new SQLiteConnection(connectionString))
             {
@@ -100,21 +103,50 @@ namespace WinFormsApp1
                 {
                     while (reader.Read())
                     {
-                        questions.Add(new Question
+                        string type = reader.IsDBNull(6) ? "" : reader.GetString(6);
+
+                        switch (type)
                         {
-                            QuestionID = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
-                            Body = reader.IsDBNull(1) ? "" : reader.GetString(1),
-                            Answer = reader.IsDBNull(2) ? "" : reader.GetString(2),
-                            TestID = reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
-                            DifficultyLevel = reader.IsDBNull(4) ? "" : reader.GetString(4),
-                            Course = reader.IsDBNull(5) ? "" : reader.GetString(5),
-                            Type = reader.IsDBNull(6) ? "" : reader.GetString(6)
-                        });
+                            case "Multiple Choice":
+                                
+                                string[] options = new string[] {
+            reader["Possible answer 1"].ToString(),
+            reader["Possible answer 2"].ToString(),
+            reader["Possible answer 3"].ToString()
+        };
+                                string correctAnswer = reader["Answer"].ToString();
+                                int correctIndex = Array.IndexOf(options, correctAnswer);
+                                questions.Add(new MultipleChoiceQuestion(
+                                    reader["Body"].ToString(),
+                                    options,
+                                    correctIndex
+                                ));
+                                break;
+
+                            case "TrueFalse":
+                                bool tfAnswer = bool.TryParse(reader["Answer"].ToString(), out var val) && val;
+                                questions.Add(new TrueFalseQuestion(reader["Body"].ToString(), tfAnswer));
+                                break;
+
+                            case "FillInTheBlank":
+                                questions.Add(new FillInTheBlank(reader["Body"].ToString(), reader["Answer"].ToString()));
+                                break;
+
+                            default:
+                                
+                                break;
+                        }
+
                     }
                 }
             }
 
             return questions;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+         
         }
     }
 }

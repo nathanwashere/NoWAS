@@ -16,7 +16,7 @@ namespace WinFormsApp1
         {
             panel.Controls.Clear();
 
-            Label lbl = new Label { Text = Text, AutoSize = true, Top = 10 };
+            Label lbl = new Label { Text = Body, AutoSize = true, Top = 10 }; 
             panel.Controls.Add(lbl);
 
             RadioButton trueButton = new RadioButton

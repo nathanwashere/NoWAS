@@ -15,7 +15,7 @@ namespace WinFormsApp1
         public override void Display(Panel panel)
         {
             panel.Controls.Clear();
-            Label lbl = new Label { Text = Text, AutoSize = true, Top = 10, Left = 10 };
+            Label lbl = new Label { Text = Body, AutoSize = true, Top = 10, Left = 10 }; // תואם למחלקת האב
             TextBox txt = new TextBox { Top = 40, Left = 20, Width = 200 };
             panel.Controls.Add(lbl);
             panel.Controls.Add(txt);
