@@ -104,7 +104,7 @@ namespace WinFormsApp1
             }
             // 3. שאילתת INSERT
             string query = @"
-            INSERT INTO Question 
+            INSERT INTO Question_new 
                 (Body, type, [Course],answer, [Difficulty level],[Possible answer 1],[Possible answer 2],[Possible answer 3]) 
 
             VALUES 
@@ -123,7 +123,7 @@ namespace WinFormsApp1
                 cmd.Parameters.AddWithValue("@ca", caText);
                 cmd.Parameters.AddWithValue("@lvl", lvlText);
 
-                if (type_text.Text == "Multiple choice")
+                if (type_text.Text == "Multiple Choice")
                 {
                     cmd.Parameters.AddWithValue("@p_a1", p_a1Text);
                     cmd.Parameters.AddWithValue("@p_a2", p_a2Text);

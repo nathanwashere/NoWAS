@@ -20,12 +20,7 @@ namespace WinFormsApp1
 
         private void Deleting_questions_Load(object sender, EventArgs e)
         {
-            //if (!File.Exists(@"C:\Users\zecha\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\DataBase.db"))
-            //{
-            //    MessageBox.Show("Database file not found!");
-            //    return;
-            //}
-
+            
             var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
             dbPath = Path.GetFullPath(dbPath);
             string connectionString = $"Data Source={dbPath};Version=3;";
@@ -46,7 +41,7 @@ namespace WinFormsApp1
             {
                 conn.Open();
 
-                string query = "SELECT * FROM Question";
+                string query = "SELECT * FROM Question_new";
                 using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                 using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd))
                 {
@@ -57,22 +52,27 @@ namespace WinFormsApp1
             }
             dataGridViewQuestions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            // יצירת עמודת כפתור Delete
-            DataGridViewButtonColumn deleteButton = new DataGridViewButtonColumn();
-            deleteButton.Name = "Delete";
-            deleteButton.HeaderText = "";
-            deleteButton.Text = "Delete";
-            deleteButton.UseColumnTextForButtonValue = true;
-            dataGridViewQuestions.Columns.Add(deleteButton);
-
-            // יצירת עמודת כפתור Edit
-            DataGridViewButtonColumn editButton = new DataGridViewButtonColumn();
-            editButton.Name = "Edit";
-            editButton.HeaderText = "";
-            editButton.Text = "Edit";
-            editButton.UseColumnTextForButtonValue = true;
-            dataGridViewQuestions.Columns.Add(editButton);
-            dataGridViewQuestions.CellFormatting += dataGridViewQuestions_CellFormatting;
+            if (!dataGridViewQuestions.Columns.Contains("Delete"))
+            {
+                // יצירת עמודת כפתור Delete
+                DataGridViewButtonColumn deleteButton = new DataGridViewButtonColumn();
+                deleteButton.Name = "Delete";
+                deleteButton.HeaderText = "";
+                deleteButton.Text = "Delete";
+                deleteButton.UseColumnTextForButtonValue = true;
+                dataGridViewQuestions.Columns.Add(deleteButton);
+            }
+            if (!dataGridViewQuestions.Columns.Contains("Edit"))
+            {
+                // יצירת עמודת כפתור Edit
+                DataGridViewButtonColumn editButton = new DataGridViewButtonColumn();
+                editButton.Name = "Edit";
+                editButton.HeaderText = "";
+                editButton.Text = "Edit";
+                editButton.UseColumnTextForButtonValue = true;
+                dataGridViewQuestions.Columns.Add(editButton);
+                dataGridViewQuestions.CellFormatting += dataGridViewQuestions_CellFormatting;
+            }
         }
 
         private void dataGridViewQuestions_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -128,7 +128,7 @@ namespace WinFormsApp1
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
-                string deleteQuery = "DELETE FROM Question WHERE QuestionID = @id";
+                string deleteQuery = "DELETE FROM Question_new WHERE QuestionID = @id";
                 using (var cmd = new SQLiteCommand(deleteQuery, conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id);

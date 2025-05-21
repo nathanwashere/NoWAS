@@ -121,13 +121,8 @@
             type_text.DropDownStyle = ComboBoxStyle.DropDownList;
             type_text.Font = new Font("Segoe UI", 14F);
             type_text.FormattingEnabled = true;
-
-            type_text.Items.AddRange(new object[] { "רב-ברירה", "נכון/לא נכון", "השלמת משפטים" });
-            type_text.Location = new Point(443, 143);
-
             type_text.Items.AddRange(new object[] { "Multiple Choice", "True/False", "Sentence Completion" });
             type_text.Location = new Point(373, 115);
-
             type_text.Name = "type_text";
             type_text.Size = new Size(400, 39);
             type_text.TabIndex = 6;
@@ -139,13 +134,8 @@
             course_text.DropDownStyle = ComboBoxStyle.DropDownList;
             course_text.Font = new Font("Segoe UI", 14F);
             course_text.FormattingEnabled = true;
-
-            course_text.Items.AddRange(new object[] { "חדו\"א", "פיזיקה", "מבוא למדמ\"ח" });
-            course_text.Location = new Point(443, 249);
-
             course_text.Items.AddRange(new object[] { "Calculus", "Physics ", "Introduction to Computer Science" });
             course_text.Location = new Point(373, 193);
-
             course_text.Name = "course_text";
             course_text.Size = new Size(400, 39);
             course_text.TabIndex = 7;

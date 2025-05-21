@@ -219,6 +219,7 @@
             save.TabIndex = 26;
             save.Text = "save";
             save.UseVisualStyleBackColor = false;
+            save.Click += save_Click1;
             // 
             // EditQuestionForm
             // 
