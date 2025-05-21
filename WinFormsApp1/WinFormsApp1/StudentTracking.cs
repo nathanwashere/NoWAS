@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -12,6 +13,7 @@ namespace WinFormsApp1
     {
         private string connectionString = $"Data Source={System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db"))};Version=3;";
         private string username;
+        private int studentId; // Added to store student ID from Person table
         private bool isClosing = false;
         private DataTable scoreTable;
         private DateTime lastRefreshTime;
@@ -20,19 +22,52 @@ namespace WinFormsApp1
         {
             username = userName;
             InitializeComponent();
+
+            // Set the form title to include the username
             this.Text = $"Student Progress Tracking - {username}";
         }
 
         private void StudentTracking_Load(object sender, EventArgs e)
         {
+            // Update the header subtitle to show the logged-in user
+            lblHeaderSubtitle.Text = $"Student: {username} | Monitoring performance";
+
+            // Get student ID from Person table
+            GetStudentId();
+
             // Initialize UI components
             SetupUIComponents();
 
-            // Create and load mock data table
-            CreateMockData();
-
-            // Load data into UI
+            // Load real data into UI (no more mock data)
             RefreshData();
+        }
+
+        // New method to get student ID from Person table
+        private void GetStudentId()
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT ID FROM Person WHERE userName = @Username AND type = 'Student'";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+
+                    object result = command.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        studentId = Convert.ToInt32(result);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error: Student not found in database.", "Database Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        isClosing = true;
+                        this.Close();
+                    }
+                }
+            }
         }
 
         private void SetupUIComponents()
@@ -147,33 +182,119 @@ namespace WinFormsApp1
             chartProgress.ChartAreas.Add(area);
         }
 
-        private void CreateMockData()
+        // Method to get actual student results from the database
+        private void LoadStudentResults()
         {
+            // Create our table structure
             scoreTable = new DataTable();
             scoreTable.Columns.Add("Date", typeof(DateTime));
             scoreTable.Columns.Add("Subject", typeof(string));
             scoreTable.Columns.Add("Score", typeof(double));
             scoreTable.Columns.Add("Comments", typeof(string));
 
-            // Add more varied dates and scores
-            scoreTable.Rows.Add(new DateTime(2023, 10, 12), "Math Midterm", 91.5, "Strong performance in algebra");
-            scoreTable.Rows.Add(new DateTime(2023, 11, 18), "Physics Lab", 87.2, "Good lab work, needs improvement in theory");
-            scoreTable.Rows.Add(new DateTime(2023, 12, 5), "Physics Final", 82.8, "Struggled with quantum concepts");
-            scoreTable.Rows.Add(new DateTime(2024, 1, 22), "English Essay", 88.0, "Well-structured arguments");
-            scoreTable.Rows.Add(new DateTime(2024, 2, 18), "Chemistry Midterm", 93.5, "Excellent understanding of organic chemistry");
-            scoreTable.Rows.Add(new DateTime(2024, 3, 10), "Math Final", 89.7, "Good progress from midterm");
-            scoreTable.Rows.Add(new DateTime(2024, 4, 1), "English Final", 79.3, "Grammar issues affected score");
-            scoreTable.Rows.Add(new DateTime(2024, 5, 15), "Programming Project", 95.0, "Outstanding project implementation");
-            scoreTable.Rows.Add(new DateTime(2024, 6, 23), "History Research", 84.5, "Good research but lacking depth in analysis");
-            scoreTable.Rows.Add(new DateTime(2024, 7, 8), "Statistics Quiz", 77.0, "Needs improvement in probability concepts");
-            scoreTable.Rows.Add(new DateTime(2024, 8, 20), "Art Project", 92.0, "Creative and well-executed");
-            scoreTable.Rows.Add(new DateTime(2024, 9, 14), "Biology Midterm", 90.2, "Strong understanding of cellular processes");
-            scoreTable.Rows.Add(new DateTime(2024, 10, 5), "Chemistry Final", 86.8, "Good theoretical knowledge");
-            scoreTable.Rows.Add(new DateTime(2024, 11, 27), "Computer Science Project", 96.5, "Exceptional coding skills");
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                // We need to join with a Tests table, but since it doesn't exist,
+                // we'll use TestId as subject name with a prefix
+                string query = @"
+                    SELECT 
+                        TestId,
+                        Score, 
+                        TotalQuestions,
+                        Grade,
+                        datetime(TestDate) as TestDate
+                    FROM 
+                        StudentResults 
+                    WHERE 
+                        StudentId = @StudentId
+                    ORDER BY 
+                        TestDate DESC";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@StudentId", studentId);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            DateTime testDate;
+                            if (!DateTime.TryParse(reader["TestDate"].ToString(), out testDate))
+                            {
+                                testDate = DateTime.Now; // Default to current date if parsing fails
+                            }
+
+                            int testId = Convert.ToInt32(reader["TestId"]);
+                            double score = Convert.ToDouble(reader["Score"]);
+                            int totalQuestions = Convert.ToInt32(reader["TotalQuestions"]);
+                            double grade = Convert.ToDouble(reader["Grade"]);
+
+                            // Calculate percentage score
+                            double percentScore = totalQuestions > 0 ? (score / totalQuestions) * 100 : grade;
+
+                            // Create a subject name from TestId (since there's no Tests table)
+                            string subject = DetermineSubjectFromTestId(testId);
+
+                            // Generate a comment based on the score
+                            string comment = GenerateCommentBasedOnScore(percentScore);
+
+                            // Add to our table
+                            scoreTable.Rows.Add(testDate, subject, percentScore, comment);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Helper method to determine subject from test ID
+        private string DetermineSubjectFromTestId(int testId)
+        {
+            // In a real application, you would have a Tests table to get the actual subject
+            // Since we don't have that table, we'll create generic subjects based on the test ID
+
+            // Using modulus to cycle through different subjects
+            switch (testId % 6)
+            {
+                case 0:
+                    return $"Math Test {testId}";
+                case 1:
+                    return $"Physics Test {testId}";
+                case 2:
+                    return $"English Test {testId}";
+                case 3:
+                    return $"Chemistry Test {testId}";
+                case 4:
+                    return $"Biology Test {testId}";
+                case 5:
+                    return $"Computer Science Test {testId}";
+                default:
+                    return $"Test {testId}";
+            }
+        }
+
+        // Helper method to generate comments based on score
+        private string GenerateCommentBasedOnScore(double score)
+        {
+            if (score >= 90)
+                return "Excellent performance";
+            else if (score >= 80)
+                return "Good understanding of concepts";
+            else if (score >= 70)
+                return "Satisfactory performance";
+            else if (score >= 60)
+                return "Needs improvement";
+            else
+                return "Significant improvement required";
         }
 
         private void RefreshData()
         {
+            // Get real data from the database
+            LoadStudentResults();
+
+            // Get filtered data based on selected time period
             DataTable filteredData = GetFilteredData();
 
             // Bind to grid
