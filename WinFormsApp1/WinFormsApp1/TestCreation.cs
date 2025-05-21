@@ -15,8 +15,6 @@ namespace WinFormsApp1
         {
             InitializeComponent();
         }
-<<<<<<< HEAD
-=======
 
         private void btnAddQuestion_Click(object sender, EventArgs e)
         {
@@ -118,6 +116,5 @@ namespace WinFormsApp1
 
             return questions;
         }
->>>>>>> 15053f9de43f0f9e567691b442840c6433b0c39f
     }
 }

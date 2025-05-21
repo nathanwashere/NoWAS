@@ -78,7 +78,6 @@ namespace WinFormsApp1
             dbPath = Path.GetFullPath(dbPath);
             string connectionString = $"Data Source={dbPath};Version=3;";
 
-            // 2. קריאה מה־TextBox-ים
             string qText = question_text.Text;
             string tText = type_text.Text;
             string cText = course_text.Text;
@@ -106,11 +105,8 @@ namespace WinFormsApp1
             // 3. שאילתת INSERT
             string query = @"
             INSERT INTO Question 
-<<<<<<< HEAD
-                (Body, type, [The cours], Awnser, [Difficulty level]) 
-=======
                 (Body, type, [The course],answer, [Difficulty level],[Possible answer 1],[Possible answer 2],[Possible answer 3]) 
->>>>>>> 15053f9de43f0f9e567691b442840c6433b0c39f
+
             VALUES 
                 (@q, @t, @c, @ca, @lvl,@p_a1,@p_a2,@p_a3);";
 
