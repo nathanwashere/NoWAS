@@ -252,7 +252,6 @@ C:\Users\zecha\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0
 C:\Users\zecha\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.pdb
 C:\Users\zecha\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.genruntimeconfig.cache
 C:\Users\zecha\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\ref\WinFormsApp1.dll
-C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\DataBase.db
 C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Deleting_questions.resources
 C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.InsertingQuestions.resources
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\EntityFramework.SqlServer.dll
@@ -396,3 +395,9 @@ C:\Users\zecha\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0
 C:\Users\zecha\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.StudentStatisticsForm.resources
 C:\Users\zecha\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.TestCreation.resources
 C:\Users\avivb\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\System.Data.SQLite.Linq.dll
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\System.Data.SQLite.Linq.dll
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.EditQuestionForm.resources
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.QuestionSelectionForm.resources
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.StudentStatisticsForm.resources
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.StudentTestForm.resources
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.TestCreation.resources
