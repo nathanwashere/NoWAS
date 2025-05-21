@@ -158,7 +158,7 @@ namespace WinFormsApp1
 
                     if (getUserType(userName) == "Student")
                     {
-                        new mainForm().Show();
+                        new mainForm(userName).Show();
                     }
                     else if (getUserType(userName) == "Professor")
                     {

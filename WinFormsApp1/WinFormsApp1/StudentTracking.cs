@@ -10,13 +10,17 @@ namespace WinFormsApp1
 {
     public partial class StudentTracking : Form
     {
+        private string connectionString = $"Data Source={System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db"))};Version=3;";
+        private string username;
         private bool isClosing = false;
         private DataTable scoreTable;
         private DateTime lastRefreshTime;
 
-        public StudentTracking()
+        public StudentTracking(string userName)
         {
+            username = userName;
             InitializeComponent();
+            this.Text = $"Student Progress Tracking - {username}";
         }
 
         private void StudentTracking_Load(object sender, EventArgs e)
