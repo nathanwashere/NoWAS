@@ -35,6 +35,7 @@
             // dataGridViewQuestions
             // 
             dataGridViewQuestions.AllowUserToAddRows = false;
+            dataGridViewQuestions.BackgroundColor = SystemColors.ButtonHighlight;
             dataGridViewQuestions.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewQuestions.Location = new Point(12, 38);
             dataGridViewQuestions.Name = "dataGridViewQuestions";
