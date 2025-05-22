@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WinFormsApp1
+﻿public abstract class Question
 {
-    public class Question
-    {
-        public int QuestionID { get; set; }
-        public string Body { get; set; }
-        public string Awnser { get; set; }
-        public int TestID { get; set; }
-        public string DifficultyLevel { get; set; }  // [Difficulty level]
-        public string Cours { get; set; }           // [The course]
-        public string Type { get; set; }             // type
+    public string Body { get; set; }
+    public string Type { get; set; }
+    public string Answer { get; set; }
+    public string DifficultyLevel { get; set; }
+    public string Course { get; set; }
 
-        public override string ToString()
-        {
-            return $"{Body} ({Cours}, {DifficultyLevel})";
-        }
+    public Question(string body, string type, string answer, string level = null, string course = null)
+    {
+        Body = body;
+        Type = type;
+        Answer = answer;
+        DifficultyLevel = level;
+        Course = course;
     }
+
+    public abstract void Display(Panel panel);
+    public abstract bool CheckAnswer(Panel panel);
 }

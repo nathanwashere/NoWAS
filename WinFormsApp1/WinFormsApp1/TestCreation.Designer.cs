@@ -25,6 +25,8 @@
         private System.Windows.Forms.Button btnDeleteTest;
         private System.Windows.Forms.Button btnViewDetails;
 
+        private System.Windows.Forms.ListBox lstSelectedQuestions;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -50,6 +52,7 @@
             colTopics = new ColumnHeader();
             btnDeleteTest = new Button();
             btnViewDetails = new Button();
+            lstSelectedQuestions = new ListBox();
             grpTestSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numQuestions).BeginInit();
             grpCreatedTests.SuspendLayout();
@@ -77,7 +80,7 @@
             grpTestSettings.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             grpTestSettings.Location = new Point(30, 70);
             grpTestSettings.Name = "grpTestSettings";
-            grpTestSettings.Size = new Size(380, 300);
+            grpTestSettings.Size = new Size(420, 360);
             grpTestSettings.TabIndex = 1;
             grpTestSettings.TabStop = false;
             grpTestSettings.Text = "Test Settings";
@@ -94,42 +97,47 @@
             // chkTopics
             // 
             chkTopics.Items.AddRange(new object[] { "Algorithms", "Software Testing", "Databases" });
-            chkTopics.Location = new Point(20, 70);
+            chkTopics.Location = new Point(20, 80);
             chkTopics.Name = "chkTopics";
-            chkTopics.Size = new Size(160, 79);
+            chkTopics.Size = new Size(170, 79);
             chkTopics.TabIndex = 1;
             // 
             // chkDifficulty
             // 
             chkDifficulty.Items.AddRange(new object[] { "Easy", "Medium", "Hard" });
-            chkDifficulty.Location = new Point(200, 70);
+            chkDifficulty.Location = new Point(210, 80);
             chkDifficulty.Name = "chkDifficulty";
-            chkDifficulty.Size = new Size(160, 79);
+            chkDifficulty.Size = new Size(170, 79);
             chkDifficulty.TabIndex = 2;
             // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(20, 220);
+            btnCreate.Location = new Point(20, 200);
             btnCreate.Name = "btnCreate";
-            btnCreate.Size = new Size(100, 30);
+            btnCreate.Size = new Size(120, 40);
             btnCreate.TabIndex = 3;
             btnCreate.Text = "Create Test";
+            btnCreate.UseVisualStyleBackColor = true;
+            btnCreate.Click += btnCreate_Click;
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(240, 220);
+            btnClear.Location = new Point(280, 200);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(100, 30);
+            btnClear.Size = new Size(120, 40);
             btnClear.TabIndex = 4;
             btnClear.Text = "Clear";
-            // 
+            btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += BtnClear_Click;
             // btnAddQuestion
             // 
-            btnAddQuestion.Location = new Point(130, 220);
+            btnAddQuestion.Location = new Point(150, 200);
             btnAddQuestion.Name = "btnAddQuestion";
-            btnAddQuestion.Size = new Size(100, 30);
+            btnAddQuestion.Size = new Size(120, 40);
             btnAddQuestion.TabIndex = 5;
             btnAddQuestion.Text = "Add Question";
+            btnAddQuestion.UseVisualStyleBackColor = true;
+            btnAddQuestion.Click += btnAddQuestion_Click;
             // 
             // grpCreatedTests
             // 
@@ -137,9 +145,9 @@
             grpCreatedTests.Controls.Add(btnDeleteTest);
             grpCreatedTests.Controls.Add(btnViewDetails);
             grpCreatedTests.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            grpCreatedTests.Location = new Point(460, 70);
+            grpCreatedTests.Location = new Point(470, 70);
             grpCreatedTests.Name = "grpCreatedTests";
-            grpCreatedTests.Size = new Size(484, 300);
+            grpCreatedTests.Size = new Size(484, 360);
             grpCreatedTests.TabIndex = 2;
             grpCreatedTests.TabStop = false;
             grpCreatedTests.Text = "Created Tests";
@@ -147,9 +155,10 @@
             // lvTests
             // 
             lvTests.Columns.AddRange(new ColumnHeader[] { colTestID, colDate, colQuestionCount, colTopics });
+            lvTests.FullRowSelect = true;
             lvTests.Location = new Point(15, 30);
             lvTests.Name = "lvTests";
-            lvTests.Size = new Size(448, 200);
+            lvTests.Size = new Size(448, 250);
             lvTests.TabIndex = 0;
             lvTests.UseCompatibleStateImageBehavior = false;
             lvTests.View = View.Details;
@@ -157,11 +166,12 @@
             // colTestID
             // 
             colTestID.Text = "Test ID";
+            colTestID.Width = 80;
             // 
             // colDate
             // 
             colDate.Text = "Date Created";
-            colDate.Width = 90;
+            colDate.Width = 120;
             // 
             // colQuestionCount
             // 
@@ -171,31 +181,44 @@
             // colTopics
             // 
             colTopics.Text = "Topics";
-            colTopics.Width = 100;
+            colTopics.Width = 120;
             // 
             // btnDeleteTest
             // 
-            btnDeleteTest.Location = new Point(15, 240);
+            btnDeleteTest.Location = new Point(15, 300);
             btnDeleteTest.Name = "btnDeleteTest";
-            btnDeleteTest.Size = new Size(100, 30);
+            btnDeleteTest.Size = new Size(120, 40);
             btnDeleteTest.TabIndex = 1;
             btnDeleteTest.Text = "Delete Test";
+            btnDeleteTest.UseVisualStyleBackColor = true;
+            btnDeleteTest.Click += BtnDeleteTest_click;
             // 
             // btnViewDetails
             // 
-            btnViewDetails.Location = new Point(125, 240);
+            btnViewDetails.Location = new Point(145, 300);
             btnViewDetails.Name = "btnViewDetails";
-            btnViewDetails.Size = new Size(100, 30);
+            btnViewDetails.Size = new Size(120, 40);
             btnViewDetails.TabIndex = 2;
             btnViewDetails.Text = "View Details";
+            btnViewDetails.UseVisualStyleBackColor = true;
+            btnViewDetails.Click += BtnViewDetails_click;
+            // 
+            // lstSelectedQuestions
+            // 
+            lstSelectedQuestions.FormattingEnabled = true;
+            lstSelectedQuestions.Location = new Point(30, 450);
+            lstSelectedQuestions.Name = "lstSelectedQuestions";
+            lstSelectedQuestions.Size = new Size(920, 64);
+            lstSelectedQuestions.TabIndex = 3;
             // 
             // TestCreation
             // 
             BackColor = Color.White;
-            ClientSize = new Size(999, 480);
+            ClientSize = new Size(999, 580);
             Controls.Add(lblTitle);
             Controls.Add(grpTestSettings);
             Controls.Add(grpCreatedTests);
+            Controls.Add(lstSelectedQuestions);
             Name = "TestCreation";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Create New Test";
@@ -204,5 +227,7 @@
             grpCreatedTests.ResumeLayout(false);
             ResumeLayout(false);
         }
+
+       
     }
 }
