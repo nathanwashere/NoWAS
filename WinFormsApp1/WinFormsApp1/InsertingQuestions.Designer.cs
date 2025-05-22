@@ -40,22 +40,15 @@
             level_text = new ComboBox();
             question_text = new TextBox();
             button1 = new Button();
-            label1 = new Label();
-            label2 = new Label();
-            Possible_answer_1 = new TextBox();
-            Possible_answer_2 = new TextBox();
-            label3 = new Label();
-            Possible_answer_3 = new TextBox();
             SuspendLayout();
             // 
             // course
             // 
             course.AutoSize = true;
-            course.BackColor = Color.Transparent;
-            course.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            course.Location = new Point(29, 199);
+            course.Font = new Font("Segoe UI", 20F);
+            course.Location = new Point(44, 249);
             course.Name = "course";
-            course.Size = new Size(162, 37);
+            course.Size = new Size(190, 46);
             course.TabIndex = 0;
             course.Text = "The course:";
             course.Click += course_Click;
@@ -63,12 +56,10 @@
             // level
             // 
             level.AutoSize = true;
-            level.BackColor = Color.Transparent;
-            level.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            level.ForeColor = Color.Black;
-            level.Location = new Point(29, 375);
+            level.Font = new Font("Segoe UI", 20F);
+            level.Location = new Point(44, 451);
             level.Name = "level";
-            level.Size = new Size(211, 37);
+            level.Size = new Size(237, 46);
             level.TabIndex = 1;
             level.Text = "Difficulty level:";
             level.Click += label2_Click;
@@ -76,11 +67,10 @@
             // c_a
             // 
             c_a.AutoSize = true;
-            c_a.BackColor = Color.Transparent;
-            c_a.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            c_a.Location = new Point(20, 288);
+            c_a.Font = new Font("Segoe UI", 20F);
+            c_a.Location = new Point(44, 346);
             c_a.Name = "c_a";
-            c_a.Size = new Size(218, 37);
+            c_a.Size = new Size(252, 46);
             c_a.TabIndex = 2;
             c_a.Text = "Correct answer:";
             c_a.Click += label3_Click;
@@ -88,11 +78,10 @@
             // type
             // 
             type.AutoSize = true;
-            type.BackColor = Color.Transparent;
-            type.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            type.Location = new Point(29, 113);
+            type.Font = new Font("Segoe UI", 20F);
+            type.Location = new Point(44, 143);
             type.Name = "type";
-            type.Size = new Size(204, 37);
+            type.Size = new Size(238, 46);
             type.TabIndex = 3;
             type.Text = "Question type:";
             type.Click += label1_Click;
@@ -100,173 +89,98 @@
             // question
             // 
             question.AutoSize = true;
-            question.BackColor = Color.Transparent;
-            question.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            question.Location = new Point(29, 38);
+            question.Font = new Font("Segoe UI", 20F);
+            question.Location = new Point(44, 35);
             question.Name = "question";
-            question.Size = new Size(190, 37);
+            question.Size = new Size(221, 46);
             question.TabIndex = 4;
             question.Text = "The question:";
             question.TextAlign = ContentAlignment.TopCenter;
-            question.Click += question_Click;
             // 
             // Deleting_questions
             // 
             Deleting_questions.AutoSize = true;
-            Deleting_questions.BackColor = Color.SteelBlue;
-            Deleting_questions.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            Deleting_questions.Location = new Point(949, 702);
+            Deleting_questions.BackColor = Color.FromArgb(255, 128, 128);
+            Deleting_questions.Font = new Font("Segoe UI", 20F);
+            Deleting_questions.Location = new Point(840, 605);
             Deleting_questions.Name = "Deleting_questions";
-            Deleting_questions.Size = new Size(377, 42);
+            Deleting_questions.Size = new Size(310, 56);
             Deleting_questions.TabIndex = 5;
-            Deleting_questions.Text = "Deleting and editing questions";
+            Deleting_questions.Text = "Deleting questions";
             Deleting_questions.UseVisualStyleBackColor = false;
             Deleting_questions.Click += Deleting_questions_Click;
             // 
             // type_text
             // 
             type_text.DropDownStyle = ComboBoxStyle.DropDownList;
-            type_text.Font = new Font("Segoe UI", 14F);
+            type_text.Font = new Font("Segoe UI", 18F);
             type_text.FormattingEnabled = true;
             type_text.Items.AddRange(new object[] { "Multiple Choice", "True/False", "Sentence Completion" });
-            type_text.Location = new Point(373, 111);
+            type_text.Location = new Point(443, 143);
             type_text.Name = "type_text";
-            type_text.Size = new Size(400, 39);
+            type_text.Size = new Size(400, 49);
             type_text.TabIndex = 6;
-            type_text.SelectedIndexChanged += type_text_SelectedIndexChanged;
+            type_text.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // course_text
             // 
             course_text.AutoCompleteCustomSource.AddRange(new string[] { "חדו\"א", "פיזיקה", "תכנות שפת c" });
             course_text.DropDownStyle = ComboBoxStyle.DropDownList;
-            course_text.Font = new Font("Segoe UI", 14F);
+            course_text.Font = new Font("Segoe UI", 18F);
             course_text.FormattingEnabled = true;
             course_text.Items.AddRange(new object[] { "Calculus", "Physics ", "Introduction to Computer Science" });
-            course_text.Location = new Point(373, 197);
+            course_text.Location = new Point(443, 249);
             course_text.Name = "course_text";
-            course_text.Size = new Size(400, 39);
+            course_text.Size = new Size(400, 49);
             course_text.TabIndex = 7;
             course_text.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
             // 
             // c_a_text
             // 
-            c_a_text.Font = new Font("Segoe UI", 14F);
-            c_a_text.Location = new Point(373, 290);
+            c_a_text.Font = new Font("Segoe UI", 18F);
+            c_a_text.Location = new Point(443, 346);
             c_a_text.Name = "c_a_text";
-            c_a_text.Size = new Size(400, 39);
+            c_a_text.Size = new Size(400, 47);
             c_a_text.TabIndex = 8;
             c_a_text.TextChanged += textBox1_TextChanged;
             // 
             // level_text
             // 
             level_text.DropDownStyle = ComboBoxStyle.DropDownList;
-            level_text.Font = new Font("Segoe UI", 14F);
+            level_text.Font = new Font("Segoe UI", 18F);
             level_text.FormattingEnabled = true;
-            level_text.Items.AddRange(new object[] { "Easy", "Intermediate", "Advanced" });
-            level_text.Location = new Point(373, 377);
+            level_text.Items.AddRange(new object[] { "קל", "בינוני", "קשה" });
+            level_text.Location = new Point(443, 451);
             level_text.Name = "level_text";
-            level_text.Size = new Size(400, 39);
+            level_text.Size = new Size(400, 49);
             level_text.TabIndex = 9;
             level_text.SelectedIndexChanged += comboBox3_SelectedIndexChanged;
             // 
             // question_text
             // 
-            question_text.Font = new Font("Segoe UI", 14F);
-            question_text.Location = new Point(373, 36);
+            question_text.Font = new Font("Segoe UI", 18F);
+            question_text.Location = new Point(443, 45);
             question_text.Name = "question_text";
-            question_text.Size = new Size(400, 39);
+            question_text.Size = new Size(400, 47);
             question_text.TabIndex = 10;
             question_text.TextChanged += textBox2_TextChanged;
             // 
             // button1
             // 
-            button1.BackColor = Color.DarkSeaGreen;
-            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            button1.Location = new Point(458, 717);
+            button1.BackColor = Color.Lime;
+            button1.Location = new Point(567, 541);
             button1.Name = "button1";
-            button1.Size = new Size(214, 47);
+            button1.Size = new Size(166, 47);
             button1.TabIndex = 11;
-            button1.Text = "Creating a question";
+            button1.Text = "יצירת שאלה";
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            label1.Location = new Point(29, 462);
-            label1.Name = "label1";
-            label1.Size = new Size(250, 37);
-            label1.TabIndex = 12;
-            label1.Text = "Possible answer 1:";
-            label1.Visible = false;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            label2.Location = new Point(29, 555);
-            label2.Name = "label2";
-            label2.Size = new Size(250, 37);
-            label2.TabIndex = 13;
-            label2.Text = "Possible answer 2:";
-            label2.Visible = false;
-            label2.Click += label2_Click_1;
-            // 
-            // Possible_answer_1
-            // 
-            Possible_answer_1.Font = new Font("Segoe UI", 14F);
-            Possible_answer_1.Location = new Point(373, 464);
-            Possible_answer_1.Name = "Possible_answer_1";
-            Possible_answer_1.Size = new Size(400, 39);
-            Possible_answer_1.TabIndex = 14;
-            Possible_answer_1.Visible = false;
-            // 
-            // Possible_answer_2
-            // 
-            Possible_answer_2.Font = new Font("Segoe UI", 14F);
-            Possible_answer_2.Location = new Point(373, 555);
-            Possible_answer_2.Name = "Possible_answer_2";
-            Possible_answer_2.Size = new Size(400, 39);
-            Possible_answer_2.TabIndex = 15;
-            Possible_answer_2.Visible = false;
-            Possible_answer_2.TextChanged += textBox2_TextChanged_1;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            label3.Location = new Point(29, 637);
-            label3.Name = "label3";
-            label3.Size = new Size(250, 37);
-            label3.TabIndex = 16;
-            label3.Text = "Possible answer 3:";
-            label3.Visible = false;
-            // 
-            // Possible_answer_3
-            // 
-            Possible_answer_3.Font = new Font("Segoe UI", 14F);
-            Possible_answer_3.Location = new Point(373, 639);
-            Possible_answer_3.Name = "Possible_answer_3";
-            Possible_answer_3.Size = new Size(400, 39);
-            Possible_answer_3.TabIndex = 17;
-            Possible_answer_3.Visible = false;
             // 
             // InsertingQuestions
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = Properties.Resources.תמונה_שאלות1;
-            ClientSize = new Size(1348, 776);
-            Controls.Add(Possible_answer_3);
-            Controls.Add(label3);
-            Controls.Add(Possible_answer_2);
-            Controls.Add(Possible_answer_1);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            ClientSize = new Size(1162, 686);
             Controls.Add(button1);
             Controls.Add(question_text);
             Controls.Add(level_text);
@@ -300,11 +214,5 @@
         private ComboBox level_text;
         private TextBox question_text;
         private Button button1;
-        private Label label1;
-        private Label label2;
-        private TextBox Possible_answer_1;
-        private TextBox Possible_answer_2;
-        private Label label3;
-        private TextBox Possible_answer_3;
     }
 }

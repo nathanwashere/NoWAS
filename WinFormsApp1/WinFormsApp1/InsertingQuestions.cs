@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
-using DocumentFormat.OpenXml.Drawing.Diagrams;
 
 namespace WinFormsApp1
 {
@@ -83,27 +82,13 @@ namespace WinFormsApp1
             string cText = course_text.Text;
             string caText = c_a_text.Text;
             string lvlText = level_text.Text;
-            string p_a1Text = Possible_answer_1.Text;
-            string p_a2Text = Possible_answer_2.Text;
-            string p_a3Text = Possible_answer_3.Text;
 
-
-
-            // בדיקת שדות חובה
-            if (!AreRequiredFieldsFilled())
-            {
-                MessageBox.Show("Please fill in all required fields: Question, Question Type, Course, Answer, Difficulty Level, and Possible Answer.",
-                                "שגיאת קלט", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return; // מפסיק את הפעולה אם שדות לא מולאו
-            }
             // 3. שאילתת INSERT
             string query = @"
-            INSERT INTO Question_new 
-                (Body, type, [Course],answer, [Difficulty level],[Possible answer 1],[Possible answer 2],[Possible answer 3]) 
+            INSERT INTO Question 
+                (Body, type, [The course], answer, [Difficulty level]) 
             VALUES 
-                (@q, @t, @c, @ca, @lvl,@p_a1,@p_a2,@p_a3);";
-
-
+                (@q, @t, @c, @ca, @lvl);";
 
             // 4. ביצוע ההכנסה
             using (var conn = new SQLiteConnection(connectionString))
@@ -116,44 +101,12 @@ namespace WinFormsApp1
                 cmd.Parameters.AddWithValue("@ca", caText);
                 cmd.Parameters.AddWithValue("@lvl", lvlText);
 
-                if (type_text.Text == "Multiple choice")
-                {
-                    cmd.Parameters.AddWithValue("@p_a1", p_a1Text);
-                    cmd.Parameters.AddWithValue("@p_a2", p_a2Text);
-                    cmd.Parameters.AddWithValue("@p_a3", p_a3Text);
-                }
-                else
-                {
-                    cmd.Parameters.AddWithValue("@p_a1", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@p_a2", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@p_a3", DBNull.Value);
-                }
-
                 try
                 {
                     conn.Open();
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("השאלה הוכנסה בהצלחה!", "Success",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    // ניקוי שדות לאחר ההכנסה
-                    question_text.Clear();
-                    type_text.SelectedIndex = -1;
-                    course_text.SelectedIndex = -1;
-                    c_a_text.Clear();
-                    level_text.SelectedIndex = -1;
-
-                    Possible_answer_1.Clear();
-                    Possible_answer_2.Clear();
-                    Possible_answer_3.Clear();
-
-                    // הסתרת שדות של תשובות אפשריות אם לא נדרש
-                    label1.Visible = false;
-                    label2.Visible = false;
-                    label3.Visible = false;
-                    Possible_answer_1.Visible = false;
-                    Possible_answer_2.Visible = false;
-                    Possible_answer_3.Visible = false;
-
                 }
                 catch (Exception ex)
                 {
@@ -169,69 +122,6 @@ namespace WinFormsApp1
             deleting_Questions.Show();
         }
 
-        private void type_text_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // בודק אם סוג השאלה הוא "Multiple Choice"
-            if (type_text.Text == "Multiple Choice")
-            {
-                // הצגת תיבות טקסט עבור תשובות אפשריות
-                label1.Visible = true;
-                label2.Visible = true;
-                label3.Visible = true;
-                Possible_answer_1.Visible = true;
-                Possible_answer_2.Visible = true;
-                Possible_answer_3.Visible = true;
-            }
-            else
-            {
-                // הסתרת תיבות טקסט עבור תשובות אפשריות
-                label1.Visible = false;
-                label2.Visible = false;
-                label3.Visible = false;
-                Possible_answer_1.Visible = false;
-                Possible_answer_2.Visible = false;
-                Possible_answer_3.Visible = false;
-            }
-        }
-
-        private void textBox2_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void question_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        public bool AreRequiredFieldsFilled()
-        {
-            if (string.IsNullOrWhiteSpace(question_text.Text) ||
-                string.IsNullOrWhiteSpace(type_text.Text) ||
-                string.IsNullOrWhiteSpace(course_text.Text) ||
-                string.IsNullOrWhiteSpace(c_a_text.Text) ||
-                string.IsNullOrWhiteSpace(level_text.Text))
-            {
-                return false;
-            }
-
-            if (type_text.Text == "Multiple Choice")
-            {
-                if (string.IsNullOrWhiteSpace(Possible_answer_1.Text) ||
-                    string.IsNullOrWhiteSpace(Possible_answer_2.Text) ||
-                    string.IsNullOrWhiteSpace(Possible_answer_3.Text))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
+        
     }
 }
