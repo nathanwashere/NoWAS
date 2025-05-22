@@ -78,6 +78,7 @@ namespace WinFormsApp1
 
             // Set up event handlers
             btnRefresh.Click += BtnRefresh_Click;
+            btnGoBack.Click += BtnGoBack_Click; // Add Go Back button event handler
             cmbFilterPeriod.SelectedIndexChanged += CmbFilterPeriod_SelectedIndexChanged;
             btnSearch.Click += BtnSearch_Click;
             txtSearch.Enter += TxtSearch_Enter;
@@ -85,6 +86,13 @@ namespace WinFormsApp1
 
             // Setup chart area (this will be populated with data later)
             SetupChartArea();
+        }
+
+        // Event handler for Go Back button
+        private void BtnGoBack_Click(object sender, EventArgs e)
+        {
+            new mainForm(username).Show();
+            this.Hide();
         }
 
         private void TxtSearch_Leave(object sender, EventArgs e)

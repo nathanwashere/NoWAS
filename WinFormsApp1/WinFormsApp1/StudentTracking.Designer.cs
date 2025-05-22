@@ -1,4 +1,5 @@
-﻿namespace WinFormsApp1
+﻿
+    namespace WinFormsApp1
 {
     partial class StudentTracking
     {
@@ -30,6 +31,7 @@
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolStripProgressBar progressBar;
+        private System.Windows.Forms.Button btnGoBack;
 
         protected override void Dispose(bool disposing)
         {
@@ -58,6 +60,7 @@
             panel2 = new Panel();
             label1 = new Label();
             panelHeader = new Panel();
+            btnGoBack = new Button();
             lblHeaderSubtitle = new Label();
             picLogo = new PictureBox();
             panelStats = new Panel();
@@ -229,7 +232,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(60, 0);
+            label1.Location = new Point(0, 0);
             label1.Name = "label1";
             label1.Size = new Size(395, 45);
             label1.TabIndex = 4;
@@ -238,25 +241,49 @@
             // panelHeader
             // 
             panelHeader.BackColor = Color.FromArgb(78, 93, 148);
+            panelHeader.Controls.Add(btnGoBack);
             panelHeader.Controls.Add(label1);
             panelHeader.Controls.Add(lblHeaderSubtitle);
             panelHeader.Controls.Add(picLogo);
             panelHeader.Dock = DockStyle.Top;
             panelHeader.Location = new Point(0, 0);
             panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(1000, 60);
+            panelHeader.Size = new Size(1000, 67);
             panelHeader.TabIndex = 6;
+            // 
+            // btnGoBack
+            // 
+            btnGoBack.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnGoBack.BackColor = Color.White;
+            btnGoBack.FlatAppearance.BorderSize = 0;
+            btnGoBack.FlatStyle = FlatStyle.Flat;
+            btnGoBack.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGoBack.ForeColor = Color.Black;
+            btnGoBack.Location = new Point(864, 12);
+            btnGoBack.Name = "btnGoBack";
+            btnGoBack.Size = new Size(120, 40);
+            btnGoBack.TabIndex = 6;
+            btnGoBack.Text = "← Go Back";
+            btnGoBack.UseVisualStyleBackColor = false;
             // 
             // lblHeaderSubtitle
             // 
             lblHeaderSubtitle.AutoSize = true;
             lblHeaderSubtitle.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblHeaderSubtitle.ForeColor = Color.WhiteSmoke;
-            lblHeaderSubtitle.Location = new Point(62, 37);
+            lblHeaderSubtitle.Location = new Point(3, 42);
             lblHeaderSubtitle.Name = "lblHeaderSubtitle";
-            lblHeaderSubtitle.Size = new Size(345, 28);
+            lblHeaderSubtitle.Size = new Size(345, 25);
             lblHeaderSubtitle.TabIndex = 5;
             lblHeaderSubtitle.Text = "Monitor and analyze student performance";
+            // 
+            // picLogo
+            // 
+            picLogo.Location = new Point(0, 0);
+            picLogo.Name = "picLogo";
+            picLogo.Size = new Size(100, 50);
+            picLogo.TabIndex = 7;
+            picLogo.TabStop = false;
             // 
             // panelStats
             // 
@@ -507,6 +534,8 @@
             ResumeLayout(false);
             PerformLayout();
         }
+
+
 
         #endregion
     }
