@@ -147,8 +147,5 @@ namespace WinFormsApp1
                 Deleting_questions_Load(null, null);
             }
         }
-
-
-
     }
 }

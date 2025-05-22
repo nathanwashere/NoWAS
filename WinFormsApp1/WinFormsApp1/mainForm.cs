@@ -7,8 +7,10 @@ namespace WinFormsApp1
     public partial class mainForm : Form
     {
         private bool isCLosing = false;
-        public mainForm()
+        private string userName;
+        public mainForm(string USERNAME)
         {
+            userName = USERNAME;
             InitializeComponent();
             SetupButtons();
         }
@@ -35,7 +37,7 @@ namespace WinFormsApp1
 
         private void btnGrades_Click(object sender, EventArgs e)
         {
-            StudentTracking studentTracking = new StudentTracking();
+            StudentTracking studentTracking = new StudentTracking(userName);
             studentTracking.Show();
             isCLosing = true;
             this.Close();
