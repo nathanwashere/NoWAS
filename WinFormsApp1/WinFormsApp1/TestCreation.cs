@@ -13,7 +13,35 @@ namespace WinFormsApp1
 
         public TestCreation()
         {
+           
             InitializeComponent();
+            LoadTestsToListView();
+        }
+
+        private void LoadTestsToListView()
+        {
+            lvTests.Items.Clear();
+            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
+            dbPath = Path.GetFullPath(dbPath);
+            string connectionString = $"Data Source={dbPath};Version=3;";
+
+            using (var conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT TestID, TestName, DateCreated, COUNT(*) as QuestionCount FROM TestQuestions GROUP BY TestID";
+                using (var cmd = new SQLiteCommand(query, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var item = new ListViewItem(reader["TestID"].ToString());
+                        item.SubItems.Add(reader["DateCreated"].ToString());
+                        item.SubItems.Add(reader["QuestionCount"].ToString());
+                        item.SubItems.Add(reader["TestName"].ToString());
+                        lvTests.Items.Add(item);
+                    }
+                }
+            }
         }
 
         private void btnAddQuestion_Click(object sender, EventArgs e)
@@ -30,7 +58,7 @@ namespace WinFormsApp1
                 }
             }
         }
-
+       
         private void btnCreate_Click(object sender, EventArgs e)
         {
             long testId;
@@ -120,8 +148,8 @@ namespace WinFormsApp1
             MessageBox.Show("Test created successfully!");
             selectedQuestions.Clear();
             lstSelectedQuestions.Items.Clear();
-            StudentTestForm studentTestForm = new StudentTestForm((int)testId);
-            studentTestForm.Show();
+            //StudentTestForm studentTestForm = new StudentTestForm((int)testId);
+           // studentTestForm.Show();
         }
 
         private List<Question> LoadQuestionsFromDB()
@@ -200,9 +228,109 @@ namespace WinFormsApp1
             return questions;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void BtnDeleteTest_click(object sender, EventArgs e)
         {
-         
+            if (lvTests.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a test to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var selectedItem = lvTests.SelectedItems[0];
+            int testId = int.Parse(selectedItem.SubItems[0].Text);
+
+            var confirm = MessageBox.Show($"Are you sure you want to delete test ID {testId}?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirm != DialogResult.Yes) return;
+
+            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
+            dbPath = Path.GetFullPath(dbPath);
+            string connectionString = $"Data Source={dbPath};Version=3;";
+
+            using (var conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+                string deleteQuery = "DELETE FROM TestQuestions WHERE TestID = @testId";
+                using (var cmd = new SQLiteCommand(deleteQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@testId", testId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            MessageBox.Show("Test deleted successfully!", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            lvTests.Items.Remove(selectedItem);
         }
+        private void BtnClear_Click(object sender, EventArgs e)
+        {
+            lstSelectedQuestions.Items.Clear();
+            selectedQuestions.Clear();
+        }
+        private void BtnViewDetails_click(object sender, EventArgs e)
+        {
+            if (lvTests.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a test to view.");
+                return;
+            }
+
+            int testId = int.Parse(lvTests.SelectedItems[0].Text);
+            List<string> questions = GetQuestionsForTest(testId);
+
+            string formatted = string.Join($"{Environment.NewLine}-----------------------{Environment.NewLine}{Environment.NewLine}", questions);
+
+            Form detailsForm = new Form
+            {
+                Text = $"Test ID {testId} Details",
+                Size = new Size(700, 500),
+                StartPosition = FormStartPosition.CenterScreen
+            };
+
+            TextBox box = new TextBox
+            {
+                Multiline = true,
+                ReadOnly = true,
+                Dock = DockStyle.Fill,
+                ScrollBars = ScrollBars.Vertical,
+                Font = new Font("Segoe UI", 11),
+                BackColor = Color.White,
+                Text = formatted
+            };
+
+            detailsForm.Controls.Add(box);
+            detailsForm.Show();
+        }
+
+        private List<string> GetQuestionsForTest(int testId)
+        {
+            var list = new List<string>();
+            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
+            dbPath = Path.GetFullPath(dbPath);
+            string connectionString = $"Data Source={dbPath};Version=3;";
+
+            using (var conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT Body, Answer FROM TestQuestions WHERE TestID = @id";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", testId);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        int index = 1;
+                        while (reader.Read())
+                        {
+                            string body = reader["Body"].ToString();
+                            string answer = reader["Answer"].ToString();
+
+                            list.Add($"Question {index++}:{Environment.NewLine}{body}{Environment.NewLine}Answer: {answer}");
+                        }
+                    }
+                }
+            }
+
+            return list;
+        }
+
+
     }
 }

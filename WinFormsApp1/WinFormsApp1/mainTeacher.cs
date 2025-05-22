@@ -23,13 +23,22 @@ namespace WinFormsApp1
             InsertingQuestions i_q = new InsertingQuestions();
             i_q.Show();
         }
-
+        private void btnCreateTest_Click(object sender, EventArgs e)
+        {
+            TestCreation testCreation = new TestCreation();
+            testCreation.Show();
+        }
         private void mainTeacher_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (!isCLosing)
             {
                 Application.Exit();
             }
+        }
+        private void Button1_click(object sender,EventArgs e)
+        {
+            StudentStatisticsForm studentStatisticsForm = new StudentStatisticsForm();
+            studentStatisticsForm.Show();
         }
     }
 }
