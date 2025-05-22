@@ -48,6 +48,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = Properties.Resources.תמונה_שאלות1;
             ClientSize = new Size(1200, 660);
             Controls.Add(dataGridViewQuestions);
             Name = "Deleting_questions";

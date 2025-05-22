@@ -50,10 +50,11 @@
             // question
             // 
             question.AutoSize = true;
-            question.Font = new Font("Segoe UI", 16F);
+            question.BackColor = Color.Transparent;
+            question.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             question.Location = new Point(12, 19);
             question.Name = "question";
-            question.Size = new Size(176, 37);
+            question.Size = new Size(190, 37);
             question.TabIndex = 5;
             question.Text = "The question:";
             question.TextAlign = ContentAlignment.TopCenter;
@@ -61,30 +62,33 @@
             // type
             // 
             type.AutoSize = true;
-            type.Font = new Font("Segoe UI", 16F);
+            type.BackColor = Color.Transparent;
+            type.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             type.Location = new Point(12, 102);
             type.Name = "type";
-            type.Size = new Size(189, 37);
+            type.Size = new Size(204, 37);
             type.TabIndex = 6;
             type.Text = "Question type:";
             // 
             // course
             // 
             course.AutoSize = true;
-            course.Font = new Font("Segoe UI", 16F);
+            course.BackColor = Color.Transparent;
+            course.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             course.Location = new Point(12, 181);
             course.Name = "course";
-            course.Size = new Size(150, 37);
+            course.Size = new Size(162, 37);
             course.TabIndex = 7;
             course.Text = "The course:";
             // 
             // c_a
             // 
             c_a.AutoSize = true;
-            c_a.Font = new Font("Segoe UI", 16F);
+            c_a.BackColor = Color.Transparent;
+            c_a.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             c_a.Location = new Point(12, 259);
             c_a.Name = "c_a";
-            c_a.Size = new Size(199, 37);
+            c_a.Size = new Size(218, 37);
             c_a.TabIndex = 8;
             c_a.Text = "Correct answer:";
             c_a.Click += c_a_Click;
@@ -92,20 +96,22 @@
             // level
             // 
             level.AutoSize = true;
-            level.Font = new Font("Segoe UI", 16F);
+            level.BackColor = Color.Transparent;
+            level.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             level.Location = new Point(12, 340);
             level.Name = "level";
-            level.Size = new Size(190, 37);
+            level.Size = new Size(211, 37);
             level.TabIndex = 9;
             level.Text = "Difficulty level:";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 16F);
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             label1.Location = new Point(12, 423);
             label1.Name = "label1";
-            label1.Size = new Size(231, 37);
+            label1.Size = new Size(250, 37);
             label1.TabIndex = 13;
             label1.Text = "Possible answer 1:";
             label1.Visible = false;
@@ -113,10 +119,11 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 16F);
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             label2.Location = new Point(12, 495);
             label2.Name = "label2";
-            label2.Size = new Size(231, 37);
+            label2.Size = new Size(250, 37);
             label2.TabIndex = 14;
             label2.Text = "Possible answer 2:";
             label2.Visible = false;
@@ -124,10 +131,11 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 16F);
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             label3.Location = new Point(12, 574);
             label3.Name = "label3";
-            label3.Size = new Size(231, 37);
+            label3.Size = new Size(250, 37);
             label3.TabIndex = 17;
             label3.Text = "Possible answer 3:";
             label3.Visible = false;
@@ -215,7 +223,7 @@
             save.BackColor = Color.RoyalBlue;
             save.Location = new Point(433, 642);
             save.Name = "save";
-            save.Size = new Size(176, 57);
+            save.Size = new Size(216, 57);
             save.TabIndex = 26;
             save.Text = "save";
             save.UseVisualStyleBackColor = false;
@@ -225,6 +233,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = Properties.Resources.תמונה_שאלות1;
             ClientSize = new Size(1200, 711);
             Controls.Add(save);
             Controls.Add(Possible_answer_3);
