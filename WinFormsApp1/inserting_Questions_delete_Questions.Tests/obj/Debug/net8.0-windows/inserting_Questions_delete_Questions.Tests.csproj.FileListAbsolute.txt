@@ -447,3 +447,4 @@ C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_
 C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\obj\Debug\net8.0-windows\inserting_Questions_delete_Questions.Tests.genruntimeconfig.cache
 C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\obj\Debug\net8.0-windows\ref\inserting_Questions_delete_Questions.Tests.dll
 C:\Users\zecha\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\bin\Debug\net8.0-windows\System.Data.SQLite.Linq.dll
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\bin\Debug\net8.0-windows\System.Data.SQLite.Linq.dll

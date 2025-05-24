@@ -1773,10 +1773,7 @@
           "WinForms.DataVisualization": "1.10.0"
         },
         "runtime": {
-          "WinFormsApp1.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "WinFormsApp1.dll": {}
         }
       },
       "Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions/14.0.0.0": {

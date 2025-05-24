@@ -403,3 +403,4 @@ C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Deb
 C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.TestCreation.resources
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\System.Data.SQLite.Linq.dll
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.TestSelectionForm.resources
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.TestSelectionForm.resources

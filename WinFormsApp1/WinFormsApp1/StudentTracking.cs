@@ -1,34 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Globalization;
 
 namespace WinFormsApp1
 {
     public partial class StudentTracking : Form
     {
+        private string connectionString = $"Data Source={System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db"))};Version=3;";
+        private string username;
+        private int studentId; // Added to store student ID from Person table
         private bool isClosing = false;
         private DataTable scoreTable;
         private DateTime lastRefreshTime;
 
         public StudentTracking(string userName)
         {
+            username = userName;
             InitializeComponent();
+
+            // Set the form title to include the username
+            this.Text = $"Student Progress Tracking - {username}";
         }
 
         private void StudentTracking_Load(object sender, EventArgs e)
         {
+            // Update the header subtitle to show the logged-in user
+            lblHeaderSubtitle.Text = $"Student: {username} | Monitoring performance";
+
+            // Get student ID from Person table
+            GetStudentId();
+
             // Initialize UI components
             SetupUIComponents();
 
-            // Create and load mock data table
-            CreateMockData();
-
-            // Load data into UI
+            // Load real data into UI (no more mock data)
             RefreshData();
+        }
+
+        // New method to get student ID from Person table
+        private void GetStudentId()
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT ID FROM Person WHERE userName = @Username AND type = 'Student'";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+
+                    object result = command.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        studentId = Convert.ToInt32(result);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error: Student not found in database.", "Database Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        isClosing = true;
+                        this.Close();
+                    }
+                }
+            }
         }
 
         private void SetupUIComponents()
@@ -38,6 +78,7 @@ namespace WinFormsApp1
 
             // Set up event handlers
             btnRefresh.Click += BtnRefresh_Click;
+            btnGoBack.Click += BtnGoBack_Click; // Add Go Back button event handler
             cmbFilterPeriod.SelectedIndexChanged += CmbFilterPeriod_SelectedIndexChanged;
             btnSearch.Click += BtnSearch_Click;
             txtSearch.Enter += TxtSearch_Enter;
@@ -45,6 +86,13 @@ namespace WinFormsApp1
 
             // Setup chart area (this will be populated with data later)
             SetupChartArea();
+        }
+
+        // Event handler for Go Back button
+        private void BtnGoBack_Click(object sender, EventArgs e)
+        {
+            new mainForm(username).Show();
+            this.Hide();
         }
 
         private void TxtSearch_Leave(object sender, EventArgs e)
@@ -116,17 +164,16 @@ namespace WinFormsApp1
             // Create chart area
             var area = new ChartArea("MainArea");
 
-            // Configure X axis
-            area.AxisX.LabelStyle.Format = "yyyy-MM-dd";
-            area.AxisX.IntervalType = DateTimeIntervalType.Months;
-            area.AxisX.Interval = 2;
+            // Configure X axis for equal spacing (ordinal)
+            area.AxisX.LabelStyle.ForeColor = Color.White;
+            area.AxisX.LineColor = Color.White;
             area.AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Dot;
             area.AxisX.MajorGrid.LineColor = Color.FromArgb(64, 64, 64);
             area.AxisX.LabelStyle.Angle = -45;
-            area.AxisX.LabelStyle.ForeColor = Color.White;
-            area.AxisX.LineColor = Color.White;
             area.AxisX.Title = "Assessment Date";
             area.AxisX.TitleForeColor = Color.White;
+            area.AxisX.Interval = 1; // Show every label
+            area.AxisX.IsLabelAutoFit = false;
 
             // Configure Y axis
             area.AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
@@ -135,7 +182,8 @@ namespace WinFormsApp1
             area.AxisY.LineColor = Color.White;
             area.AxisY.Title = "Score (%)";
             area.AxisY.TitleForeColor = Color.White;
-            area.AxisY.Minimum = 50; // Set minimum to 50 to better visualize differences
+            area.AxisY.Minimum = 0; // Set minimum to 0
+            area.AxisY.Maximum = 100; // Set maximum to 100
 
             // Set background colors
             area.BackColor = Color.FromArgb(45, 45, 48);
@@ -143,33 +191,138 @@ namespace WinFormsApp1
             chartProgress.ChartAreas.Add(area);
         }
 
-        private void CreateMockData()
+        // Method to parse the datetime string properly
+        private DateTime ParseTestDate(string dateString)
         {
+            try
+            {
+                // Handle the format: 2025-05-21 14:33:29.1089522
+                if (DateTime.TryParse(dateString, out DateTime result))
+                {
+                    return result;
+                }
+
+                // Alternative parsing if the above fails
+                string[] formats = {
+                    "yyyy-MM-dd HH:mm:ss.fffffff",
+                    "yyyy-MM-dd HH:mm:ss.ffffff",
+                    "yyyy-MM-dd HH:mm:ss.fffff",
+                    "yyyy-MM-dd HH:mm:ss.ffff",
+                    "yyyy-MM-dd HH:mm:ss.fff",
+                    "yyyy-MM-dd HH:mm:ss.ff",
+                    "yyyy-MM-dd HH:mm:ss.f",
+                    "yyyy-MM-dd HH:mm:ss",
+                    "yyyy-MM-dd"
+                };
+
+                foreach (string format in formats)
+                {
+                    if (DateTime.TryParseExact(dateString, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
+                    {
+                        return result;
+                    }
+                }
+
+                // If all parsing fails, return current date
+                return DateTime.Now;
+            }
+            catch
+            {
+                return DateTime.Now;
+            }
+        }
+
+        // Method to get actual student results from the database
+        private void LoadStudentResults()
+        {
+            // Create our table structure
             scoreTable = new DataTable();
             scoreTable.Columns.Add("Date", typeof(DateTime));
             scoreTable.Columns.Add("Subject", typeof(string));
             scoreTable.Columns.Add("Score", typeof(double));
-            scoreTable.Columns.Add("Comments", typeof(string));
 
-            // Add more varied dates and scores
-            scoreTable.Rows.Add(new DateTime(2023, 10, 12), "Math Midterm", 91.5, "Strong performance in algebra");
-            scoreTable.Rows.Add(new DateTime(2023, 11, 18), "Physics Lab", 87.2, "Good lab work, needs improvement in theory");
-            scoreTable.Rows.Add(new DateTime(2023, 12, 5), "Physics Final", 82.8, "Struggled with quantum concepts");
-            scoreTable.Rows.Add(new DateTime(2024, 1, 22), "English Essay", 88.0, "Well-structured arguments");
-            scoreTable.Rows.Add(new DateTime(2024, 2, 18), "Chemistry Midterm", 93.5, "Excellent understanding of organic chemistry");
-            scoreTable.Rows.Add(new DateTime(2024, 3, 10), "Math Final", 89.7, "Good progress from midterm");
-            scoreTable.Rows.Add(new DateTime(2024, 4, 1), "English Final", 79.3, "Grammar issues affected score");
-            scoreTable.Rows.Add(new DateTime(2024, 5, 15), "Programming Project", 95.0, "Outstanding project implementation");
-            scoreTable.Rows.Add(new DateTime(2024, 6, 23), "History Research", 84.5, "Good research but lacking depth in analysis");
-            scoreTable.Rows.Add(new DateTime(2024, 7, 8), "Statistics Quiz", 77.0, "Needs improvement in probability concepts");
-            scoreTable.Rows.Add(new DateTime(2024, 8, 20), "Art Project", 92.0, "Creative and well-executed");
-            scoreTable.Rows.Add(new DateTime(2024, 9, 14), "Biology Midterm", 90.2, "Strong understanding of cellular processes");
-            scoreTable.Rows.Add(new DateTime(2024, 10, 5), "Chemistry Final", 86.8, "Good theoretical knowledge");
-            scoreTable.Rows.Add(new DateTime(2024, 11, 27), "Computer Science Project", 96.5, "Exceptional coding skills");
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                // We need to join with a Tests table, but since it doesn't exist,
+                // we'll use TestId as subject name with a prefix
+                string query = @"
+                    SELECT 
+                        TestId,
+                        Score, 
+                        TotalQuestions,
+                        Grade,
+                        TestDate
+                    FROM 
+                        StudentResults 
+                    WHERE 
+                        StudentId = @StudentId
+                    ORDER BY 
+                        TestDate ASC";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@StudentId", studentId);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Parse the test date properly
+                            DateTime testDate = ParseTestDate(reader["TestDate"].ToString());
+
+                            int testId = Convert.ToInt32(reader["TestId"]);
+                            double score = Convert.ToDouble(reader["Score"]);
+                            int totalQuestions = Convert.ToInt32(reader["TotalQuestions"]);
+                            double grade = Convert.ToDouble(reader["Grade"]);
+
+                            // Calculate percentage score
+                            double percentScore = totalQuestions > 0 ? (score / totalQuestions) * 100 : grade;
+
+                            // Create a subject name from TestId (since there's no Tests table)
+                            string subject = DetermineSubjectFromTestId(testId);
+
+                            // Add to our table
+                            scoreTable.Rows.Add(testDate, subject, percentScore);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Helper method to determine subject from test ID
+        private string DetermineSubjectFromTestId(int testId)
+        {
+            // In a real application, you would have a Tests table to get the actual subject
+            // Since we don't have that table, we'll create generic subjects based on the test ID
+
+            // Using modulus to cycle through different subjects
+            switch (testId % 6)
+            {
+                case 0:
+                    return $"Math Test {testId}";
+                case 1:
+                    return $"Physics Test {testId}";
+                case 2:
+                    return $"English Test {testId}";
+                case 3:
+                    return $"Chemistry Test {testId}";
+                case 4:
+                    return $"Biology Test {testId}";
+                case 5:
+                    return $"Computer Science Test {testId}";
+                default:
+                    return $"Test {testId}";
+            }
         }
 
         private void RefreshData()
         {
+            // Get real data from the database
+            LoadStudentResults();
+
+            // Get filtered data based on selected time period
             DataTable filteredData = GetFilteredData();
 
             // Bind to grid
@@ -194,7 +347,7 @@ namespace WinFormsApp1
             // Format Date column
             if (dgvHistory.Columns.Contains("Date"))
             {
-                dgvHistory.Columns["Date"].DefaultCellStyle.Format = "yyyy-MM-dd";
+                dgvHistory.Columns["Date"].DefaultCellStyle.Format = "yyyy-MM-dd HH:mm";
             }
 
             // Format Score column
@@ -259,11 +412,11 @@ namespace WinFormsApp1
             // Clear existing series
             chartProgress.Series.Clear();
 
-            // Create series for scores
+            // Create series for scores with equal spacing
             var scoresSeries = new Series("Scores")
             {
                 ChartType = SeriesChartType.SplineArea,
-                XValueType = ChartValueType.DateTime,
+                XValueType = ChartValueType.String, // Changed to String for equal spacing
                 MarkerStyle = MarkerStyle.Circle,
                 MarkerSize = 8,
                 MarkerColor = Color.White,
@@ -273,90 +426,119 @@ namespace WinFormsApp1
                 BorderWidth = 2
             };
 
-            // Create series for trend line
-            var trendSeries = new Series("TrendLine")
+            // Create series for average trend line
+            var averageTrendSeries = new Series("AverageTrend")
             {
                 ChartType = SeriesChartType.Line,
-                XValueType = ChartValueType.DateTime,
+                XValueType = ChartValueType.String,
                 Color = Color.FromArgb(255, 193, 7),
-                BorderWidth = 3
+                BorderWidth = 3,
+                BorderDashStyle = ChartDashStyle.Dash
             };
 
-            // Add points using real DateTime and calculate trendline points
-            List<double> xValues = new List<double>();
+            // Add points using ordinal values for equal spacing
             List<double> yValues = new List<double>();
+            List<string> dateLabels = new List<string>();
+            int pointIndex = 0;
 
             foreach (DataRow row in sortedData.Rows)
             {
                 var dt = (DateTime)row["Date"];
                 var score = Convert.ToDouble(row["Score"]);
 
-                scoresSeries.Points.AddXY(dt, score);
+                // Create a formatted date label
+                string dateLabel = dt.ToString("MM/dd");
+                dateLabels.Add(dateLabel);
 
-                // Store values for trendline calculation
-                xValues.Add(dt.ToOADate());
+                // Use ordinal index for X value to ensure equal spacing
+                scoresSeries.Points.AddXY(pointIndex, score);
+                scoresSeries.Points[pointIndex].AxisLabel = dateLabel;
+
                 yValues.Add(score);
+                pointIndex++;
             }
 
-            // Calculate and add trendline if we have enough data points
-            if (sortedData.Rows.Count >= 2)
+            // Calculate and add average trend line
+            if (sortedData.Rows.Count >= 1)
             {
-                CalculateAndAddTrendLine(xValues, yValues, trendSeries);
+                AddAverageTrendLine(yValues, averageTrendSeries, sortedData.Rows.Count);
             }
 
             // Add series
             chartProgress.Series.Add(scoresSeries);
-            chartProgress.Series.Add(trendSeries);
-
-            // Set legend
-            chartProgress.Legends[0].BackColor = Color.FromArgb(45, 45, 48);
-            chartProgress.Legends[0].ForeColor = Color.White;
-            chartProgress.Legends[0].Title = "Legend";
-            chartProgress.Series[0].LegendText = "Individual Scores";
-            chartProgress.Series[1].LegendText = "Average Trend";
-        }
-
-        private void CalculateAndAddTrendLine(List<double> xValues, List<double> yValues, Series trendSeries)
-        {
-            if (xValues.Count < 2) return;
-
-            // Calculate linear regression for trendline
-            double sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
-            int n = xValues.Count;
-
-            for (int i = 0; i < n; i++)
+            if (averageTrendSeries.Points.Count > 0)
             {
-                sumX += xValues[i];
-                sumY += yValues[i];
-                sumXY += xValues[i] * yValues[i];
-                sumX2 += xValues[i] * xValues[i];
+                chartProgress.Series.Add(averageTrendSeries);
             }
 
-            double xMean = sumX / n;
-            double yMean = sumY / n;
+            // Configure the chart area for better label display
+            var chartArea = chartProgress.ChartAreas[0];
 
-            double slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
-            double intercept = yMean - slope * xMean;
+            // Set X-axis properties for equal spacing
+            chartArea.AxisX.Interval = 1;
+            chartArea.AxisX.IntervalType = DateTimeIntervalType.Number;
+            chartArea.AxisX.LabelStyle.Angle = -45;
+            chartArea.AxisX.IsLabelAutoFit = true;
+            chartArea.AxisX.LabelAutoFitMaxFontSize = 10;
 
-            // Add trendline points
-            double startX = xValues.Min();
-            double endX = xValues.Max();
-
-            // Calculate Y values for trendline
-            double startY = slope * startX + intercept;
-            double endY = slope * endX + intercept;
-
-            // Add points to trendline series
-            trendSeries.Points.AddXY(DateTime.FromOADate(startX), startY);
-            trendSeries.Points.AddXY(DateTime.FromOADate(endX), endY);
-
-            // Calculate recent trend (last 2 data points if available)
-            if (n >= 2)
+            // Adjust margins if there are many points
+            if (sortedData.Rows.Count > 10)
             {
-                double recentSlope = (yValues[n - 1] - yValues[n - 2]) / (xValues[n - 1] - xValues[n - 2]);
-                double recentPercent = recentSlope * 30; // Scale for better visualization
+                chartArea.AxisX.LabelStyle.Angle = -90;
+                chartArea.AxisX.IntervalOffset = 0;
 
-                UpdateRecentTrend(recentPercent);
+                // Show every nth label if there are too many points
+                int labelInterval = Math.Max(1, sortedData.Rows.Count / 10);
+                chartArea.AxisX.Interval = labelInterval;
+            }
+
+            // Set legend
+            if (chartProgress.Legends.Count > 0)
+            {
+                chartProgress.Legends[0].BackColor = Color.FromArgb(45, 45, 48);
+                chartProgress.Legends[0].ForeColor = Color.White;
+                chartProgress.Legends[0].Title = "Legend";
+                chartProgress.Series[0].LegendText = "Individual Scores";
+                if (chartProgress.Series.Count > 1)
+                {
+                    chartProgress.Series[1].LegendText = "Average Trend";
+                }
+            }
+        }
+
+        private void AddAverageTrendLine(List<double> yValues, Series averageTrendSeries, int dataPointCount)
+        {
+            if (yValues.Count < 1) return;
+
+            // Calculate the overall average score
+            double averageScore = yValues.Average();
+
+            // Add horizontal line representing the average across all data points
+            averageTrendSeries.Points.AddXY(0, averageScore);
+            averageTrendSeries.Points.AddXY(dataPointCount - 1, averageScore);
+
+            // Calculate trend based on comparing recent performance to overall average
+            double recentTrendPercentage = CalculateRecentTrendFromAverage(yValues, averageScore);
+            UpdateRecentTrend(recentTrendPercentage);
+        }
+
+        private double CalculateRecentTrendFromAverage(List<double> yValues, double overallAverage)
+        {
+            if (yValues.Count < 2) return 0;
+
+            // Take the last 3 scores or half of all scores, whichever is smaller
+            int recentCount = Math.Min(3, Math.Max(1, yValues.Count / 2));
+            var recentScores = yValues.Skip(yValues.Count - recentCount).ToList();
+            double recentAverage = recentScores.Average();
+
+            // Calculate percentage difference from overall average
+            if (overallAverage > 0)
+            {
+                return ((recentAverage - overallAverage) / overallAverage) * 100;
+            }
+            else
+            {
+                return recentAverage - overallAverage; // Simple difference if overall average is 0
             }
         }
 
@@ -394,6 +576,10 @@ namespace WinFormsApp1
 
         private void UpdateRecentTrend(double trendPercentage)
         {
+            // Cap extreme values to avoid overwhelming UI
+            if (trendPercentage > 50) trendPercentage = 50;
+            if (trendPercentage < -50) trendPercentage = -50;
+
             string trendSymbol = trendPercentage > 0 ? "↑" : (trendPercentage < 0 ? "↓" : "→");
 
             // Update recent trend label
