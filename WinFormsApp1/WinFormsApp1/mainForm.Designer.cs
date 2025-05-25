@@ -3,13 +3,11 @@
     partial class mainForm
     {
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.Label lblWelcome;
         private System.Windows.Forms.Panel pnlStats;
         private System.Windows.Forms.Label lblActiveTests;
         private System.Windows.Forms.Label lblAvgScore;
         private System.Windows.Forms.Button btnTakeTest;
         private System.Windows.Forms.Button btnGrades;
-        private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button btnLogout;
 
         protected override void Dispose(bool disposing)
@@ -24,27 +22,15 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
-            lblWelcome = new Label();
             pnlStats = new Panel();
             lblActiveTests = new Label();
             lblAvgScore = new Label();
             btnTakeTest = new Button();
             btnGrades = new Button();
-            btnSettings = new Button();
             btnLogout = new Button();
+            lblWelcome = new Label();
             pnlStats.SuspendLayout();
             SuspendLayout();
-            // 
-            // lblWelcome
-            // 
-            lblWelcome.AutoSize = true;
-            lblWelcome.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            lblWelcome.ForeColor = Color.Black;
-            lblWelcome.Location = new Point(280, 20);
-            lblWelcome.Name = "lblWelcome";
-            lblWelcome.Size = new Size(235, 41);
-            lblWelcome.TabIndex = 0;
-            lblWelcome.Text = "Welcome, LizVa";
             // 
             // pnlStats
             // 
@@ -109,21 +95,6 @@
             btnGrades.UseVisualStyleBackColor = false;
             btnGrades.Click += btnGrades_Click;
             // 
-            // btnSettings
-            // 
-            btnSettings.BackColor = Color.SteelBlue;
-            btnSettings.FlatStyle = FlatStyle.Flat;
-            btnSettings.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnSettings.ForeColor = Color.White;
-            btnSettings.Image = (Image)resources.GetObject("btnSettings.Image");
-            btnSettings.ImageAlign = ContentAlignment.MiddleLeft;
-            btnSettings.Location = new Point(12, 12);
-            btnSettings.Name = "btnSettings";
-            btnSettings.Size = new Size(154, 40);
-            btnSettings.TabIndex = 6;
-            btnSettings.Text = "Settings";
-            btnSettings.UseVisualStyleBackColor = false;
-            // 
             // btnLogout
             // 
             btnLogout.BackColor = Color.SteelBlue;
@@ -138,18 +109,30 @@
             btnLogout.TabIndex = 7;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
+            // 
+            // lblWelcome
+            // 
+            lblWelcome.AutoSize = true;
+            lblWelcome.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            lblWelcome.ForeColor = Color.Black;
+            lblWelcome.Location = new Point(280, 20);
+            lblWelcome.Name = "lblWelcome";
+            lblWelcome.Size = new Size(284, 41);
+            lblWelcome.TabIndex = 0;
+            lblWelcome.Text = "Welcome, Student!";
             // 
             // mainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
+            BackgroundImage = Properties.Resources.bgMain;
             ClientSize = new Size(800, 500);
             Controls.Add(lblWelcome);
             Controls.Add(pnlStats);
             Controls.Add(btnTakeTest);
             Controls.Add(btnGrades);
-            Controls.Add(btnSettings);
             Controls.Add(btnLogout);
             Name = "mainForm";
             Text = "Main Dashboard";
@@ -163,5 +146,7 @@
 
 
         #endregion
+
+        private Label lblWelcome;
     }
 }

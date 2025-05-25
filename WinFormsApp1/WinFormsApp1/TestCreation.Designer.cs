@@ -53,6 +53,7 @@
             btnDeleteTest = new Button();
             btnViewDetails = new Button();
             lstSelectedQuestions = new ListBox();
+            backToMainbtn = new Button();
             grpTestSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numQuestions).BeginInit();
             grpCreatedTests.SuspendLayout();
@@ -60,6 +61,7 @@
             // 
             // lblTitle
             // 
+            lblTitle.BackColor = Color.LightSkyBlue;
             lblTitle.Dock = DockStyle.Top;
             lblTitle.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             lblTitle.Location = new Point(0, 0);
@@ -71,6 +73,7 @@
             // 
             // grpTestSettings
             // 
+            grpTestSettings.BackColor = Color.SkyBlue;
             grpTestSettings.Controls.Add(numQuestions);
             grpTestSettings.Controls.Add(chkTopics);
             grpTestSettings.Controls.Add(chkDifficulty);
@@ -129,6 +132,7 @@
             btnClear.Text = "Clear";
             btnClear.UseVisualStyleBackColor = true;
             btnClear.Click += BtnClear_Click;
+            // 
             // btnAddQuestion
             // 
             btnAddQuestion.Location = new Point(150, 200);
@@ -141,6 +145,7 @@
             // 
             // grpCreatedTests
             // 
+            grpCreatedTests.BackColor = Color.SkyBlue;
             grpCreatedTests.Controls.Add(lvTests);
             grpCreatedTests.Controls.Add(btnDeleteTest);
             grpCreatedTests.Controls.Add(btnViewDetails);
@@ -205,16 +210,30 @@
             // 
             // lstSelectedQuestions
             // 
+            lstSelectedQuestions.BackColor = Color.LightSkyBlue;
             lstSelectedQuestions.FormattingEnabled = true;
             lstSelectedQuestions.Location = new Point(30, 450);
             lstSelectedQuestions.Name = "lstSelectedQuestions";
             lstSelectedQuestions.Size = new Size(920, 64);
             lstSelectedQuestions.TabIndex = 3;
             // 
+            // backToMainbtn
+            // 
+            backToMainbtn.ForeColor = Color.Black;
+            backToMainbtn.Location = new Point(834, 528);
+            backToMainbtn.Name = "backToMainbtn";
+            backToMainbtn.Size = new Size(120, 40);
+            backToMainbtn.TabIndex = 6;
+            backToMainbtn.Text = "Back to main";
+            backToMainbtn.UseVisualStyleBackColor = true;
+            backToMainbtn.Click += btnBackToMain_Click;
+            // 
             // TestCreation
             // 
             BackColor = Color.White;
+            BackgroundImage = Properties.Resources.bgCreateTest;
             ClientSize = new Size(999, 580);
+            Controls.Add(backToMainbtn);
             Controls.Add(lblTitle);
             Controls.Add(grpTestSettings);
             Controls.Add(grpCreatedTests);
@@ -229,5 +248,7 @@
         }
 
        
+
+        private Button backToMainbtn;
     }
 }

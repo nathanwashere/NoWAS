@@ -10,7 +10,6 @@
         private System.Windows.Forms.Label lblAvgScore;
         private System.Windows.Forms.Button btnCreateTest;
         private System.Windows.Forms.Button btnCheckSubmissions;
-        private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button btnLogout;
 
         protected override void Dispose(bool disposing)
@@ -30,7 +29,6 @@
             lblAvgScore = new Label();
             btnCreateTest = new Button();
             btnCheckSubmissions = new Button();
-            btnSettings = new Button();
             btnLogout = new Button();
             button1 = new Button();
             pnlStats.SuspendLayout();
@@ -98,26 +96,13 @@
             btnCheckSubmissions.FlatStyle = FlatStyle.Flat;
             btnCheckSubmissions.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnCheckSubmissions.ForeColor = Color.White;
-            btnCheckSubmissions.Location = new Point(280, 252);
+            btnCheckSubmissions.Location = new Point(280, 235);
             btnCheckSubmissions.Name = "btnCheckSubmissions";
             btnCheckSubmissions.Size = new Size(200, 50);
             btnCheckSubmissions.TabIndex = 3;
             btnCheckSubmissions.Text = "Create Questions";
             btnCheckSubmissions.UseVisualStyleBackColor = false;
             btnCheckSubmissions.Click += btnCheckSubmissions_Click;
-            // 
-            // btnSettings
-            // 
-            btnSettings.BackColor = Color.SteelBlue;
-            btnSettings.FlatStyle = FlatStyle.Flat;
-            btnSettings.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnSettings.ForeColor = Color.White;
-            btnSettings.Location = new Point(12, 12);
-            btnSettings.Name = "btnSettings";
-            btnSettings.Size = new Size(154, 40);
-            btnSettings.TabIndex = 6;
-            btnSettings.Text = "Settings";
-            btnSettings.UseVisualStyleBackColor = false;
             // 
             // btnLogout
             // 
@@ -131,6 +116,7 @@
             btnLogout.TabIndex = 7;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
             // 
             // button1
             // 
@@ -138,7 +124,7 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(280, 341);
+            button1.Location = new Point(280, 305);
             button1.Name = "button1";
             button1.Size = new Size(200, 50);
             button1.TabIndex = 8;
@@ -151,13 +137,13 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
+            BackgroundImage = Properties.Resources.bgMain;
             ClientSize = new Size(800, 500);
             Controls.Add(button1);
             Controls.Add(lblWelcome);
             Controls.Add(pnlStats);
             Controls.Add(btnCreateTest);
             Controls.Add(btnCheckSubmissions);
-            Controls.Add(btnSettings);
             Controls.Add(btnLogout);
             Name = "mainTeacher";
             Text = "Teacher Dashboard";
@@ -166,6 +152,11 @@
             pnlStats.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
+        }
+
+        private void DeleteQuestionsbtn_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

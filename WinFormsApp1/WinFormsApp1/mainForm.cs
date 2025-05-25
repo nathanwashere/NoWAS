@@ -20,7 +20,7 @@ namespace WinFormsApp1
             SetupButton(btnTakeTest, "Take Test", new Point(150, 180));
             SetupButton(btnGrades, "My Grades", new Point(400, 180));
         
-            SetupButton(btnSettings, "Settings", new Point(200, 340), small: true);
+           
             SetupButton(btnLogout, "Logout", new Point(380, 340), small: true);
         }
 
@@ -55,6 +55,13 @@ namespace WinFormsApp1
             TestSelectionForm selector = new TestSelectionForm();
             selector.Show();
             
+        }
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            Login_Signup loginForm = new Login_Signup();
+            loginForm.Show();
+            isCLosing = true;
+            this.Close();
         }
     }
 }

@@ -13,29 +13,30 @@ namespace WinFormsApp1
     public partial class Login_Signup : Form
     {
         private System.Windows.Forms.Timer slideTimer;
-        private int slideSpeed = 20;
+        private int slideSpeed = 50;
         private int targetLeftLogin;
         private int targetLeftSignup;
         private bool showingSignup = false;
 
+        private Image loginBackground;
+        private Image signupBackground;
+
         public Login_Signup()
         {
             InitializeComponent();
-
-            // Enable double buffering to prevent flickering
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
             this.UpdateStyles();
         }
 
+
         private void Login_Signup_Load(object sender, EventArgs e)
         {
-            // Initial panel positions
             panelLogin.Left = 0;
             panelSignup.Left = panelLogin.Width;
 
             slideTimer = new System.Windows.Forms.Timer();
-            slideTimer.Interval = 10;
+            slideTimer.Interval = 1;
             slideTimer.Tick += SlideTimer_Tick;
 
             rbStudent.Checked = true;
@@ -51,8 +52,14 @@ namespace WinFormsApp1
             showingSignup = true;
             targetLeftLogin = -panelLogin.Width;
             targetLeftSignup = 0;
+
+            loginBackground = panelLogin.BackgroundImage;
+            signupBackground = panelSignup.BackgroundImage;
+            panelLogin.BackgroundImage = null;
+            panelSignup.BackgroundImage = null;
+
             slideTimer.Start();
-            clearInputs();
+           
         }
 
         private void buttonSignupToLogin_Click(object sender, EventArgs e)
@@ -60,8 +67,14 @@ namespace WinFormsApp1
             showingSignup = false;
             targetLeftLogin = 0;
             targetLeftSignup = panelLogin.Width;
+
+            loginBackground = panelLogin.BackgroundImage;
+            signupBackground = panelSignup.BackgroundImage;
+            panelLogin.BackgroundImage = null;
+            panelSignup.BackgroundImage = null;
+
             slideTimer.Start();
-            clearInputs();
+          
         }
 
         private void SlideTimer_Tick(object sender, EventArgs e)
@@ -70,43 +83,40 @@ namespace WinFormsApp1
 
             if (panelLogin.Left != targetLeftLogin)
             {
-                int delta = Math.Sign(targetLeftLogin - panelLogin.Left) * slideSpeed;
+                int distance = targetLeftLogin - panelLogin.Left;
+                int delta = Math.Min(slideSpeed, Math.Abs(distance)) * Math.Sign(distance);
                 panelLogin.Left += delta;
-
-                if (Math.Abs(panelLogin.Left - targetLeftLogin) < slideSpeed)
-                    panelLogin.Left = targetLeftLogin;
-
                 done = false;
             }
 
             if (panelSignup.Left != targetLeftSignup)
             {
-                int delta = Math.Sign(targetLeftSignup - panelSignup.Left) * slideSpeed;
+                int distance = targetLeftSignup - panelSignup.Left;
+                int delta = Math.Min(slideSpeed, Math.Abs(distance)) * Math.Sign(distance);
                 panelSignup.Left += delta;
-
-                if (Math.Abs(panelSignup.Left - targetLeftSignup) < slideSpeed)
-                    panelSignup.Left = targetLeftSignup;
-
                 done = false;
             }
 
             if (done)
+            {
+                panelLogin.BackgroundImage = loginBackground;
+                panelSignup.BackgroundImage = signupBackground;
                 slideTimer.Stop();
+            }
         }
 
         private void RoundButtonCorners(Button btn, int radius)
         {
             Rectangle bounds = new Rectangle(0, 0, btn.Width, btn.Height);
             GraphicsPath path = new GraphicsPath();
-
             path.AddArc(bounds.X, bounds.Y, radius, radius, 180, 90);
             path.AddArc(bounds.Right - radius, bounds.Y, radius, radius, 270, 90);
             path.AddArc(bounds.Right - radius, bounds.Bottom - radius, radius, radius, 0, 90);
             path.AddArc(bounds.X, bounds.Bottom - radius, radius, radius, 90, 90);
             path.CloseAllFigures();
-
             btn.Region = new Region(path);
         }
+
 
         private void buttonSignupEnter_Click(object sender, EventArgs e)
         {
@@ -115,15 +125,16 @@ namespace WinFormsApp1
             string taz = textBoxSignupID.Text;
             string mail = textBoxSignupMail.Text;
             signUp(userName, password, taz, mail);
-            clearInputs();
+         
         }
+
 
         private void buttonLoginEnter_Click(object sender, EventArgs e)
         {
             string userName = textBoxLoginUsername.Text;
             string password = textBoxLoginPassword.Text;
             logIn(userName, password);
-            clearInputs();
+         
         }
 
         private void clearInputs()
@@ -141,7 +152,6 @@ namespace WinFormsApp1
             string id = textBoxSignupID.Text;
             string mail = textBoxSignupMail.Text;
 
-            // 1) לא להשאיר שדות ריקים
             if (string.IsNullOrEmpty(username) ||
                 string.IsNullOrEmpty(password) ||
                 string.IsNullOrEmpty(id) ||
@@ -151,7 +161,6 @@ namespace WinFormsApp1
                 return false;
             }
 
-            // 2) Username: 5–9 תווים, עד 2 ספרות, שאר – אותיות A–Z/a–z
             if (username.Length < 5 || username.Length > 9)
             {
                 MessageBox.Show("Username must be between 5 and 9 characters long.");
@@ -167,7 +176,6 @@ namespace WinFormsApp1
                 return false;
             }
 
-            // 3) Password: 8–10 תווים, לפחות אות אנגלית, ספרה ו-תו מיוחד
             if (password.Length < 8 || password.Length > 10)
             {
                 MessageBox.Show("Password must be between 8 and 10 characters long.");
@@ -175,22 +183,19 @@ namespace WinFormsApp1
             }
             bool hasLetter = password.Any(IsEnglishLetter);
             bool hasDigit = password.Any(char.IsDigit);
-            bool hasSpecial = password.Any(c => "!@#$%^&*()-_=+[]{};:'\",.<>?/\\|".Contains(c));
+            bool hasSpecial = password.Any(c => "!@#$%^&*()-_=+[]{};:'\".,.<>?/|".Contains(c));
             if (!hasLetter || !hasDigit || !hasSpecial)
             {
                 MessageBox.Show("Password must contain at least one English letter, one digit, and one special character (!@#$%^&*...).");
                 return false;
             }
 
-            // 4) ID: בדיוק 9 ספרות
             if (id.Length != 9 || !id.All(char.IsDigit))
             {
                 MessageBox.Show("ID must be exactly 9 digits.");
                 return false;
             }
 
-            // 5) Mail: בדיקת תבנית בסיסית של email
-            //    פה regex פשוט – אם צריך קפדנות גדולה יותר, ניתן להחליף בפטרן מורכב יותר
             var emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             if (!Regex.IsMatch(mail, emailPattern))
             {
@@ -203,7 +208,6 @@ namespace WinFormsApp1
 
         private void signUp(string userName, string password, string taz, string mail)
         {
-            // 1) Validate all inputs first (username, password, taz, mail)
             if (!checkInputsSignUp())
                 return;
 
@@ -215,7 +219,6 @@ namespace WinFormsApp1
                 var worksheet = result.Item2;
                 int lastRow = worksheet.LastRowUsed()?.RowNumber() ?? 1;
 
-                // 2) Username uniqueness (Excel + DB)
                 if (userNameExistsExcel(worksheet, userName) &&
                     userNameExistsDataBase(userName))
                 {
@@ -223,26 +226,22 @@ namespace WinFormsApp1
                     return;
                 }
 
-                // 3) TAZ (ID) uniqueness in DB
                 if (tazExistsDataBase(taz))
                 {
                     MessageBox.Show("ID (taz) already exists");
                     return;
                 }
 
-                // 4) E-mail uniqueness in DB
                 if (mailExistsDataBase(mail))
                 {
                     MessageBox.Show("E-mail already exists");
                     return;
                 }
 
-                // 5) All clear — write to Excel
                 worksheet.Cell(lastRow + 1, 1).Value = userName;
                 worksheet.Cell(lastRow + 1, 2).Value = password;
                 workbook.SaveAs("Info.xlsx");
 
-                // 6) And add to SQLite (including taz & mail)
                 addUserToDataBase(
                     userName,
                     rbStudent.Checked ? "Student" : "Professor",
@@ -261,7 +260,6 @@ namespace WinFormsApp1
                 workbook?.Dispose();
             }
         }
-
 
         private void logIn(string userName, string password)
         {
@@ -364,9 +362,9 @@ namespace WinFormsApp1
                 if (conn == null) return;
 
                 string query = @"
-            INSERT INTO Person (userName, type, taz, mail)
-            VALUES (@userName, @type, @taz, @mail);
-        ";
+                    INSERT INTO Person (userName, type, taz, mail)
+                    VALUES (@userName, @type, @taz, @mail);
+                ";
 
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
@@ -374,7 +372,6 @@ namespace WinFormsApp1
                     cmd.Parameters.AddWithValue("@type", type);
                     cmd.Parameters.AddWithValue("@taz", taz);
                     cmd.Parameters.AddWithValue("@mail", mail);
-
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -467,7 +464,8 @@ namespace WinFormsApp1
                     return count > 0;
                 }
             }
-
         }
+
+        
     }
 }

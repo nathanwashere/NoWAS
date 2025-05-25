@@ -330,7 +330,11 @@ namespace WinFormsApp1
 
             return list;
         }
-
+        private void btnBackToMain_Click(object sender, EventArgs e)
+        {
+            mainTeacher mainTeacher = new mainTeacher();
+            mainTeacher.Show();
+        }
 
     }
 }

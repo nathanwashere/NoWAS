@@ -30,17 +30,20 @@
             // 
             // panelQuestion
             // 
-            panelQuestion.Location = new Point(-4, -2);
+            panelQuestion.BackgroundImage = Properties.Resources.bgTestTake;
+            panelQuestion.Location = new Point(-3, -2);
+            panelQuestion.Margin = new Padding(2, 2, 2, 2);
             panelQuestion.Name = "panelQuestion";
-            panelQuestion.Size = new Size(809, 382);
+            panelQuestion.Size = new Size(647, 306);
             panelQuestion.TabIndex = 0;
             panelQuestion.Paint += panelQuestion_Paint;
             // 
             // btnNext
             // 
-            btnNext.Location = new Point(322, 404);
+            btnNext.Location = new Point(258, 323);
+            btnNext.Margin = new Padding(2, 2, 2, 2);
             btnNext.Name = "btnNext";
-            btnNext.Size = new Size(170, 34);
+            btnNext.Size = new Size(136, 27);
             btnNext.TabIndex = 1;
             btnNext.Text = "Next Question";
             btnNext.UseVisualStyleBackColor = true;
@@ -48,9 +51,10 @@
             // 
             // btnPrevious
             // 
-            btnPrevious.Location = new Point(68, 404);
+            btnPrevious.Location = new Point(54, 323);
+            btnPrevious.Margin = new Padding(2, 2, 2, 2);
             btnPrevious.Name = "btnPrevious";
-            btnPrevious.Size = new Size(170, 34);
+            btnPrevious.Size = new Size(136, 27);
             btnPrevious.TabIndex = 2;
             btnPrevious.Text = "Previous Question";
             btnPrevious.UseVisualStyleBackColor = true;
@@ -58,9 +62,10 @@
             // 
             // btnFinish
             // 
-            btnFinish.Location = new Point(570, 404);
+            btnFinish.Location = new Point(456, 323);
+            btnFinish.Margin = new Padding(2, 2, 2, 2);
             btnFinish.Name = "btnFinish";
-            btnFinish.Size = new Size(170, 34);
+            btnFinish.Size = new Size(136, 27);
             btnFinish.TabIndex = 3;
             btnFinish.Text = "Finish Test";
             btnFinish.UseVisualStyleBackColor = true;
@@ -68,13 +73,15 @@
             // 
             // StudentTestForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            BackColor = Color.LightSkyBlue;
+            ClientSize = new Size(640, 360);
             Controls.Add(btnFinish);
             Controls.Add(btnPrevious);
             Controls.Add(btnNext);
             Controls.Add(panelQuestion);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "StudentTestForm";
             Text = "StudentTestForm";
             Load += StudentTestForm_Load;

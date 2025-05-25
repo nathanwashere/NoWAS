@@ -40,5 +40,13 @@ namespace WinFormsApp1
             StudentStatisticsForm studentStatisticsForm = new StudentStatisticsForm();
             studentStatisticsForm.Show();
         }
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            Login_Signup loginForm = new Login_Signup();
+            loginForm.Show();
+            isCLosing = true;
+            this.Close();
+        }
+        
     }
 }
