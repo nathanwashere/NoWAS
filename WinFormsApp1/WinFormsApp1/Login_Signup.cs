@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using ClosedXML.Excel;
 
@@ -111,7 +112,9 @@ namespace WinFormsApp1
         {
             string userName = textBoxSignupUsername.Text;
             string password = textBoxSignupPassword.Text;
-            signUp(userName, password);
+            string taz = textBoxSignupID.Text;
+            string mail = textBoxSignupMail.Text;
+            signUp(userName, password, taz, mail);
             clearInputs();
         }
 
@@ -131,30 +134,123 @@ namespace WinFormsApp1
             textBoxSignupPassword.Text = "";
         }
 
-        private void signUp(string userName, string password)
+        private bool checkInputsSignUp()
         {
+            string username = textBoxSignupUsername.Text;
+            string password = textBoxSignupPassword.Text;
+            string id = textBoxSignupID.Text;
+            string mail = textBoxSignupMail.Text;
+
+            // 1) לא להשאיר שדות ריקים
+            if (string.IsNullOrEmpty(username) ||
+                string.IsNullOrEmpty(password) ||
+                string.IsNullOrEmpty(id) ||
+                string.IsNullOrEmpty(mail))
+            {
+                MessageBox.Show("Please fill in Username, Password, ID and E-mail.");
+                return false;
+            }
+
+            // 2) Username: 5–9 תווים, עד 2 ספרות, שאר – אותיות A–Z/a–z
+            if (username.Length < 5 || username.Length > 9)
+            {
+                MessageBox.Show("Username must be between 5 and 9 characters long.");
+                return false;
+            }
+            bool IsEnglishLetter(char c) => (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+            int digitCount = username.Count(char.IsDigit);
+            int letterCount = username.Count(IsEnglishLetter);
+            bool allValid = username.All(c => char.IsDigit(c) || IsEnglishLetter(c));
+            if (!allValid || digitCount > 2 || letterCount != username.Length - digitCount)
+            {
+                MessageBox.Show("Username must contain only English letters and up to 2 digits.");
+                return false;
+            }
+
+            // 3) Password: 8–10 תווים, לפחות אות אנגלית, ספרה ו-תו מיוחד
+            if (password.Length < 8 || password.Length > 10)
+            {
+                MessageBox.Show("Password must be between 8 and 10 characters long.");
+                return false;
+            }
+            bool hasLetter = password.Any(IsEnglishLetter);
+            bool hasDigit = password.Any(char.IsDigit);
+            bool hasSpecial = password.Any(c => "!@#$%^&*()-_=+[]{};:'\",.<>?/\\|".Contains(c));
+            if (!hasLetter || !hasDigit || !hasSpecial)
+            {
+                MessageBox.Show("Password must contain at least one English letter, one digit, and one special character (!@#$%^&*...).");
+                return false;
+            }
+
+            // 4) ID: בדיוק 9 ספרות
+            if (id.Length != 9 || !id.All(char.IsDigit))
+            {
+                MessageBox.Show("ID must be exactly 9 digits.");
+                return false;
+            }
+
+            // 5) Mail: בדיקת תבנית בסיסית של email
+            //    פה regex פשוט – אם צריך קפדנות גדולה יותר, ניתן להחליף בפטרן מורכב יותר
+            var emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            if (!Regex.IsMatch(mail, emailPattern))
+            {
+                MessageBox.Show("Please enter a valid e-mail address.");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void signUp(string userName, string password, string taz, string mail)
+        {
+            // 1) Validate all inputs first (username, password, taz, mail)
+            if (!checkInputsSignUp())
+                return;
+
             XLWorkbook workbook = null;
             try
             {
                 var result = OpenOrCreateExcel();
                 workbook = result.Item1;
                 var worksheet = result.Item2;
-
                 int lastRow = worksheet.LastRowUsed()?.RowNumber() ?? 1;
 
+                // 2) Username uniqueness (Excel + DB)
                 if (userNameExistsExcel(worksheet, userName) &&
                     userNameExistsDataBase(userName))
                 {
                     MessageBox.Show("User already exists");
+                    return;
                 }
-                else
-                {
-                    worksheet.Cell(lastRow + 1, 1).Value = userName;
-                    worksheet.Cell(lastRow + 1, 2).Value = password;
-                    workbook.SaveAs("Info.xlsx");
 
-                    addUserToDataBase(userName, rbStudent.Checked ? "Student" : "Professor");
+                // 3) TAZ (ID) uniqueness in DB
+                if (tazExistsDataBase(taz))
+                {
+                    MessageBox.Show("ID (taz) already exists");
+                    return;
                 }
+
+                // 4) E-mail uniqueness in DB
+                if (mailExistsDataBase(mail))
+                {
+                    MessageBox.Show("E-mail already exists");
+                    return;
+                }
+
+                // 5) All clear — write to Excel
+                worksheet.Cell(lastRow + 1, 1).Value = userName;
+                worksheet.Cell(lastRow + 1, 2).Value = password;
+                workbook.SaveAs("Info.xlsx");
+
+                // 6) And add to SQLite (including taz & mail)
+                addUserToDataBase(
+                    userName,
+                    rbStudent.Checked ? "Student" : "Professor",
+                    taz,
+                    mail
+                );
+
+                MessageBox.Show("Account was successfully registered!");
             }
             catch (Exception ex)
             {
@@ -165,6 +261,7 @@ namespace WinFormsApp1
                 workbook?.Dispose();
             }
         }
+
 
         private void logIn(string userName, string password)
         {
@@ -181,19 +278,16 @@ namespace WinFormsApp1
                 workbook = result.Item1;
                 var worksheet = result.Item2;
 
-                if (checkLogin(worksheet, userName, password))
+                if (checkLogin(worksheet, userName, password) && getUserType(userName) == "Student")
                 {
                     MessageBox.Show("Login successful!");
-
-                    if (getUserType(userName) == "Student")
-                    {
-                        new mainForm(userName).Show();
-                    }
-                    else if (getUserType(userName) == "Professor")
-                    {
-                        new mainTeacher().Show();
-                    }
-
+                    new mainForm(userName).Show();
+                    this.Hide();
+                }
+                else if (checkLogin(worksheet, userName, password) && getUserType(userName) == "Professor")
+                {
+                    MessageBox.Show("Login successful!");
+                    new mainTeacher().Show();
                     this.Hide();
                 }
                 else
@@ -263,17 +357,24 @@ namespace WinFormsApp1
             return (workbook, worksheet);
         }
 
-        private void addUserToDataBase(string userName, string type)
+        private void addUserToDataBase(string userName, string type, string taz, string mail)
         {
             using (var conn = connectDataBase())
             {
                 if (conn == null) return;
-                string query = "INSERT INTO Person (userName, type) VALUES (@userName, @type)";
+
+                string query = @"
+            INSERT INTO Person (userName, type, taz, mail)
+            VALUES (@userName, @type, @taz, @mail);
+        ";
 
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@userName", userName);
                     cmd.Parameters.AddWithValue("@type", type);
+                    cmd.Parameters.AddWithValue("@taz", taz);
+                    cmd.Parameters.AddWithValue("@mail", mail);
+
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -336,6 +437,37 @@ namespace WinFormsApp1
                     return count > 0;
                 }
             }
+        }
+
+        private bool mailExistsDataBase(string mail)
+        {
+            using (var conn = connectDataBase())
+            {
+                if (conn == null) return false;
+                string query = "SELECT COUNT(*) FROM Person WHERE mail = @mail";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@mail", mail);
+                    long count = (long)cmd.ExecuteScalar();
+                    return count > 0;
+                }
+            }
+        }
+
+        private bool tazExistsDataBase(string taz)
+        {
+            using (var conn = connectDataBase())
+            {
+                if (conn == null) return false;
+                string query = "SELECT COUNT(*) FROM Person WHERE taz = @taz";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@taz", taz);
+                    long count = (long)cmd.ExecuteScalar();
+                    return count > 0;
+                }
+            }
+
         }
     }
 }
