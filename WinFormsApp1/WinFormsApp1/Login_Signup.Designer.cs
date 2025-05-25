@@ -13,12 +13,9 @@
         }
 
         #region Windows Form Designer generated code
-        
+
         private void InitializeComponent()
         {
-            this.DoubleBuffered = true;
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
-            this.UpdateStyles();
             labelLoginTitleApp = new Label();
             labelLoginUsername = new Label();
             textBoxLoginUsername = new TextBox();
@@ -27,9 +24,11 @@
             panelLoginUsername = new Panel();
             panelLoginPassword = new Panel();
             panelLogin = new Panel();
-            buttonLoginEnter = new Button();
-            buttonLoginToSignup = new Button();
             panelSignup = new Panel();
+            labelID = new Label();
+            textBoxSignupID = new TextBox();
+            labelMail = new Label();
+            textBoxSignupMail = new TextBox();
             labelSignupUsername = new Label();
             panelSignupUsername = new Panel();
             textBoxSignupUsername = new TextBox();
@@ -40,6 +39,8 @@
             rbProf = new RadioButton();
             buttonSignupEnter = new Button();
             buttonSignupToLogin = new Button();
+            buttonLoginEnter = new Button();
+            buttonLoginToSignup = new Button();
             panelLoginUsername.SuspendLayout();
             panelLoginPassword.SuspendLayout();
             panelLogin.SuspendLayout();
@@ -52,7 +53,7 @@
             // 
             labelLoginTitleApp.Location = new Point(0, 0);
             labelLoginTitleApp.Name = "labelLoginTitleApp";
-            labelLoginTitleApp.Size = new Size(100, 23);
+            labelLoginTitleApp.Size = new Size(79, 27);
             labelLoginTitleApp.TabIndex = 0;
             // 
             // labelLoginUsername
@@ -61,10 +62,9 @@
             labelLoginUsername.BackColor = Color.Transparent;
             labelLoginUsername.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             labelLoginUsername.ForeColor = Color.SlateBlue;
-
             labelLoginUsername.Location = new Point(296, 253);
             labelLoginUsername.Name = "labelLoginUsername";
-            labelLoginUsername.Size = new Size(128, 32);
+            labelLoginUsername.Size = new Size(148, 38);
             labelLoginUsername.TabIndex = 1;
             labelLoginUsername.Text = "Username";
             // 
@@ -75,7 +75,7 @@
             textBoxLoginUsername.Font = new Font("Segoe UI", 12F);
             textBoxLoginUsername.Location = new Point(5, 5);
             textBoxLoginUsername.Name = "textBoxLoginUsername";
-            textBoxLoginUsername.Size = new Size(209, 27);
+            textBoxLoginUsername.Size = new Size(209, 32);
             textBoxLoginUsername.TabIndex = 0;
             // 
             // labelLoginPassword
@@ -86,7 +86,7 @@
             labelLoginPassword.ForeColor = Color.SlateBlue;
             labelLoginPassword.Location = new Point(296, 315);
             labelLoginPassword.Name = "labelLoginPassword";
-            labelLoginPassword.Size = new Size(122, 32);
+            labelLoginPassword.Size = new Size(139, 38);
             labelLoginPassword.TabIndex = 3;
             labelLoginPassword.Text = "Password";
             // 
@@ -98,7 +98,7 @@
             textBoxLoginPassword.Location = new Point(5, 5);
             textBoxLoginPassword.Name = "textBoxLoginPassword";
             textBoxLoginPassword.PasswordChar = '*';
-            textBoxLoginPassword.Size = new Size(209, 27);
+            textBoxLoginPassword.Size = new Size(209, 32);
             textBoxLoginPassword.TabIndex = 0;
             // 
             // panelLoginUsername
@@ -128,18 +128,190 @@
             panelLogin.BackColor = Color.FromArgb(230, 240, 255);
             panelLogin.BackgroundImage = Properties.Resources.background1;
             panelLogin.BackgroundImageLayout = ImageLayout.Center;
-            panelLogin.Controls.Add(labelLoginTitleApp);
+            panelLogin.Controls.Add(panelSignup);
             panelLogin.Controls.Add(labelLoginUsername);
             panelLogin.Controls.Add(panelLoginUsername);
             panelLogin.Controls.Add(labelLoginPassword);
             panelLogin.Controls.Add(panelLoginPassword);
             panelLogin.Controls.Add(buttonLoginEnter);
             panelLogin.Controls.Add(buttonLoginToSignup);
-            panelLogin.Location = new Point(0, 0); // important
-            panelLogin.Size = new Size(1022, 554); // important
-            panelLogin.Dock = DockStyle.None;      // important
+            panelLogin.Controls.Add(labelLoginTitleApp);
+            panelLogin.Location = new Point(2, 12);
             panelLogin.Name = "panelLogin";
+            panelLogin.Size = new Size(1022, 554);
             panelLogin.TabIndex = 1;
+            // 
+            // panelSignup
+            // 
+            panelSignup.BackgroundImage = Properties.Resources.background1;
+            panelSignup.BackgroundImageLayout = ImageLayout.Center;
+            panelSignup.Controls.Add(labelID);
+            panelSignup.Controls.Add(textBoxSignupID);
+            panelSignup.Controls.Add(labelMail);
+            panelSignup.Controls.Add(textBoxSignupMail);
+            panelSignup.Controls.Add(labelSignupUsername);
+            panelSignup.Controls.Add(panelSignupUsername);
+            panelSignup.Controls.Add(labelSignupPassword);
+            panelSignup.Controls.Add(panelSignupPassword);
+            panelSignup.Controls.Add(rbStudent);
+            panelSignup.Controls.Add(rbProf);
+            panelSignup.Controls.Add(buttonSignupEnter);
+            panelSignup.Controls.Add(buttonSignupToLogin);
+            panelSignup.Location = new Point(3, 3);
+            panelSignup.Name = "panelSignup";
+            panelSignup.Size = new Size(1022, 554);
+            panelSignup.TabIndex = 0;
+            // 
+            // labelID
+            // 
+            labelID.AutoSize = true;
+            labelID.Location = new Point(764, 58);
+            labelID.Name = "labelID";
+            labelID.Size = new Size(35, 28);
+            labelID.TabIndex = 11;
+            labelID.Text = "ID:";
+            // 
+            // textBoxSignupID
+            // 
+            textBoxSignupID.Location = new Point(827, 52);
+            textBoxSignupID.Name = "textBoxSignupID";
+            textBoxSignupID.Size = new Size(150, 34);
+            textBoxSignupID.TabIndex = 10;
+            // 
+            // labelMail
+            // 
+            labelMail.AutoSize = true;
+            labelMail.Location = new Point(366, 66);
+            labelMail.Name = "labelMail";
+            labelMail.Size = new Size(54, 28);
+            labelMail.TabIndex = 9;
+            labelMail.Text = "Mail:";
+            // 
+            // textBoxSignupMail
+            // 
+            textBoxSignupMail.Location = new Point(450, 66);
+            textBoxSignupMail.Name = "textBoxSignupMail";
+            textBoxSignupMail.Size = new Size(150, 34);
+            textBoxSignupMail.TabIndex = 8;
+            // 
+            // labelSignupUsername
+            // 
+            labelSignupUsername.AutoSize = true;
+            labelSignupUsername.BackColor = Color.Transparent;
+            labelSignupUsername.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            labelSignupUsername.ForeColor = Color.SlateBlue;
+            labelSignupUsername.Location = new Point(287, 257);
+            labelSignupUsername.Name = "labelSignupUsername";
+            labelSignupUsername.Size = new Size(156, 38);
+            labelSignupUsername.TabIndex = 0;
+            labelSignupUsername.Text = "Username:";
+            // 
+            // panelSignupUsername
+            // 
+            panelSignupUsername.BackColor = Color.White;
+            panelSignupUsername.BorderStyle = BorderStyle.FixedSingle;
+            panelSignupUsername.Controls.Add(textBoxSignupUsername);
+            panelSignupUsername.Location = new Point(439, 257);
+            panelSignupUsername.Name = "panelSignupUsername";
+            panelSignupUsername.Padding = new Padding(5);
+            panelSignupUsername.Size = new Size(221, 40);
+            panelSignupUsername.TabIndex = 1;
+            // 
+            // textBoxSignupUsername
+            // 
+            textBoxSignupUsername.BorderStyle = BorderStyle.None;
+            textBoxSignupUsername.Dock = DockStyle.Fill;
+            textBoxSignupUsername.Font = new Font("Segoe UI", 12F);
+            textBoxSignupUsername.Location = new Point(5, 5);
+            textBoxSignupUsername.Name = "textBoxSignupUsername";
+            textBoxSignupUsername.Size = new Size(209, 32);
+            textBoxSignupUsername.TabIndex = 0;
+            // 
+            // labelSignupPassword
+            // 
+            labelSignupPassword.AutoSize = true;
+            labelSignupPassword.BackColor = Color.Transparent;
+            labelSignupPassword.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            labelSignupPassword.ForeColor = Color.SlateBlue;
+            labelSignupPassword.Location = new Point(296, 315);
+            labelSignupPassword.Name = "labelSignupPassword";
+            labelSignupPassword.Size = new Size(147, 38);
+            labelSignupPassword.TabIndex = 2;
+            labelSignupPassword.Text = "Password:";
+            // 
+            // panelSignupPassword
+            // 
+            panelSignupPassword.BackColor = Color.White;
+            panelSignupPassword.BorderStyle = BorderStyle.FixedSingle;
+            panelSignupPassword.Controls.Add(textBoxSignupPassword);
+            panelSignupPassword.Location = new Point(439, 315);
+            panelSignupPassword.Name = "panelSignupPassword";
+            panelSignupPassword.Padding = new Padding(5);
+            panelSignupPassword.Size = new Size(221, 40);
+            panelSignupPassword.TabIndex = 3;
+            // 
+            // textBoxSignupPassword
+            // 
+            textBoxSignupPassword.BorderStyle = BorderStyle.None;
+            textBoxSignupPassword.Dock = DockStyle.Fill;
+            textBoxSignupPassword.Font = new Font("Segoe UI", 12F);
+            textBoxSignupPassword.Location = new Point(5, 5);
+            textBoxSignupPassword.Name = "textBoxSignupPassword";
+            textBoxSignupPassword.PasswordChar = '*';
+            textBoxSignupPassword.Size = new Size(209, 32);
+            textBoxSignupPassword.TabIndex = 0;
+            // 
+            // rbStudent
+            // 
+            rbStudent.AutoSize = true;
+            rbStudent.BackColor = Color.Transparent;
+            rbStudent.ForeColor = Color.DarkSlateBlue;
+            rbStudent.Location = new Point(439, 372);
+            rbStudent.Name = "rbStudent";
+            rbStudent.Size = new Size(105, 32);
+            rbStudent.TabIndex = 4;
+            rbStudent.Text = "Student";
+            rbStudent.UseVisualStyleBackColor = false;
+            // 
+            // rbProf
+            // 
+            rbProf.AutoSize = true;
+            rbProf.BackColor = Color.Transparent;
+            rbProf.ForeColor = Color.DarkSlateBlue;
+            rbProf.Location = new Point(559, 372);
+            rbProf.Name = "rbProf";
+            rbProf.Size = new Size(118, 32);
+            rbProf.TabIndex = 5;
+            rbProf.Text = "Professor";
+            rbProf.UseVisualStyleBackColor = false;
+            // 
+            // buttonSignupEnter
+            // 
+            buttonSignupEnter.BackColor = Color.FromArgb(0, 122, 204);
+            buttonSignupEnter.FlatStyle = FlatStyle.Flat;
+            buttonSignupEnter.Font = new Font("Segoe UI", 14F);
+            buttonSignupEnter.ForeColor = Color.White;
+            buttonSignupEnter.Location = new Point(369, 414);
+            buttonSignupEnter.Name = "buttonSignupEnter";
+            buttonSignupEnter.Size = new Size(231, 52);
+            buttonSignupEnter.TabIndex = 6;
+            buttonSignupEnter.Text = "Sign Up";
+            buttonSignupEnter.UseVisualStyleBackColor = false;
+            buttonSignupEnter.Click += buttonSignupEnter_Click;
+            // 
+            // buttonSignupToLogin
+            // 
+            buttonSignupToLogin.BackColor = Color.White;
+            buttonSignupToLogin.FlatStyle = FlatStyle.Flat;
+            buttonSignupToLogin.Font = new Font("Segoe UI", 12F);
+            buttonSignupToLogin.ForeColor = Color.FromArgb(0, 122, 204);
+            buttonSignupToLogin.Location = new Point(263, 483);
+            buttonSignupToLogin.Name = "buttonSignupToLogin";
+            buttonSignupToLogin.Size = new Size(444, 46);
+            buttonSignupToLogin.TabIndex = 7;
+            buttonSignupToLogin.Text = "Already have an account? Login";
+            buttonSignupToLogin.UseVisualStyleBackColor = false;
+            buttonSignupToLogin.Click += buttonSignupToLogin_Click;
             // 
             // buttonLoginEnter
             // 
@@ -169,155 +341,15 @@
             buttonLoginToSignup.UseVisualStyleBackColor = false;
             buttonLoginToSignup.Click += buttonLoginToSignup_Click;
             // 
-            // panelSignup
-            // 
-            panelSignup.BackgroundImage = Properties.Resources.background1;
-            panelSignup.BackgroundImageLayout = ImageLayout.Center;
-            panelSignup.Controls.Add(labelSignupUsername);
-            panelSignup.Controls.Add(panelSignupUsername);
-            panelSignup.Controls.Add(panelSignupUsername);
-            panelSignup.Controls.Add(panelSignupPassword);
-
-            panelSignup.Controls.Add(labelSignupPassword);
-            panelSignup.Controls.Add(panelSignupPassword);
-            panelSignup.Controls.Add(rbStudent);
-            panelSignup.Controls.Add(rbProf);
-            panelSignup.Controls.Add(buttonSignupEnter);
-            panelSignup.Controls.Add(buttonSignupToLogin);
-            panelSignup.Location = new Point(1022, 0); // important
-            panelSignup.Size = new Size(1022, 554);   // important
-            panelSignup.Dock = DockStyle.None;       // important
-            panelSignup.Name = "panelSignup";
-            panelSignup.TabIndex = 0;
-            // 
-            // labelSignupUsername
-            // 
-            labelSignupUsername.AutoSize = true;
-            labelSignupUsername.BackColor = Color.Transparent;
-            labelSignupUsername.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            labelSignupUsername.ForeColor = Color.SlateBlue;
-            labelSignupUsername.Location = new Point(296, 253);
-            labelSignupUsername.Name = "labelSignupUsername";
-            labelSignupUsername.Size = new Size(135, 32);
-            labelSignupUsername.TabIndex = 0;
-            labelSignupUsername.Text = "Username:";
-            // 
-            // panelSignupUsername
-            // 
-            panelSignupUsername.BackColor = Color.White;
-            panelSignupUsername.BorderStyle = BorderStyle.FixedSingle;
-            panelSignupUsername.Controls.Add(textBoxSignupUsername);
-            panelSignupUsername.Location = new Point(439, 257);
-            panelSignupUsername.Name = "panelSignupUsername";
-            panelSignupUsername.Padding = new Padding(5);
-            panelSignupUsername.Size = new Size(221, 40);
-            panelSignupUsername.TabIndex = 1;
-            // 
-            // textBoxSignupUsername
-            // 
-            textBoxSignupUsername.BorderStyle = BorderStyle.None;
-            textBoxSignupUsername.Dock = DockStyle.Fill;
-            textBoxSignupUsername.Font = new Font("Segoe UI", 12F);
-            textBoxSignupUsername.Location = new Point(5, 5);
-            textBoxSignupUsername.Name = "textBoxSignupUsername";
-            textBoxSignupUsername.Size = new Size(209, 27);
-            textBoxSignupUsername.TabIndex = 0;
-            // 
-            // labelSignupPassword
-            // 
-            labelSignupPassword.AutoSize = true;
-            labelSignupPassword.BackColor = Color.Transparent;
-            labelSignupPassword.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            labelSignupPassword.ForeColor = Color.SlateBlue;
-            labelSignupPassword.Location = new Point(296, 315);
-            labelSignupPassword.Name = "labelSignupPassword";
-            labelSignupPassword.Size = new Size(129, 32);
-            labelSignupPassword.TabIndex = 2;
-            labelSignupPassword.Text = "Password:";
-            // 
-            // panelSignupPassword
-            // 
-            panelSignupPassword.BackColor = Color.White;
-            panelSignupPassword.BorderStyle = BorderStyle.FixedSingle;
-            panelSignupPassword.Controls.Add(textBoxSignupPassword);
-            panelSignupPassword.Location = new Point(439, 315);
-            panelSignupPassword.Name = "panelSignupPassword";
-            panelSignupPassword.Padding = new Padding(5);
-            panelSignupPassword.Size = new Size(221, 40);
-            panelSignupPassword.TabIndex = 3;
-            // 
-            // textBoxSignupPassword
-            // 
-            textBoxSignupPassword.BorderStyle = BorderStyle.None;
-            textBoxSignupPassword.Dock = DockStyle.Fill;
-            textBoxSignupPassword.Font = new Font("Segoe UI", 12F);
-            textBoxSignupPassword.Location = new Point(5, 5);
-            textBoxSignupPassword.Name = "textBoxSignupPassword";
-            textBoxSignupPassword.PasswordChar = '*';
-            textBoxSignupPassword.Size = new Size(209, 27);
-            textBoxSignupPassword.TabIndex = 0;
-            // 
-            // rbStudent
-            // 
-            rbStudent.AutoSize = true;
-            rbStudent.BackColor = Color.Transparent;
-            rbStudent.ForeColor = Color.DarkSlateBlue;
-            rbStudent.Location = new Point(439, 372);
-            rbStudent.Name = "rbStudent";
-            rbStudent.Size = new Size(90, 27);
-            rbStudent.TabIndex = 4;
-            rbStudent.Text = "Student";
-            rbStudent.UseVisualStyleBackColor = false;
-            // 
-            // rbProf
-            // 
-            rbProf.AutoSize = true;
-            rbProf.BackColor = Color.Transparent;
-            rbProf.ForeColor = Color.DarkSlateBlue;
-            rbProf.Location = new Point(559, 372);
-            rbProf.Name = "rbProf";
-            rbProf.Size = new Size(101, 27);
-            rbProf.TabIndex = 5;
-            rbProf.Text = "Professor";
-            rbProf.UseVisualStyleBackColor = false;
-            // 
-            // buttonSignupEnter
-            // 
-            buttonSignupEnter.BackColor = Color.FromArgb(0, 122, 204);
-            buttonSignupEnter.FlatStyle = FlatStyle.Flat;
-            buttonSignupEnter.Font = new Font("Segoe UI", 14F);
-            buttonSignupEnter.ForeColor = Color.White;
-            buttonSignupEnter.Location = new Point(369, 414);
-            buttonSignupEnter.Name = "buttonSignupEnter";
-            buttonSignupEnter.Size = new Size(231, 52);
-            buttonSignupEnter.TabIndex = 6;
-            buttonSignupEnter.Text = "Sign Up";
-            buttonSignupEnter.UseVisualStyleBackColor = false;
-            buttonSignupEnter.Click += buttonSignupEnter_Click;
-            // 
-            // buttonSignupToLogin
-            // 
-            buttonSignupToLogin.BackColor = Color.White;
-            buttonSignupToLogin.FlatStyle = FlatStyle.Flat;
-            buttonSignupToLogin.Font = new Font("Segoe UI", 12F);
-            buttonSignupToLogin.ForeColor = Color.FromArgb(0, 122, 204);
-            buttonSignupToLogin.Location = new Point(263, 483);
-            buttonSignupToLogin.Name = "buttonSignupToLogin";
-            buttonSignupToLogin.Size = new Size(444, 46); ;
-            buttonSignupToLogin.TabIndex = 7;
-            buttonSignupToLogin.Text = "Already have an account? Login";
-            buttonSignupToLogin.UseVisualStyleBackColor = false;
-            buttonSignupToLogin.Click += buttonSignupToLogin_Click;
-            // 
             // Login_Signup
             // 
-            AutoScaleDimensions = new SizeF(9F, 23F);
+            AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             BackgroundImage = Properties.Resources.background1;
             ClientSize = new Size(1022, 554);
-            Controls.Add(panelSignup);
             Controls.Add(panelLogin);
+            DoubleBuffered = true;
             Font = new Font("Segoe UI", 10F);
             Name = "Login_Signup";
             Text = "Login";
@@ -361,5 +393,9 @@
         private Panel panelLoginPassword;
         private Panel panelSignupUsername;
         private Panel panelSignupPassword;
+        private Label labelID;
+        private TextBox textBoxSignupID;
+        private Label labelMail;
+        private TextBox textBoxSignupMail;
     }
 }
