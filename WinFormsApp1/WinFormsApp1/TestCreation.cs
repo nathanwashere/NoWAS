@@ -58,13 +58,32 @@ namespace WinFormsApp1
                 }
             }
         }
-       
+
         private void btnCreate_Click(object sender, EventArgs e)
         {
             long testId;
             if (selectedQuestions.Count == 0)
             {
                 MessageBox.Show("Please add at least one question before creating the test.");
+                return;
+            }
+
+            // Get selected category
+            string selectedCategory = chkTopics.CheckedItems.Count > 0 ? chkTopics.CheckedItems[0].ToString() : "";
+
+            // Get selected difficulty
+            string selectedDifficultyStr = chkDifficulty.CheckedItems.Count > 0 ? chkDifficulty.CheckedItems[0].ToString() : "";
+            int difficultyValue = selectedDifficultyStr switch
+            {
+                "Easy" => 1,
+                "Medium" => 2,
+                "Hard" => 3,
+                _ => 0
+            };
+
+            if (string.IsNullOrEmpty(selectedCategory) || difficultyValue == 0)
+            {
+                MessageBox.Show("Please select both a topic and difficulty level before creating the test.");
                 return;
             }
 
@@ -75,25 +94,40 @@ namespace WinFormsApp1
             {
                 conn.Open();
 
-                // Step 1: Generate a new TestID manually
-               
+                // Generate new TestID manually
                 string getIdQuery = "SELECT IFNULL(MAX(TestID), 0) + 1 FROM TestQuestions";
                 using (var getIdCmd = new SQLiteCommand(getIdQuery, conn))
                 {
                     testId = Convert.ToInt64(getIdCmd.ExecuteScalar());
                 }
 
-                // Step 2: Get current timestamp
+                // Get current timestamp
                 string dateCreated = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
 
-                // Step 3: Insert each question under this test
+                // INSERT into Test table (new line)
+                string insertTestQuery = @"
+            INSERT INTO Test (TestID, TestName, Score, PersonID, Question, Category, Difficulty)
+            VALUES (@tid, @name, @score, @pid, @question, @category, @difficulty)";
+                using (var insertTestCmd = new SQLiteCommand(insertTestQuery, conn))
+                {
+                    insertTestCmd.Parameters.AddWithValue("@tid", testId);
+                    insertTestCmd.Parameters.AddWithValue("@name", currentTestName);
+                    insertTestCmd.Parameters.AddWithValue("@score", 0);
+                    insertTestCmd.Parameters.AddWithValue("@pid", currentPersonId);
+                    insertTestCmd.Parameters.AddWithValue("@question", "Mixed");
+                    insertTestCmd.Parameters.AddWithValue("@category", selectedCategory);
+                    insertTestCmd.Parameters.AddWithValue("@difficulty", difficultyValue);
+                    insertTestCmd.ExecuteNonQuery();
+                }
+
+                // INSERT each question
                 foreach (var q in selectedQuestions)
                 {
                     string insertQuery = @"
-        INSERT INTO TestQuestions 
-        (TestID, TestName, Score, PersonID, Body, Type, Answer, PossibleAnswer1, PossibleAnswer2, PossibleAnswer3, DifficultyLevel, Course, DateCreated) 
-        VALUES 
-        (@tid, @name, @score, @pid, @body, @type, @answer, @pa1, @pa2, @pa3, @level, @course, @date)";
+                INSERT INTO TestQuestions 
+                (TestID, TestName, Score, PersonID, Body, Type, Answer, PossibleAnswer1, PossibleAnswer2, PossibleAnswer3, DifficultyLevel, Course, DateCreated) 
+                VALUES 
+                (@tid, @name, @score, @pid, @body, @type, @answer, @pa1, @pa2, @pa3, @level, @course, @date)";
                     using (var cmd = new SQLiteCommand(insertQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@tid", testId);
@@ -101,21 +135,18 @@ namespace WinFormsApp1
                         cmd.Parameters.AddWithValue("@score", 0);
                         cmd.Parameters.AddWithValue("@pid", currentPersonId);
                         cmd.Parameters.AddWithValue("@body", q.Body);
-                        cmd.Parameters.AddWithValue("@type", q.Type); // הוסף Property Type במחלקה!
-                        cmd.Parameters.AddWithValue("@answer", q.Answer); // כנ"ל – תוודא שיש בכל שאלה
-                                                                          // בדוק לפי טיפוס השאלה:
+                        cmd.Parameters.AddWithValue("@type", q.Type);
+                        cmd.Parameters.AddWithValue("@answer", q.Answer);
+
                         if (q is MultipleChoiceQuestion mcq)
                         {
-                            // נבנה רשימה חדשה של אופציות, ודואגים שהתשובה הנכונה בפנים, בלי כפילויות
                             var optionList = new List<string>(mcq.Options);
                             if (!optionList.Contains(mcq.Answer))
-                                optionList[0] = mcq.Answer; // נחליף את הראשונה בתשובה הנכונה אם היא לא שם (או תוכל להכניס אותה במקום רנדומלי)
+                                optionList[0] = mcq.Answer;
 
-                            // שמור שלוש אופציות בלבד (אם יש יותר)
                             while (optionList.Count < 3)
-                                optionList.Add(""); // תשלים אם חסר
+                                optionList.Add("");
 
-                            // אם יש יותר משלוש אופציות, קח רק שלוש (כולל הנכונה!)
                             var chosenOptions = optionList.Take(3).ToArray();
 
                             cmd.Parameters.AddWithValue("@pa1", chosenOptions.Length > 0 ? chosenOptions[0] : DBNull.Value);
@@ -136,21 +167,19 @@ namespace WinFormsApp1
                     }
                 }
 
-
-                // Step 4: Show test in ListView
+                // Add to ListView
                 var item = new ListViewItem(testId.ToString());
                 item.SubItems.Add(dateCreated);
                 item.SubItems.Add(selectedQuestions.Count.ToString());
-                item.SubItems.Add("Mixed"); // Can be enhanced later
+                item.SubItems.Add(selectedCategory);
                 lvTests.Items.Add(item);
             }
 
             MessageBox.Show("Test created successfully!");
             selectedQuestions.Clear();
             lstSelectedQuestions.Items.Clear();
-            //StudentTestForm studentTestForm = new StudentTestForm((int)testId);
-           // studentTestForm.Show();
         }
+
 
         private List<Question> LoadQuestionsFromDB()
         {
@@ -259,6 +288,7 @@ namespace WinFormsApp1
 
             MessageBox.Show("Test deleted successfully!", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
             lvTests.Items.Remove(selectedItem);
+            
         }
         private void BtnClear_Click(object sender, EventArgs e)
         {
