@@ -21,6 +21,7 @@ namespace WinFormsApp1
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login_Signup));
             panelLogin = new Panel();
+            pictureBoxLoginTogglePassword = new PictureBox();
             label1 = new Label();
             labelLoginUsername = new Label();
             labelLoginPassword = new Label();
@@ -29,6 +30,7 @@ namespace WinFormsApp1
             buttonLoginEnter = new Button();
             buttonLoginToSignup = new Button();
             panelSignup = new Panel();
+            pictureBoxSignupTogglePassword = new PictureBox();
             labelTitleSignup = new Label();
             labelSignupUsername = new Label();
             textBoxSignupUsername = new TextBox();
@@ -44,13 +46,16 @@ namespace WinFormsApp1
             buttonSignupToLogin = new Button();
             labelPasswordInfo = new Label();
             panelLogin.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxLoginTogglePassword).BeginInit();
             panelSignup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxSignupTogglePassword).BeginInit();
             SuspendLayout();
             // 
             // panelLogin
             // 
             panelLogin.BackColor = Color.FromArgb(245, 245, 255);
             panelLogin.BackgroundImage = (Image)resources.GetObject("panelLogin.BackgroundImage");
+            panelLogin.Controls.Add(pictureBoxLoginTogglePassword);
             panelLogin.Controls.Add(label1);
             panelLogin.Controls.Add(labelLoginUsername);
             panelLogin.Controls.Add(labelLoginPassword);
@@ -63,6 +68,17 @@ namespace WinFormsApp1
             panelLogin.Size = new Size(1022, 573);
             panelLogin.TabIndex = 1;
             // 
+            // pictureBoxLoginTogglePassword
+            // 
+            pictureBoxLoginTogglePassword.BackColor = Color.Transparent;
+            pictureBoxLoginTogglePassword.Location = new Point(652, 210);
+            pictureBoxLoginTogglePassword.Name = "pictureBoxLoginTogglePassword";
+            pictureBoxLoginTogglePassword.Size = new Size(97, 32);
+            pictureBoxLoginTogglePassword.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxLoginTogglePassword.TabIndex = 7;
+            pictureBoxLoginTogglePassword.TabStop = false;
+            pictureBoxLoginTogglePassword.Click += pictureBoxLoginTogglePassword_Click;
+            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -71,7 +87,7 @@ namespace WinFormsApp1
             label1.ForeColor = Color.FromArgb(102, 0, 204);
             label1.Location = new Point(360, 30);
             label1.Name = "label1";
-            label1.Size = new Size(393, 46);
+            label1.Size = new Size(464, 54);
             label1.TabIndex = 0;
             label1.Text = "Welcome to TestMania!";
             // 
@@ -83,7 +99,7 @@ namespace WinFormsApp1
             labelLoginUsername.ForeColor = Color.FromArgb(54, 0, 102);
             labelLoginUsername.Location = new Point(290, 150);
             labelLoginUsername.Name = "labelLoginUsername";
-            labelLoginUsername.Size = new Size(103, 28);
+            labelLoginUsername.Size = new Size(126, 32);
             labelLoginUsername.TabIndex = 1;
             labelLoginUsername.Text = "Username:";
             // 
@@ -95,7 +111,7 @@ namespace WinFormsApp1
             labelLoginPassword.ForeColor = Color.FromArgb(54, 0, 102);
             labelLoginPassword.Location = new Point(290, 213);
             labelLoginPassword.Name = "labelLoginPassword";
-            labelLoginPassword.Size = new Size(97, 28);
+            labelLoginPassword.Size = new Size(116, 32);
             labelLoginPassword.TabIndex = 2;
             labelLoginPassword.Text = "Password:";
             // 
@@ -104,7 +120,7 @@ namespace WinFormsApp1
             textBoxLoginUsername.Font = new Font("Segoe UI", 12F);
             textBoxLoginUsername.Location = new Point(430, 150);
             textBoxLoginUsername.Name = "textBoxLoginUsername";
-            textBoxLoginUsername.Size = new Size(200, 34);
+            textBoxLoginUsername.Size = new Size(200, 39);
             textBoxLoginUsername.TabIndex = 3;
             // 
             // textBoxLoginPassword
@@ -113,7 +129,7 @@ namespace WinFormsApp1
             textBoxLoginPassword.Location = new Point(430, 210);
             textBoxLoginPassword.Name = "textBoxLoginPassword";
             textBoxLoginPassword.PasswordChar = '*';
-            textBoxLoginPassword.Size = new Size(200, 34);
+            textBoxLoginPassword.Size = new Size(200, 39);
             textBoxLoginPassword.TabIndex = 4;
             // 
             // buttonLoginEnter
@@ -148,6 +164,7 @@ namespace WinFormsApp1
             // 
             panelSignup.BackColor = Color.FromArgb(245, 245, 255);
             panelSignup.BackgroundImage = (Image)resources.GetObject("panelSignup.BackgroundImage");
+            panelSignup.Controls.Add(pictureBoxSignupTogglePassword);
             panelSignup.Controls.Add(labelTitleSignup);
             panelSignup.Controls.Add(labelSignupUsername);
             panelSignup.Controls.Add(textBoxSignupUsername);
@@ -167,6 +184,18 @@ namespace WinFormsApp1
             panelSignup.Size = new Size(1022, 573);
             panelSignup.TabIndex = 0;
             // 
+            // pictureBoxSignupTogglePassword
+            // 
+            pictureBoxSignupTogglePassword.BackColor = Color.Transparent;
+            pictureBoxSignupTogglePassword.Location = new Point(652, 156); // or adjust as needed
+            pictureBoxSignupTogglePassword.Name = "pictureBoxSignupTogglePassword";
+            pictureBoxSignupTogglePassword.Size = new Size(97, 32); // Match login size
+            pictureBoxSignupTogglePassword.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxSignupTogglePassword.TabIndex = 14;
+            pictureBoxSignupTogglePassword.TabStop = false;
+            pictureBoxSignupTogglePassword.Click += pictureBoxSignupTogglePassword_Click;
+
+            // 
             // labelTitleSignup
             // 
             labelTitleSignup.AutoSize = true;
@@ -175,7 +204,7 @@ namespace WinFormsApp1
             labelTitleSignup.ForeColor = Color.FromArgb(102, 0, 204);
             labelTitleSignup.Location = new Point(360, 30);
             labelTitleSignup.Name = "labelTitleSignup";
-            labelTitleSignup.Size = new Size(393, 46);
+            labelTitleSignup.Size = new Size(464, 54);
             labelTitleSignup.TabIndex = 0;
             labelTitleSignup.Text = "Welcome to TestMania!";
             // 
@@ -187,7 +216,7 @@ namespace WinFormsApp1
             labelSignupUsername.ForeColor = Color.FromArgb(54, 0, 102);
             labelSignupUsername.Location = new Point(290, 100);
             labelSignupUsername.Name = "labelSignupUsername";
-            labelSignupUsername.Size = new Size(103, 28);
+            labelSignupUsername.Size = new Size(126, 32);
             labelSignupUsername.TabIndex = 1;
             labelSignupUsername.Text = "Username:";
             // 
@@ -196,7 +225,7 @@ namespace WinFormsApp1
             textBoxSignupUsername.Font = new Font("Segoe UI", 12F);
             textBoxSignupUsername.Location = new Point(430, 100);
             textBoxSignupUsername.Name = "textBoxSignupUsername";
-            textBoxSignupUsername.Size = new Size(200, 34);
+            textBoxSignupUsername.Size = new Size(200, 39);
             textBoxSignupUsername.TabIndex = 2;
             // 
             // labelSignupPassword
@@ -207,7 +236,7 @@ namespace WinFormsApp1
             labelSignupPassword.ForeColor = Color.FromArgb(54, 0, 102);
             labelSignupPassword.Location = new Point(290, 150);
             labelSignupPassword.Name = "labelSignupPassword";
-            labelSignupPassword.Size = new Size(97, 28);
+            labelSignupPassword.Size = new Size(116, 32);
             labelSignupPassword.TabIndex = 3;
             labelSignupPassword.Text = "Password:";
             // 
@@ -217,7 +246,7 @@ namespace WinFormsApp1
             textBoxSignupPassword.Location = new Point(430, 150);
             textBoxSignupPassword.Name = "textBoxSignupPassword";
             textBoxSignupPassword.PasswordChar = '*';
-            textBoxSignupPassword.Size = new Size(200, 34);
+            textBoxSignupPassword.Size = new Size(200, 39);
             textBoxSignupPassword.TabIndex = 4;
             // 
             // labelID
@@ -228,7 +257,7 @@ namespace WinFormsApp1
             labelID.ForeColor = Color.FromArgb(54, 0, 102);
             labelID.Location = new Point(290, 200);
             labelID.Name = "labelID";
-            labelID.Size = new Size(35, 28);
+            labelID.Size = new Size(42, 32);
             labelID.TabIndex = 5;
             labelID.Text = "ID:";
             // 
@@ -237,7 +266,7 @@ namespace WinFormsApp1
             textBoxSignupID.Font = new Font("Segoe UI", 12F);
             textBoxSignupID.Location = new Point(430, 200);
             textBoxSignupID.Name = "textBoxSignupID";
-            textBoxSignupID.Size = new Size(200, 34);
+            textBoxSignupID.Size = new Size(200, 39);
             textBoxSignupID.TabIndex = 6;
             // 
             // labelMail
@@ -248,7 +277,7 @@ namespace WinFormsApp1
             labelMail.ForeColor = Color.FromArgb(54, 0, 102);
             labelMail.Location = new Point(290, 250);
             labelMail.Name = "labelMail";
-            labelMail.Size = new Size(63, 28);
+            labelMail.Size = new Size(76, 32);
             labelMail.TabIndex = 7;
             labelMail.Text = "Email:";
             // 
@@ -257,7 +286,7 @@ namespace WinFormsApp1
             textBoxSignupMail.Font = new Font("Segoe UI", 12F);
             textBoxSignupMail.Location = new Point(430, 250);
             textBoxSignupMail.Name = "textBoxSignupMail";
-            textBoxSignupMail.Size = new Size(200, 34);
+            textBoxSignupMail.Size = new Size(200, 39);
             textBoxSignupMail.TabIndex = 8;
             // 
             // rbStudent
@@ -269,7 +298,7 @@ namespace WinFormsApp1
             rbStudent.ForeColor = Color.FromArgb(54, 0, 102);
             rbStudent.Location = new Point(411, 303);
             rbStudent.Name = "rbStudent";
-            rbStudent.Size = new Size(101, 32);
+            rbStudent.Size = new Size(122, 36);
             rbStudent.TabIndex = 9;
             rbStudent.TabStop = true;
             rbStudent.Text = "Student";
@@ -283,7 +312,7 @@ namespace WinFormsApp1
             rbProf.ForeColor = Color.FromArgb(54, 0, 102);
             rbProf.Location = new Point(526, 303);
             rbProf.Name = "rbProf";
-            rbProf.Size = new Size(114, 32);
+            rbProf.Size = new Size(137, 36);
             rbProf.TabIndex = 10;
             rbProf.Text = "Professor";
             rbProf.UseVisualStyleBackColor = false;
@@ -334,16 +363,18 @@ namespace WinFormsApp1
             // 
             BackColor = Color.FromArgb(245, 245, 255);
             ClientSize = new Size(1022, 573);
-            Controls.Add(panelLogin);
             Controls.Add(panelSignup);
+            Controls.Add(panelLogin);
             Font = new Font("Segoe UI", 12F);
             Name = "Login_Signup";
             Text = "Login";
             Load += Login_Signup_Load;
             panelLogin.ResumeLayout(false);
             panelLogin.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxLoginTogglePassword).EndInit();
             panelSignup.ResumeLayout(false);
             panelSignup.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxSignupTogglePassword).EndInit();
             ResumeLayout(false);
         }
 
@@ -372,6 +403,7 @@ namespace WinFormsApp1
         private Label label1;
         private Label labelTitleSignup;
         private Label labelPasswordInfo;
-   
+        private PictureBox pictureBoxLoginTogglePassword;
+        private PictureBox pictureBoxSignupTogglePassword;
     }
 }

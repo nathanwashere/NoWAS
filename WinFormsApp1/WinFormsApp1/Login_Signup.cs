@@ -17,6 +17,8 @@ namespace WinFormsApp1
         private int targetLeftLogin;
         private int targetLeftSignup;
         private bool showingSignup = false;
+        private bool isPasswordVisible = false;
+        private bool isSignupPasswordVisible = false;
 
         private Image loginBackground;
         private Image signupBackground;
@@ -27,6 +29,14 @@ namespace WinFormsApp1
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
             this.UpdateStyles();
+
+            // INITIAL STATE: login
+
+            pictureBoxLoginTogglePassword.Image = ByteArrayToImage(Properties.Resources.eye_closed);
+
+            // INITIAL STATE: signup
+
+            pictureBoxSignupTogglePassword.Image = ByteArrayToImage(Properties.Resources.eye_closed);
         }
 
 
@@ -59,7 +69,10 @@ namespace WinFormsApp1
             panelSignup.BackgroundImage = null;
 
             slideTimer.Start();
-           
+
+            clearInputs();
+
+
         }
 
         private void buttonSignupToLogin_Click(object sender, EventArgs e)
@@ -74,7 +87,9 @@ namespace WinFormsApp1
             panelSignup.BackgroundImage = null;
 
             slideTimer.Start();
-          
+
+            clearInputs();
+
         }
 
         private void SlideTimer_Tick(object sender, EventArgs e)
@@ -125,7 +140,7 @@ namespace WinFormsApp1
             string taz = textBoxSignupID.Text;
             string mail = textBoxSignupMail.Text;
             signUp(userName, password, taz, mail);
-         
+
         }
 
 
@@ -134,7 +149,7 @@ namespace WinFormsApp1
             string userName = textBoxLoginUsername.Text;
             string password = textBoxLoginPassword.Text;
             logIn(userName, password);
-         
+
         }
 
         private void clearInputs()
@@ -143,6 +158,9 @@ namespace WinFormsApp1
             textBoxLoginPassword.Text = "";
             textBoxSignupUsername.Text = "";
             textBoxSignupPassword.Text = "";
+            textBoxSignupID.Text = "";
+            textBoxSignupMail.Text = "";
+            
         }
 
         private bool checkInputsSignUp()
@@ -250,6 +268,18 @@ namespace WinFormsApp1
                 );
 
                 MessageBox.Show("Account was successfully registered!");
+
+                if (checkLogin(worksheet, userName, password) && getUserType(userName) == "Student")
+                {
+                    new mainForm(userName).Show();
+                    this.Hide();
+                }
+                else if (checkLogin(worksheet, userName, password) && getUserType(userName) == "Professor")
+                {
+                    new mainTeacher().Show();
+                    this.Hide();
+                }
+
             }
             catch (Exception ex)
             {
@@ -466,6 +496,42 @@ namespace WinFormsApp1
             }
         }
 
-        
+        private void pictureBoxLoginTogglePassword_Click(object sender, EventArgs e)
+        {
+            isPasswordVisible = !isPasswordVisible;
+
+            if (isPasswordVisible)
+            {
+                textBoxLoginPassword.PasswordChar = '\0'; // Show password
+                pictureBoxLoginTogglePassword.Image = ByteArrayToImage(Properties.Resources.eye_open); // Set this to your "hide password" image
+            }
+            else
+            {
+                textBoxLoginPassword.PasswordChar = '*'; // Hide password
+                pictureBoxLoginTogglePassword.Image = ByteArrayToImage(Properties.Resources.eye_closed); // Set this to your "show password" image
+            }
+        }
+
+        private void pictureBoxSignupTogglePassword_Click(object sender, EventArgs e)
+        {
+            isSignupPasswordVisible = !isSignupPasswordVisible;
+
+            if (isSignupPasswordVisible)
+            {
+                textBoxSignupPassword.PasswordChar = '\0';
+                pictureBoxSignupTogglePassword.Image = ByteArrayToImage(Properties.Resources.eye_open);
+            }
+            else
+            {
+                textBoxSignupPassword.PasswordChar = '*';
+                pictureBoxSignupTogglePassword.Image = ByteArrayToImage(Properties.Resources.eye_closed);
+            }
+        }
+
+        private Image ByteArrayToImage(byte[] bytes)
+        {
+            using (var ms = new MemoryStream(bytes))
+                return Image.FromStream(ms);
+        }
     }
 }
