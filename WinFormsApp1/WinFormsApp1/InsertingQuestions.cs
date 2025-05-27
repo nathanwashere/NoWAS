@@ -43,7 +43,7 @@ namespace WinFormsApp1
 
         private void InsertingQuestions_Load(object sender, EventArgs e)
         {
-
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)

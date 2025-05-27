@@ -126,7 +126,7 @@ namespace WinFormsApp1
         }
         private void EditQuestionForm_Load(object sender, EventArgs e)
         {
-
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void save_Click1(object sender, EventArgs e)
