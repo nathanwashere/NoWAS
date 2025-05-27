@@ -20,7 +20,8 @@ namespace WinFormsApp1
 
         private void Deleting_questions_Load(object sender, EventArgs e)
         {
-            
+            this.BackgroundImageLayout = ImageLayout.Stretch;
+
             var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
             dbPath = Path.GetFullPath(dbPath);
             string connectionString = $"Data Source={dbPath};Version=3;";
