@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace WinFormsApp1
@@ -13,7 +16,6 @@ namespace WinFormsApp1
 
         public TestCreation()
         {
-           
             InitializeComponent();
             LoadTestsToListView();
         }
@@ -160,7 +162,16 @@ namespace WinFormsApp1
                             cmd.Parameters.AddWithValue("@pa3", DBNull.Value);
                         }
 
-                        cmd.Parameters.AddWithValue("@level", q.DifficultyLevel ?? "");
+                        // המרה של DifficultyLevel ל-1,2,3
+                        int difficultyInt = q.DifficultyLevel switch
+                        {
+                            "Easy" => 1,
+                            "Medium" => 2,
+                            "Hard" => 3,
+                            _ => 0
+                        };
+                        cmd.Parameters.AddWithValue("@level", difficultyInt);
+
                         cmd.Parameters.AddWithValue("@course", q.Course ?? "");
                         cmd.Parameters.AddWithValue("@date", dateCreated);
                         cmd.ExecuteNonQuery();
@@ -180,7 +191,6 @@ namespace WinFormsApp1
             lstSelectedQuestions.Items.Clear();
         }
 
-
         private List<Question> LoadQuestionsFromDB()
         {
             List<Question> questions = new();
@@ -193,7 +203,6 @@ namespace WinFormsApp1
                 conn.Open();
                 string query = "SELECT QuestionID, Body, Answer, TestID, [Difficulty level], [Course], type, [Possible answer 1], [Possible answer 2], [Possible answer 3] FROM Question_new";
 
-
                 using (var cmd = new SQLiteCommand(query, conn))
                 using (var reader = cmd.ExecuteReader())
                 {
@@ -204,29 +213,24 @@ namespace WinFormsApp1
                         switch (type)
                         {
                             case "Multiple Choice":
-                                // שליפת שלוש תשובות אפשריות מה־DB (היכן ששמרת Distractors)
                                 var optList = new List<string>
-    {
-        reader["Possible Answer 1"].ToString(),
-        reader["Possible Answer 2"].ToString(),
-        reader["Possible Answer 3"].ToString()
-    };
+                                {
+                                    reader["Possible Answer 1"].ToString(),
+                                    reader["Possible Answer 2"].ToString(),
+                                    reader["Possible Answer 3"].ToString()
+                                };
                                 string answer = reader["Answer"].ToString().Trim();
 
-                                // אם התשובה כבר בפנים, אין צורך להוסיף פעמיים
                                 if (!optList.Contains(answer))
                                     optList.Add(answer);
 
-                                // אם יש יותר מ־4, קח רק 4 (זהירות על התשובה הנכונה!)
                                 if (optList.Count > 4)
                                 {
-                                    // נשאיר את התשובה הנכונה ובחר עוד 3 (בלי כפילויות)
                                     var others = optList.Where(x => x != answer).Distinct().Take(3).ToList();
-                                    others.Add(answer); // הוספנו את התשובה הנכונה
+                                    others.Add(answer);
                                     optList = others;
                                 }
 
-                                // ערבוב (shuffle) כדי שהתשובה לא תמיד תהיה באותו מקום
                                 var rng = new Random();
                                 optList = optList.OrderBy(x => rng.Next()).ToList();
 
@@ -234,7 +238,6 @@ namespace WinFormsApp1
 
                                 questions.Add(new MultipleChoiceQuestion(reader["Body"].ToString(), optList.ToArray(), correctIndex));
                                 break;
-
 
                             case "True/False":
                                 bool tfAnswer = bool.TryParse(reader["Answer"].ToString(), out var val) && val;
@@ -246,10 +249,8 @@ namespace WinFormsApp1
                                 break;
 
                             default:
-                                
                                 break;
                         }
-
                     }
                 }
             }
@@ -288,13 +289,14 @@ namespace WinFormsApp1
 
             MessageBox.Show("Test deleted successfully!", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
             lvTests.Items.Remove(selectedItem);
-            
         }
+
         private void BtnClear_Click(object sender, EventArgs e)
         {
             lstSelectedQuestions.Items.Clear();
             selectedQuestions.Clear();
         }
+
         private void BtnViewDetails_click(object sender, EventArgs e)
         {
             if (lvTests.SelectedItems.Count == 0)
@@ -365,6 +367,5 @@ namespace WinFormsApp1
             mainTeacher mainTeacher = new mainTeacher();
             mainTeacher.Show();
         }
-
     }
 }

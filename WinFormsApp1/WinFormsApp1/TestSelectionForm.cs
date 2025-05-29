@@ -7,8 +7,10 @@ namespace WinFormsApp1
 {
     public partial class TestSelectionForm : Form
     {
-        public TestSelectionForm()
+        private string userName;
+        public TestSelectionForm(string userName)
         {
+            this.userName = userName;
             InitializeComponent();
             LoadTests();
         }
@@ -43,7 +45,7 @@ namespace WinFormsApp1
             }
 
             int testId = int.Parse(lvAvailableTests.SelectedItems[0].Text);
-            StudentTestForm testForm = new StudentTestForm(testId);
+            StudentTestForm testForm = new StudentTestForm(testId,userName);
             testForm.Show();
             this.Close();
         }

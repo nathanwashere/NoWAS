@@ -412,3 +412,4 @@ C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Deb
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.StudentStatisticsForm.resources
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.TestCreation.resources
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.TestSelectionForm.resources
+C:\Users\avivb\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.TestSelectionForm.resources

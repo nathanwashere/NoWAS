@@ -36,7 +36,6 @@
             panelQuestion.Name = "panelQuestion";
             panelQuestion.Size = new Size(647, 306);
             panelQuestion.TabIndex = 0;
-            panelQuestion.Paint += panelQuestion_Paint;
             // 
             // btnNext
             // 

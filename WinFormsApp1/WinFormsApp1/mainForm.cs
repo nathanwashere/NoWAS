@@ -52,7 +52,7 @@ namespace WinFormsApp1
         }
         private void btnTakeTest_Click(object sender, EventArgs e)
         {
-            TestSelectionForm selector = new TestSelectionForm();
+            TestSelectionForm selector = new TestSelectionForm(userName);
             selector.Show();
             
         }

@@ -12,16 +12,17 @@ namespace WinFormsApp1
         private List<Panel> allAnswerPanels = new List<Panel>();
         private int currentQuestionIndex = 0;
         private int testId;
+        private string userName;
 
-        public StudentTestForm(int testId)
+        public StudentTestForm(int testId, string userName)
         {
+            this.userName = userName;
             InitializeComponent();
             this.testId = testId;
         }
 
         private void StudentTestForm_Load(object sender, EventArgs e)
         {
-            // בדוגמה - טען מבחן אמיתי
             var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
             dbPath = Path.GetFullPath(dbPath);
             string connectionString = $"Data Source={dbPath};Version=3;";
@@ -44,7 +45,6 @@ namespace WinFormsApp1
             }
         }
 
-
         private void btnPrevious_Click(object sender, EventArgs e)
         {
             SaveCurrentPanel();
@@ -60,12 +60,10 @@ namespace WinFormsApp1
             }
         }
 
-
         private void ShowQuestion()
         {
             if (questions == null || questions.Count == 0 || currentQuestionIndex < 0 || currentQuestionIndex >= questions.Count)
             {
-                // אם אין שאלות או האינדקס לא חוקי – צא מהפונקציה!
                 return;
             }
 
@@ -83,7 +81,6 @@ namespace WinFormsApp1
                 panelQuestion.Controls.Add(newPanel);
             }
         }
-
 
         private void SaveCurrentPanel()
         {
@@ -114,12 +111,7 @@ namespace WinFormsApp1
                 MessageBoxIcon.Information
             );
 
-            // בקש שם משתמש מהסטודנט (או תמשוך אוטומטית אם יש לך)
-            string username = Microsoft.VisualBasic.Interaction.InputBox(
-                "הכנס שם משתמש (username) לשמירת התוצאה:",
-                "שמירת תוצאה",
-                ""
-            );
+            string username = this.userName;
 
             if (!string.IsNullOrWhiteSpace(username))
             {
@@ -132,8 +124,6 @@ namespace WinFormsApp1
             this.Close();
         }
 
-
-        // === שליפת שאלות ממסד הנתונים ===
         private void LoadQuestionsFromDatabase(string connectionString, int testId)
         {
             questions = new List<Question>();
@@ -159,32 +149,26 @@ namespace WinFormsApp1
                             switch (type)
                             {
                                 case "Multiple Choice":
-                                    // קרא שלוש Distractors
                                     var optList = new List<string>
-                            {
-                                reader["PossibleAnswer1"].ToString(),
-                                reader["PossibleAnswer2"].ToString(),
-                                reader["PossibleAnswer3"].ToString()
-                            };
+                                    {
+                                        reader["PossibleAnswer1"].ToString(),
+                                        reader["PossibleAnswer2"].ToString(),
+                                        reader["PossibleAnswer3"].ToString()
+                                    };
 
-                                    // הוסף את התשובה הנכונה אם לא בפנים
                                     if (!optList.Contains(answer))
                                         optList.Add(answer);
 
-                                    // תשלים ל-4 אופציות
                                     while (optList.Count < 4)
-                                        optList.Add(""); // אפשר לשים " " או אופציה ריקה
+                                        optList.Add("");
 
-                                    // אם יש יותר מ-4, קח רק 4 (רצוי לשמור תמיד תשובה נכונה)
                                     if (optList.Count > 4)
                                     {
-                                        // שמור רק 3 Distractors ייחודיים + התשובה
                                         var others = optList.Where(x => x != answer).Distinct().Take(3).ToList();
                                         others.Add(answer);
                                         optList = others;
                                     }
 
-                                    // ערבוב אקראי (shuffle) של האופציות
                                     var rng = new Random();
                                     optList = optList.OrderBy(x => rng.Next()).ToList();
 
@@ -212,9 +196,6 @@ namespace WinFormsApp1
             }
         }
 
-
-
-        // דוגמה לשמירת תוצאות - תעדכן לפי מבנה הטבלאות שלך
         private void SaveResultForExistingPerson(string username, int testId, int score, int total, double grade, string connectionString)
         {
             using (var conn = new SQLiteConnection(connectionString))
@@ -235,9 +216,21 @@ namespace WinFormsApp1
 
                     int studentId = Convert.ToInt32(result);
 
+                    string difficultyQuery = "SELECT Difficulty FROM Test WHERE TestID = @testId";
+                    int difficulty = 0;
+                    using (var diffCmd = new SQLiteCommand(difficultyQuery, conn))
+                    {
+                        diffCmd.Parameters.AddWithValue("@testId", testId);
+                        object diffResult = diffCmd.ExecuteScalar();
+                        if (diffResult != null && int.TryParse(diffResult.ToString(), out int diffVal))
+                        {
+                            difficulty = diffVal;
+                        }
+                    }
+
                     string insertQuery = @"INSERT INTO StudentResults 
-                (StudentId, TestId, Score, TotalQuestions, Grade, TestDate)
-                VALUES (@studentId, @testId, @score, @total, @grade, @date)";
+            (StudentId, TestId, Score, TotalQuestions, Grade, TestDate, Difficulty)
+            VALUES (@studentId, @testId, @score, @total, @grade, @date, @difficulty)";
                     using (var insertCmd = new SQLiteCommand(insertQuery, conn))
                     {
                         insertCmd.Parameters.AddWithValue("@studentId", studentId);
@@ -246,17 +239,12 @@ namespace WinFormsApp1
                         insertCmd.Parameters.AddWithValue("@total", total);
                         insertCmd.Parameters.AddWithValue("@grade", grade);
                         insertCmd.Parameters.AddWithValue("@date", DateTime.Now);
+                        insertCmd.Parameters.AddWithValue("@difficulty", difficulty);
 
                         insertCmd.ExecuteNonQuery();
                     }
                 }
             }
-        }
-
-
-        private void panelQuestion_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }
