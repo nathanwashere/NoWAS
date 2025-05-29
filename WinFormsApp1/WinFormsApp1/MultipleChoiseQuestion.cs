@@ -29,22 +29,58 @@ namespace WinFormsApp1
 
         public override void Display(Panel panel)
         {
-            panel.Controls.Clear();
-            Label lbl = new Label { Text = Body, AutoSize = true, Top = 10, Left = 10 };
+            foreach (Control ctrl in panel.Controls.OfType<Label>().ToList())
+                panel.Controls.Remove(ctrl);
+
+            foreach (Control ctrl in panel.Controls.OfType<GroupBox>().ToList())
+                panel.Controls.Remove(ctrl);
+
+            // תווית להצגת גוף השאלה
+            Label lbl = new Label
+            {
+                Text = Body,
+                AutoSize = false,
+                Width = panel.Width - 20,
+                Height = 60,
+                Font = new Font("Segoe UI", 11, FontStyle.Bold),
+                ForeColor = Color.DarkSlateBlue,
+                BackColor = Color.Transparent,
+                Location = new Point(10, 10)
+            };
             panel.Controls.Add(lbl);
+
+            // GroupBox שמכיל את כל התשובות
+            GroupBox groupBox = new GroupBox
+            {
+                Text = "Choose the correct answer:",
+                Font = new Font("Segoe UI", 10, FontStyle.Italic),
+                ForeColor = Color.Black,
+                BackColor = Color.Transparent,
+                Width = panel.Width - 20,
+                Height = 60 + (Options.Length * 35),
+                Location = new Point(10, lbl.Bottom )
+            };
+
+            // יצירת RadioButtons
             for (int i = 0; i < Options.Length; i++)
             {
                 RadioButton rb = new RadioButton
                 {
                     Text = Options[i],
                     Tag = i,
-                    Top = 40 + i * 30,
-                    Left = 20,
-                    AutoSize = true
+                    AutoSize = true,
+                    Font = new Font("Segoe UI", 10),
+                    ForeColor = Color.FromArgb(40, 40, 40),
+                    BackColor = Color.Transparent,
+                    Location = new Point(20, 60 + i * 30)
                 };
-                panel.Controls.Add(rb);
+                groupBox.Controls.Add(rb);
             }
+
+            panel.Controls.Add(groupBox);
         }
+
+
 
     }
 }

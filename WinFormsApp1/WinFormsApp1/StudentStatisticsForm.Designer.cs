@@ -2,90 +2,124 @@
 {
     partial class StudentStatisticsForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StudentStatisticsForm));
             dataGridViewResults = new DataGridView();
             comboFilter = new ComboBox();
+            labelFilter = new Label();
             labelStats = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridViewResults).BeginInit();
             SuspendLayout();
             // 
             // dataGridViewResults
             // 
-            dataGridViewResults.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewResults.Location = new Point(118, 46);
-            dataGridViewResults.Margin = new Padding(2, 2, 2, 2);
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 248, 255);
+            dataGridViewResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewResults.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridViewResults.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewResults.BackgroundColor = SystemColors.Window;
+            dataGridViewResults.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridViewResults.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(33, 150, 243);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dataGridViewResults.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewResults.ColumnHeadersHeight = 34;
+            dataGridViewResults.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewResults.EnableHeadersVisualStyles = false;
+            dataGridViewResults.Font = new Font("Segoe UI", 10F);
+            dataGridViewResults.GridColor = Color.LightGray;
+            dataGridViewResults.Location = new Point(50, 60);
+            dataGridViewResults.Margin = new Padding(10);
+            dataGridViewResults.MultiSelect = false;
             dataGridViewResults.Name = "dataGridViewResults";
+            dataGridViewResults.RowHeadersVisible = false;
             dataGridViewResults.RowHeadersWidth = 62;
-            dataGridViewResults.Size = new Size(755, 180);
+            dataGridViewResults.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewResults.Size = new Size(1050, 280);
             dataGridViewResults.TabIndex = 0;
-            dataGridViewResults.CellContentClick += dataGridViewResults_CellContentClick;
             // 
             // comboFilter
             // 
-            comboFilter.FormattingEnabled = true;
-            comboFilter.Location = new Point(118, 259);
-            comboFilter.Margin = new Padding(2, 2, 2, 2);
+            comboFilter.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboFilter.Font = new Font("Segoe UI", 10F);
+            comboFilter.Location = new Point(180, 430);
             comboFilter.Name = "comboFilter";
-            comboFilter.Size = new Size(146, 28);
-            comboFilter.TabIndex = 1;
+            comboFilter.Size = new Size(200, 36);
+            comboFilter.TabIndex = 2;
+            // 
+            // labelFilter
+            // 
+            labelFilter.AutoSize = true;
+            labelFilter.BackColor = Color.Transparent;
+            labelFilter.Font = new Font("Segoe UI", 10F, FontStyle.Italic);
+            labelFilter.ForeColor = Color.Black;
+            labelFilter.Location = new Point(20, 435);
+            labelFilter.Name = "labelFilter";
+            labelFilter.Size = new Size(153, 28);
+            labelFilter.TabIndex = 1;
+            labelFilter.Text = "Filter by Grades:";
             // 
             // labelStats
             // 
             labelStats.AutoSize = true;
-            labelStats.Location = new Point(118, 326);
-            labelStats.Margin = new Padding(2, 0, 2, 0);
+            labelStats.BackColor = Color.Transparent;
+            labelStats.Font = new Font("Segoe UI", 10F, FontStyle.Italic);
+            labelStats.ForeColor = Color.DarkSlateGray;
+            labelStats.Location = new Point(460, 390);
             labelStats.Name = "labelStats";
-            labelStats.Size = new Size(50, 20);
-            labelStats.TabIndex = 2;
-            labelStats.Text = "label1";
+            labelStats.Size = new Size(323, 28);
+            labelStats.TabIndex = 0;
+            labelStats.Text = "Statistics summary will appear here.";
             // 
             // StudentStatisticsForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = Properties.Resources.bgStatistics;
-            ClientSize = new Size(1153, 652);
+            BackColor = Color.WhiteSmoke;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            ClientSize = new Size(1150, 520);
             Controls.Add(labelStats);
+            Controls.Add(labelFilter);
             Controls.Add(comboFilter);
             Controls.Add(dataGridViewResults);
-            Margin = new Padding(2, 2, 2, 2);
+            Font = new Font("Segoe UI", 10F);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(4);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "StudentStatisticsForm";
-            Text = "StudentStatisticsForm";
-            Load += StudentStatisticsForm_Load;
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Student Statistics";
             ((System.ComponentModel.ISupportInitialize)dataGridViewResults).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
+
         #endregion
 
         private DataGridView dataGridViewResults;
         private ComboBox comboFilter;
+        private Label labelFilter;
         private Label labelStats;
     }
 }
