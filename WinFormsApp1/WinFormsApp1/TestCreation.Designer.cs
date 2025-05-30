@@ -93,7 +93,7 @@
             numQuestions.Location = new Point(20, 30);
             numQuestions.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numQuestions.Name = "numQuestions";
-            numQuestions.Size = new Size(120, 30);
+            numQuestions.Size = new Size(120, 34);
             numQuestions.TabIndex = 0;
             numQuestions.Value = new decimal(new int[] { 10, 0, 0, 0 });
             // 
@@ -102,7 +102,7 @@
             chkTopics.Items.AddRange(new object[] { "Algorithms", "Software Testing", "Databases" });
             chkTopics.Location = new Point(20, 80);
             chkTopics.Name = "chkTopics";
-            chkTopics.Size = new Size(170, 79);
+            chkTopics.Size = new Size(170, 66);
             chkTopics.TabIndex = 1;
             // 
             // chkDifficulty
@@ -110,7 +110,7 @@
             chkDifficulty.Items.AddRange(new object[] { "Easy", "Medium", "Hard" });
             chkDifficulty.Location = new Point(210, 80);
             chkDifficulty.Name = "chkDifficulty";
-            chkDifficulty.Size = new Size(170, 79);
+            chkDifficulty.Size = new Size(170, 66);
             chkDifficulty.TabIndex = 2;
             // 
             // btnCreate
@@ -212,9 +212,10 @@
             // 
             lstSelectedQuestions.BackColor = Color.LightSkyBlue;
             lstSelectedQuestions.FormattingEnabled = true;
+            lstSelectedQuestions.ItemHeight = 25;
             lstSelectedQuestions.Location = new Point(30, 450);
             lstSelectedQuestions.Name = "lstSelectedQuestions";
-            lstSelectedQuestions.Size = new Size(920, 64);
+            lstSelectedQuestions.Size = new Size(920, 54);
             lstSelectedQuestions.TabIndex = 3;
             // 
             // backToMainbtn

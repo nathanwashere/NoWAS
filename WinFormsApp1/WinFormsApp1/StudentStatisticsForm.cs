@@ -141,11 +141,12 @@ namespace WinFormsApp1
                 .OrderByDescending(g => g.Count())
                 .First();
 
-            labelStats.Text = $"🧮 ממוצע ציונים כולל: {avg:F1}%\n" +
-                              $"🎓 ציון גבוה ביותר: {topName} ({topGrade:F1}%)\n" +
-                              $"📊 הכי הרבה מבחנים: {mostFrequent.Key} ({mostFrequent.Count()} מבחנים)\n" +
-                              $"📄 סך כל מבחנים: {totalExams}";
+            labelStats.Text = $"🧮 Overall Average Grade: {avg:F1}%\n" +
+                              $"🎓 Highest Grade: {topName} ({topGrade:F1}%)\n" +
+                              $"📊 Most Tests Taken: {mostFrequent.Key} ({mostFrequent.Count()} tests)\n" +
+                              $"📄 Total Tests Taken: {totalExams}";
         }
+
 
         private void comboFilter_SelectedIndexChanged(object sender, EventArgs e)
         {

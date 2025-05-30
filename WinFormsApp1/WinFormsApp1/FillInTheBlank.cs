@@ -15,12 +15,49 @@ namespace WinFormsApp1
 
         public override void Display(Panel panel)
         {
-            panel.Controls.Clear();
-            Label lbl = new Label { Text = Body, AutoSize = true, Top = 10, Left = 10 }; // תואם למחלקת האב
-            TextBox txt = new TextBox { Top = 40, Left = 20, Width = 200 };
+            foreach (Control ctrl in panel.Controls.OfType<Label>().ToList())
+                panel.Controls.Remove(ctrl);
+
+            foreach (Control ctrl in panel.Controls.OfType<GroupBox>().ToList())
+                panel.Controls.Remove(ctrl);
+
+            // תווית להצגת גוף השאלה
+            Label lbl = new Label
+            {
+                Text = Body,
+                AutoSize = false,
+                Width = panel.Width - 20,
+                Height = 60,
+                Font = new Font("Segoe UI", 11, FontStyle.Bold),
+                ForeColor = Color.DarkSlateBlue,
+                BackColor = Color.Transparent,
+                Location = new Point(10, 10)
+            };
             panel.Controls.Add(lbl);
-            panel.Controls.Add(txt);
+
+            // GroupBox להקלדת התשובה
+            GroupBox groupBox = new GroupBox
+            {
+                Text = "Type your answer:",
+                Font = new Font("Segoe UI", 10, FontStyle.Italic),
+                ForeColor = Color.Black,
+                BackColor = Color.Transparent,
+                Width = panel.Width - 20,
+                Height = 150,
+                Location = new Point(10, lbl.Bottom + 10)
+            };
+
+            TextBox txt = new TextBox
+            {
+                Width = groupBox.Width - 40,
+                Font = new Font("Segoe UI", 10),
+                Location = new Point(20, 70)
+            };
+
+            groupBox.Controls.Add(txt);
+            panel.Controls.Add(groupBox);
         }
+
 
         public override bool CheckAnswer(Panel panel)
         {
