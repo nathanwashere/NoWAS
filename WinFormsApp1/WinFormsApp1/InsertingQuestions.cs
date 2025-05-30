@@ -14,9 +14,11 @@ namespace WinFormsApp1
 {
     public partial class InsertingQuestions : Form
     {
-        public InsertingQuestions()
+        private Form main;
+        public InsertingQuestions(Form main)
         {
             InitializeComponent();
+            this.main = main;
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -165,7 +167,7 @@ namespace WinFormsApp1
 
         private void Deleting_questions_Click(object sender, EventArgs e)
         {
-            Deleting_questions deleting_Questions = new Deleting_questions();
+            Deleting_questions deleting_Questions = new Deleting_questions(this.main);
             deleting_Questions.Show();
         }
 
@@ -233,5 +235,10 @@ namespace WinFormsApp1
             return true;
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.main.Show();
+            this.Close(); 
+        }
     }
 }

@@ -46,6 +46,7 @@
             Possible_answer_2 = new TextBox();
             label3 = new Label();
             Possible_answer_3 = new TextBox();
+            button2 = new Button();
             SuspendLayout();
             // 
             // course
@@ -113,13 +114,15 @@
             // Deleting_questions
             // 
             Deleting_questions.AutoSize = true;
-            Deleting_questions.BackColor = Color.SteelBlue;
+            Deleting_questions.BackColor = Color.RoyalBlue;
+            Deleting_questions.FlatAppearance.MouseOverBackColor = Color.Blue;
+            Deleting_questions.FlatStyle = FlatStyle.Flat;
             Deleting_questions.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            Deleting_questions.Location = new Point(949, 702);
+            Deleting_questions.Location = new Point(1047, 717);
             Deleting_questions.Name = "Deleting_questions";
-            Deleting_questions.Size = new Size(377, 42);
+            Deleting_questions.Size = new Size(272, 44);
             Deleting_questions.TabIndex = 5;
-            Deleting_questions.Text = "Deleting and editing questions";
+            Deleting_questions.Text = "Delete/edit questions";
             Deleting_questions.UseVisualStyleBackColor = false;
             Deleting_questions.Click += Deleting_questions_Click;
             // 
@@ -180,13 +183,15 @@
             // 
             // button1
             // 
-            button1.BackColor = Color.DarkSeaGreen;
+            button1.BackColor = Color.PaleGreen;
+            button1.FlatAppearance.MouseOverBackColor = Color.Lime;
+            button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             button1.Location = new Point(458, 717);
             button1.Name = "button1";
             button1.Size = new Size(214, 47);
             button1.TabIndex = 11;
-            button1.Text = "Creating a question";
+            button1.Text = "Creat a question";
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
@@ -255,12 +260,27 @@
             Possible_answer_3.TabIndex = 17;
             Possible_answer_3.Visible = false;
             // 
+            // button2
+            // 
+            button2.BackColor = Color.RoyalBlue;
+            button2.FlatAppearance.BorderSize = 0;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            button2.Location = new Point(1152, 36);
+            button2.Name = "button2";
+            button2.Size = new Size(145, 39);
+            button2.TabIndex = 18;
+            button2.Text = "Back to main";
+            button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
+            // 
             // InsertingQuestions
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.תמונה_שאלות1;
             ClientSize = new Size(1348, 776);
+            Controls.Add(button2);
             Controls.Add(Possible_answer_3);
             Controls.Add(label3);
             Controls.Add(Possible_answer_2);
@@ -306,5 +326,6 @@
         private TextBox Possible_answer_2;
         private Label label3;
         private TextBox Possible_answer_3;
+        private Button button2;
     }
 }

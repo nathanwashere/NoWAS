@@ -13,9 +13,11 @@ namespace WinFormsApp1
 {
     public partial class Deleting_questions : Form
     {
-        public Deleting_questions()
+        private Form main;
+        public Deleting_questions(Form main)
         {
             InitializeComponent();
+            this.main = main;
         }
 
         private void Deleting_questions_Load(object sender, EventArgs e)
@@ -141,7 +143,7 @@ namespace WinFormsApp1
         private void EditQuestion(DataGridViewRow row)
         {
             // כאן אתה פותח טופס חדש עם הנתונים מהשורה ומאפשר עריכה
-            EditQuestionForm editForm = new EditQuestionForm(row);
+            EditQuestionForm editForm = new EditQuestionForm(row,this.main,this);
             if (editForm.ShowDialog() == DialogResult.OK)
             {
                 // טען מחדש את הנתונים מה־DB אחרי עריכה

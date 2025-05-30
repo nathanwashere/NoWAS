@@ -17,10 +17,15 @@ namespace WinFormsApp1
     public partial class EditQuestionForm : Form
     {
         private int questionId; // assuming your table has an ID column
+        private Form previousForm;
+        private Form main;
 
-        public EditQuestionForm(DataGridViewRow row)
+        public EditQuestionForm(DataGridViewRow row, Form main, Form BackForm)
         {
             InitializeComponent();
+            this.main = main;
+            previousForm = BackForm; // Initialize the back form
+
 
             // נשלוף את ה-ID של השאלה מהשורה
             questionId = Convert.ToInt32(row.Cells["QuestionID"].Value);
@@ -186,6 +191,25 @@ namespace WinFormsApp1
                     MessageBox.Show("שגיאה בעדכון השאלה: " + ex.Message, "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            previousForm.Show();
+            this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            this.main.Show();
+            this.Close();
         }
     }
 }

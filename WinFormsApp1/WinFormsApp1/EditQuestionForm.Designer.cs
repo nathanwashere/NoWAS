@@ -45,6 +45,7 @@
             Possible_answer_2 = new TextBox();
             Possible_answer_3 = new TextBox();
             save = new Button();
+            button1 = new Button();
             SuspendLayout();
             // 
             // question
@@ -221,6 +222,8 @@
             // save
             // 
             save.BackColor = Color.RoyalBlue;
+            save.FlatAppearance.MouseOverBackColor = Color.Blue;
+            save.FlatStyle = FlatStyle.Flat;
             save.Location = new Point(433, 642);
             save.Name = "save";
             save.Size = new Size(216, 57);
@@ -229,12 +232,28 @@
             save.UseVisualStyleBackColor = false;
             save.Click += save_Click1;
             // 
+            // button1
+            // 
+            button1.BackColor = Color.RoyalBlue;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatAppearance.MouseOverBackColor = Color.Blue;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            button1.Location = new Point(967, 25);
+            button1.Name = "button1";
+            button1.Size = new Size(135, 46);
+            button1.TabIndex = 27;
+            button1.Text = "Back to main";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click_1;
+            // 
             // EditQuestionForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.תמונה_שאלות1;
             ClientSize = new Size(1200, 711);
+            Controls.Add(button1);
             Controls.Add(save);
             Controls.Add(Possible_answer_3);
             Controls.Add(Possible_answer_2);
@@ -278,5 +297,6 @@
         private TextBox Possible_answer_2;
         private TextBox Possible_answer_3;
         private Button save;
+        private Button button1;
     }
 }
