@@ -75,11 +75,15 @@ namespace WinFormsApp1
         {
             // Set default filter period
             cmbFilterPeriod.SelectedIndex = 4; // All Time
+            cmbFilterDifficulty.SelectedIndex = 0; // All Difficulties
+            cmbTableFilter.SelectedIndex = 0; // All Results
 
             // Set up event handlers
             btnRefresh.Click += BtnRefresh_Click;
-            btnGoBack.Click += BtnGoBack_Click; // Add Go Back button event handler
+            btnGoBack.Click += BtnGoBack_Click;
             cmbFilterPeriod.SelectedIndexChanged += CmbFilterPeriod_SelectedIndexChanged;
+            cmbFilterDifficulty.SelectedIndexChanged += CmbFilterDifficulty_SelectedIndexChanged;
+            cmbTableFilter.SelectedIndexChanged += CmbTableFilter_SelectedIndexChanged;
             btnSearch.Click += BtnSearch_Click;
             txtSearch.Enter += TxtSearch_Enter;
             txtSearch.Leave += TxtSearch_Leave;
@@ -149,6 +153,58 @@ namespace WinFormsApp1
         private void CmbFilterPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshData();
+        }
+
+        private void CmbFilterDifficulty_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshData();
+        }
+
+        private void CmbTableFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (scoreTable == null) return;
+
+            string filterType = cmbTableFilter.SelectedItem?.ToString() ?? "All Results";
+            DataTable filteredTable = scoreTable.Clone();
+
+            foreach (DataRow row in scoreTable.Rows)
+            {
+                bool shouldInclude = true;
+
+                switch (filterType)
+                {
+                    case "Easy Tests":
+                        shouldInclude = Convert.ToInt32(row["Difficulty"]) == 1;
+                        break;
+                    case "Medium Tests":
+                        shouldInclude = Convert.ToInt32(row["Difficulty"]) == 2;
+                        break;
+                    case "Hard Tests":
+                        shouldInclude = Convert.ToInt32(row["Difficulty"]) == 3;
+                        break;
+                    case "Last Week":
+                        shouldInclude = (DateTime)row["Date"] >= DateTime.Now.AddDays(-7);
+                        break;
+                    case "Last Month":
+                        shouldInclude = (DateTime)row["Date"] >= DateTime.Now.AddMonths(-1);
+                        break;
+                    case "Last Quarter":
+                        shouldInclude = (DateTime)row["Date"] >= DateTime.Now.AddMonths(-3);
+                        break;
+                    case "Last Year":
+                        shouldInclude = (DateTime)row["Date"] >= DateTime.Now.AddYears(-1);
+                        break;
+                }
+
+                if (shouldInclude)
+                {
+                    filteredTable.ImportRow(row);
+                }
+            }
+
+            dgvHistory.DataSource = filteredTable;
+            FormatDataGrid();
+            statusLabel.Text = $"Showing {filteredTable.Rows.Count} results | Filter: {filterType} | Last updated: {lastRefreshTime:HH:mm:ss}";
         }
 
         private void BtnRefresh_Click(object sender, EventArgs e)
@@ -240,26 +296,29 @@ namespace WinFormsApp1
             scoreTable.Columns.Add("Date", typeof(DateTime));
             scoreTable.Columns.Add("Subject", typeof(string));
             scoreTable.Columns.Add("Score", typeof(double));
+            scoreTable.Columns.Add("Difficulty", typeof(int));
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
 
-                // We need to join with a Tests table, but since it doesn't exist,
-                // we'll use TestId as subject name with a prefix
                 string query = @"
                     SELECT 
-                        TestId,
-                        Score, 
-                        TotalQuestions,
-                        Grade,
-                        TestDate
+                        sr.TestId,
+                        sr.Score, 
+                        sr.TotalQuestions,
+                        sr.Grade,
+                        sr.TestDate,
+                        sr.Difficulty,
+                        t.TestName
                     FROM 
-                        StudentResults 
+                        StudentResults sr
+                    LEFT JOIN 
+                        Test t ON sr.TestId = t.TestID
                     WHERE 
-                        StudentId = @StudentId
+                        sr.StudentId = @StudentId
                     ORDER BY 
-                        TestDate ASC";
+                        sr.TestDate ASC";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
@@ -276,15 +335,18 @@ namespace WinFormsApp1
                             double score = Convert.ToDouble(reader["Score"]);
                             int totalQuestions = Convert.ToInt32(reader["TotalQuestions"]);
                             double grade = Convert.ToDouble(reader["Grade"]);
+                            int difficulty = Convert.ToInt32(reader["Difficulty"]);
 
                             // Calculate percentage score
                             double percentScore = totalQuestions > 0 ? (score / totalQuestions) * 100 : grade;
 
-                            // Create a subject name from TestId (since there's no Tests table)
-                            string subject = DetermineSubjectFromTestId(testId);
+                            // Use TestName if available, otherwise create a generic name
+                            string subject = reader["TestName"] != DBNull.Value ? 
+                                reader["TestName"].ToString() : 
+                                DetermineSubjectFromTestId(testId);
 
                             // Add to our table
-                            scoreTable.Rows.Add(testDate, subject, percentScore);
+                            scoreTable.Rows.Add(testDate, subject, percentScore, difficulty);
                         }
                     }
                 }
@@ -365,37 +427,66 @@ namespace WinFormsApp1
             if (scoreTable == null || scoreTable.Rows.Count == 0)
                 return scoreTable;
 
-            // Filter based on selected time period
-            DateTime cutoffDate = DateTime.Now;
-            string filterText = cmbFilterPeriod.SelectedItem?.ToString() ?? "All Time";
-
-            switch (filterText)
-            {
-                case "Last Week":
-                    cutoffDate = DateTime.Now.AddDays(-7);
-                    break;
-                case "Last Month":
-                    cutoffDate = DateTime.Now.AddMonths(-1);
-                    break;
-                case "Last Quarter":
-                    cutoffDate = DateTime.Now.AddMonths(-3);
-                    break;
-                case "Last Year":
-                    cutoffDate = DateTime.Now.AddYears(-1);
-                    break;
-                default: // All Time
-                    return scoreTable;
-            }
-
             // Create filtered DataTable
             DataTable filteredTable = scoreTable.Clone();
+
             foreach (DataRow row in scoreTable.Rows)
             {
-                if ((DateTime)row["Date"] >= cutoffDate)
+                bool timeFilterPassed = true;
+                bool difficultyFilterPassed = true;
+
+                // Apply time filter
+                string filterText = cmbFilterPeriod.SelectedItem?.ToString() ?? "All Time";
+                if (filterText != "All Time")
+                {
+                    DateTime cutoffDate = DateTime.Now;
+                    switch (filterText)
+                    {
+                        case "Last Week":
+                            cutoffDate = DateTime.Now.AddDays(-7);
+                            break;
+                        case "Last Month":
+                            cutoffDate = DateTime.Now.AddMonths(-1);
+                            break;
+                        case "Last Quarter":
+                            cutoffDate = DateTime.Now.AddMonths(-3);
+                            break;
+                        case "Last Year":
+                            cutoffDate = DateTime.Now.AddYears(-1);
+                            break;
+                    }
+                    timeFilterPassed = (DateTime)row["Date"] >= cutoffDate;
+                }
+
+                // Apply difficulty filter
+                string difficultyFilter = cmbFilterDifficulty.SelectedItem?.ToString() ?? "All Difficulties";
+                if (difficultyFilter != "All Difficulties")
+                {
+                    int difficulty = Convert.ToInt32(row["Difficulty"]);
+                    switch (difficultyFilter)
+                    {
+                        case "Easy (1)":
+                            difficultyFilterPassed = difficulty == 1;
+                            break;
+                        case "Medium (2)":
+                            difficultyFilterPassed = difficulty == 2;
+                            break;
+                        case "Hard (3)":
+                            difficultyFilterPassed = difficulty == 3;
+                            break;
+                    }
+                }
+
+                if (timeFilterPassed && difficultyFilterPassed)
                 {
                     filteredTable.ImportRow(row);
                 }
             }
+
+            // Update status with filter information
+            string filterInfo = $"Period: {cmbFilterPeriod.SelectedItem}, Difficulty: {cmbFilterDifficulty.SelectedItem}";
+            statusLabel.Text = $"Showing {filteredTable.Rows.Count} results | {filterInfo} | Last updated: {lastRefreshTime:HH:mm:ss}";
+
             return filteredTable;
         }
 

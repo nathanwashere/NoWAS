@@ -1,5 +1,4 @@
-﻿
-    namespace WinFormsApp1
+﻿namespace WinFormsApp1
 {
     partial class StudentTracking
     {
@@ -20,6 +19,8 @@
         private System.Windows.Forms.Label lblRecentTrend;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.ComboBox cmbFilterPeriod;
+        private System.Windows.Forms.ComboBox cmbFilterDifficulty;
+        private System.Windows.Forms.ComboBox cmbTableFilter;
         private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage tabPageHistory;
         private System.Windows.Forms.TabPage tabPageAnalytics;
@@ -72,6 +73,8 @@
             lblRecentTrend = new Label();
             btnRefresh = new Button();
             cmbFilterPeriod = new ComboBox();
+            cmbFilterDifficulty = new ComboBox();
+            cmbTableFilter = new ComboBox();
             tabControlMain = new TabControl();
             tabPageHistory = new TabPage();
             panelSearch = new Panel();
@@ -386,10 +389,40 @@
             cmbFilterPeriod.ForeColor = Color.White;
             cmbFilterPeriod.FormattingEnabled = true;
             cmbFilterPeriod.Items.AddRange(new object[] { "Last Week", "Last Month", "Last Quarter", "Last Year", "All Time" });
-            cmbFilterPeriod.Location = new Point(770, 142);
+            cmbFilterPeriod.Location = new Point(620, 142);
             cmbFilterPeriod.Name = "cmbFilterPeriod";
             cmbFilterPeriod.Size = new Size(140, 36);
             cmbFilterPeriod.TabIndex = 3;
+            // 
+            // cmbFilterDifficulty
+            // 
+            cmbFilterDifficulty.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cmbFilterDifficulty.BackColor = Color.FromArgb(30, 33, 36);
+            cmbFilterDifficulty.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbFilterDifficulty.FlatStyle = FlatStyle.Flat;
+            cmbFilterDifficulty.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmbFilterDifficulty.ForeColor = Color.White;
+            cmbFilterDifficulty.FormattingEnabled = true;
+            cmbFilterDifficulty.Items.AddRange(new object[] { "All Difficulties", "Easy (1)", "Medium (2)", "Hard (3)" });
+            cmbFilterDifficulty.Location = new Point(770, 142);
+            cmbFilterDifficulty.Name = "cmbFilterDifficulty";
+            cmbFilterDifficulty.Size = new Size(140, 36);
+            cmbFilterDifficulty.TabIndex = 4;
+            // 
+            // cmbTableFilter
+            // 
+            cmbTableFilter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cmbTableFilter.BackColor = Color.FromArgb(30, 33, 36);
+            cmbTableFilter.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbTableFilter.FlatStyle = FlatStyle.Flat;
+            cmbTableFilter.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmbTableFilter.ForeColor = Color.White;
+            cmbTableFilter.FormattingEnabled = true;
+            cmbTableFilter.Items.AddRange(new object[] { "All Results", "Easy Tests", "Medium Tests", "Hard Tests", "Last Week", "Last Month", "Last Quarter", "Last Year" });
+            cmbTableFilter.Location = new Point(866, 10);
+            cmbTableFilter.Name = "cmbTableFilter";
+            cmbTableFilter.Size = new Size(93, 35);
+            cmbTableFilter.TabIndex = 2;
             // 
             // tabControlMain
             // 
@@ -422,6 +455,7 @@
             // 
             panelSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panelSearch.BackColor = Color.FromArgb(50, 50, 53);
+            panelSearch.Controls.Add(cmbTableFilter);
             panelSearch.Controls.Add(txtSearch);
             panelSearch.Controls.Add(btnSearch);
             panelSearch.Location = new Point(6, 10);
@@ -451,7 +485,7 @@
             btnSearch.FlatStyle = FlatStyle.Flat;
             btnSearch.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnSearch.ForeColor = Color.White;
-            btnSearch.Location = new Point(866, 10);
+            btnSearch.Location = new Point(766, 10);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(93, 35);
             btnSearch.TabIndex = 1;
@@ -464,6 +498,7 @@
             tabPageAnalytics.Controls.Add(panelStats);
             tabPageAnalytics.Controls.Add(chartProgress);
             tabPageAnalytics.Controls.Add(cmbFilterPeriod);
+            tabPageAnalytics.Controls.Add(cmbFilterDifficulty);
             tabPageAnalytics.Controls.Add(btnRefresh);
             tabPageAnalytics.Location = new Point(4, 29);
             tabPageAnalytics.Name = "tabPageAnalytics";
@@ -534,8 +569,6 @@
             ResumeLayout(false);
             PerformLayout();
         }
-
-
 
         #endregion
     }
