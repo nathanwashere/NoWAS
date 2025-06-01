@@ -167,8 +167,9 @@ namespace WinFormsApp1
 
         private void Deleting_questions_Click(object sender, EventArgs e)
         {
-            Deleting_questions deleting_Questions = new Deleting_questions(this.main);
+            Deleting_questions deleting_Questions = new Deleting_questions(this.main,this);
             deleting_Questions.Show();
+            this.Hide();
         }
 
         private void type_text_SelectedIndexChanged(object sender, EventArgs e)

@@ -264,11 +264,12 @@
             // 
             button2.BackColor = Color.RoyalBlue;
             button2.FlatAppearance.BorderSize = 0;
+            button2.FlatAppearance.MouseOverBackColor = Color.Blue;
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            button2.Location = new Point(1152, 36);
+            button2.Location = new Point(1144, 36);
             button2.Name = "button2";
-            button2.Size = new Size(145, 39);
+            button2.Size = new Size(153, 39);
             button2.TabIndex = 18;
             button2.Text = "Back to main";
             button2.UseVisualStyleBackColor = false;

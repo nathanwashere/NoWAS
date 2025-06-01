@@ -14,10 +14,12 @@ namespace WinFormsApp1
     public partial class Deleting_questions : Form
     {
         private Form main;
-        public Deleting_questions(Form main)
+        private Form back_page;
+        public Deleting_questions(Form main, Form back_page)
         {
             InitializeComponent();
             this.main = main;
+            this.back_page = back_page; // Initialize the back page
         }
 
         private void Deleting_questions_Load(object sender, EventArgs e)
@@ -95,32 +97,32 @@ namespace WinFormsApp1
             }
         }
 
-       
-            private void dataGridViewQuestions_CellContentClick(object sender, DataGridViewCellEventArgs e)
+
+        private void dataGridViewQuestions_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return; // התעלם מכותרת
+
+            // אם לחצו על עמודת Delete
+            if (dataGridViewQuestions.Columns[e.ColumnIndex].Name == "Delete")
             {
-                if (e.RowIndex < 0) return; // התעלם מכותרת
+                var id = dataGridViewQuestions.Rows[e.RowIndex].Cells["QuestionID"].Value;
+                var result = MessageBox.Show("האם אתה בטוח שברצונך למחוק את השאלה?", "אישור מחיקה",
+                                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                // אם לחצו על עמודת Delete
-                if (dataGridViewQuestions.Columns[e.ColumnIndex].Name == "Delete")
+                if (result == DialogResult.Yes)
                 {
-                    var id = dataGridViewQuestions.Rows[e.RowIndex].Cells["QuestionID"].Value;
-                    var result = MessageBox.Show("האם אתה בטוח שברצונך למחוק את השאלה?", "אישור מחיקה",
-                                             MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                    if (result == DialogResult.Yes)
-                    {
-                        DeleteQuestionFromDatabase(id);
-                        dataGridViewQuestions.Rows.RemoveAt(e.RowIndex);
-                    }
-                }
-
-                // אם לחצו על עמודת Edit
-                if (dataGridViewQuestions.Columns[e.ColumnIndex].Name == "Edit")
-                {
-                    var row = dataGridViewQuestions.Rows[e.RowIndex];
-                    EditQuestion(row);
+                    DeleteQuestionFromDatabase(id);
+                    dataGridViewQuestions.Rows.RemoveAt(e.RowIndex);
                 }
             }
+
+            // אם לחצו על עמודת Edit
+            if (dataGridViewQuestions.Columns[e.ColumnIndex].Name == "Edit")
+            {
+                var row = dataGridViewQuestions.Rows[e.RowIndex];
+                EditQuestion(row);
+            }
+        }
 
         private void DeleteQuestionFromDatabase(object id)
         {
@@ -143,12 +145,24 @@ namespace WinFormsApp1
         private void EditQuestion(DataGridViewRow row)
         {
             // כאן אתה פותח טופס חדש עם הנתונים מהשורה ומאפשר עריכה
-            EditQuestionForm editForm = new EditQuestionForm(row,this.main,this);
+            EditQuestionForm editForm = new EditQuestionForm(row, this.main, this);
             if (editForm.ShowDialog() == DialogResult.OK)
             {
                 // טען מחדש את הנתונים מה־DB אחרי עריכה
                 Deleting_questions_Load(null, null);
             }
+        }
+
+        private void GoBackToMain_Click(object sender, EventArgs e)
+        {
+            this.main.Show();
+            this.Close();
+        }
+
+        private void GoBack_Click(object sender, EventArgs e)
+        {
+            this.back_page.Show();
+            this.Close();
         }
     }
 }

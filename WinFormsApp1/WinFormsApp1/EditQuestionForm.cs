@@ -195,20 +195,16 @@ namespace WinFormsApp1
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            previousForm.Show();
-            this.Close();
-        }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
+        private void GoBachToMain_Click(object sender, EventArgs e)
         {
             this.main.Show();
+            this.Close();
+            this.previousForm.Close();
+        }
+
+        private void GoBack_Click(object sender, EventArgs e)
+        {
             this.Close();
         }
     }

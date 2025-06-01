@@ -43,34 +43,46 @@
             dataGridViewQuestions.Name = "dataGridViewQuestions";
             dataGridViewQuestions.ReadOnly = true;
             dataGridViewQuestions.RowHeadersWidth = 51;
-            dataGridViewQuestions.Size = new Size(1129, 561);
+            dataGridViewQuestions.Size = new Size(1123, 628);
             dataGridViewQuestions.TabIndex = 0;
             dataGridViewQuestions.CellContentClick += dataGridViewQuestions_CellContentClick;
             // 
             // button1
             // 
-            button1.Location = new Point(826, 600);
+            button1.BackColor = Color.RoyalBlue;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatAppearance.MouseOverBackColor = Color.Blue;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            button1.Location = new Point(1129, 12);
             button1.Name = "button1";
-            button1.Size = new Size(139, 48);
+            button1.Size = new Size(124, 38);
             button1.TabIndex = 1;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            button1.Text = "Back to main";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += GoBackToMain_Click;
             // 
             // button2
             // 
-            button2.Location = new Point(169, 604);
+            button2.BackColor = Color.RoyalBlue;
+            button2.FlatAppearance.BorderSize = 0;
+            button2.FlatAppearance.MouseOverBackColor = Color.Blue;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            button2.Location = new Point(1129, 90);
             button2.Name = "button2";
-            button2.Size = new Size(140, 44);
+            button2.Size = new Size(124, 36);
             button2.TabIndex = 2;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
+            button2.Text = "Go Back";
+            button2.UseVisualStyleBackColor = false;
+            button2.Click += GoBack_Click;
             // 
             // Deleting_questions
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.תמונה_שאלות1;
-            ClientSize = new Size(1200, 660);
+            ClientSize = new Size(1247, 660);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(dataGridViewQuestions);

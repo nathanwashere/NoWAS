@@ -163,9 +163,29 @@ namespace WinFormsApp1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap סימן_שאלה_גדול_באמצע_png {
+            get {
+                object obj = ResourceManager.GetObject("סימן+שאלה+גדול+באמצע.png", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap תמונה_שאלות1 {
             get {
                 object obj = ResourceManager.GetObject("תמונה שאלות1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap תמונה_שאלות2 {
+            get {
+                object obj = ResourceManager.GetObject("תמונה שאלות2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

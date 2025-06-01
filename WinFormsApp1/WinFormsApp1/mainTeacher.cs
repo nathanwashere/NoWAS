@@ -36,7 +36,7 @@ namespace WinFormsApp1
                 Application.Exit();
             }
         }
-        private void Button1_click(object sender,EventArgs e)
+        private void Button1_click(object sender, EventArgs e)
         {
             StudentStatisticsForm studentStatisticsForm = new StudentStatisticsForm();
             studentStatisticsForm.Show();
@@ -48,6 +48,10 @@ namespace WinFormsApp1
             isCLosing = true;
             this.Close();
         }
-        
+
+        private void mainTeacher_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

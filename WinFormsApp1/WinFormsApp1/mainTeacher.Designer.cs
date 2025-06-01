@@ -148,6 +148,7 @@
             Name = "mainTeacher";
             Text = "Teacher Dashboard";
             FormClosed += mainTeacher_FormClosed;
+            Load += mainTeacher_Load;
             pnlStats.ResumeLayout(false);
             pnlStats.PerformLayout();
             ResumeLayout(false);
