@@ -279,7 +279,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = Properties.Resources.תמונה_שאלות1;
+            BackgroundImage = Properties.Resources.סימן_שאלה_גדול_באמצע_png;
             ClientSize = new Size(1348, 776);
             Controls.Add(button2);
             Controls.Add(Possible_answer_3);
