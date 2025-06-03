@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsApp1", "WinFormsApp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "inserting_Questions_delete_Questions.Tests", "inserting_Questions_delete_Questions.Tests\inserting_Questions_delete_Questions.Tests.csproj", "{D8C794D2-CDF5-46D3-88E9-2557598E74C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsApp1Tests", "WinFormsApp1Tests\WinFormsApp1Tests.csproj", "{B8FA044A-0F8E-4C68-9E45-C15EDD3463F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D8C794D2-CDF5-46D3-88E9-2557598E74C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8C794D2-CDF5-46D3-88E9-2557598E74C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8C794D2-CDF5-46D3-88E9-2557598E74C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8FA044A-0F8E-4C68-9E45-C15EDD3463F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8FA044A-0F8E-4C68-9E45-C15EDD3463F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8FA044A-0F8E-4C68-9E45-C15EDD3463F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8FA044A-0F8E-4C68-9E45-C15EDD3463F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

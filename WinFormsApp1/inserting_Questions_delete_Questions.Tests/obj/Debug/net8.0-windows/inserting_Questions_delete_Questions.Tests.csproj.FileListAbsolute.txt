@@ -898,3 +898,13 @@ C:\Users\avivb\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Qu
 C:\Users\avivb\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\obj\Debug\net8.0-windows\inserting_Questions_delete_Questions.Tests.pdb
 C:\Users\avivb\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\obj\Debug\net8.0-windows\inserting_Questions_delete_Questions.Tests.genruntimeconfig.cache
 C:\Users\avivb\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\obj\Debug\net8.0-windows\ref\inserting_Questions_delete_Questions.Tests.dll
+C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\bin\Debug\net8.0-windows\.msCoverageSourceRootsMapping_inserting_Questions_delete_Questions.Tests
+C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\obj\Debug\net8.0-windows\inserting_Questions_delete_Questions.Tests.csproj.AssemblyReference.cache
+C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\obj\Debug\net8.0-windows\inserting_Questions_delete_Questions.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\obj\Debug\net8.0-windows\inserting_Questions_delete_Questions.Tests.AssemblyInfoInputs.cache
+C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\obj\Debug\net8.0-windows\inserting_Questions_delete_Questions.Tests.AssemblyInfo.cs
+C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\obj\Debug\net8.0-windows\inserting_Questions_delete_Questions.Tests.csproj.CoreCompileInputs.cache
+C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\obj\Debug\net8.0-windows\inserting_Questions_delete_Questions.Tests.sourcelink.json
+C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\obj\Debug\net8.0-windows\inserting_Questions_delete_Questions.Tests.dll
+C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\obj\Debug\net8.0-windows\refint\inserting_Questions_delete_Questions.Tests.dll
+C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\obj\Debug\net8.0-windows\inserting_Questions_delete_Questions.Tests.pdb
