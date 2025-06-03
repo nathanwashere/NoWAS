@@ -419,9 +419,9 @@
             cmbTableFilter.ForeColor = Color.White;
             cmbTableFilter.FormattingEnabled = true;
             cmbTableFilter.Items.AddRange(new object[] { "All Results", "Easy Tests", "Medium Tests", "Hard Tests", "Last Week", "Last Month", "Last Quarter", "Last Year" });
-            cmbTableFilter.Location = new Point(866, 10);
+            cmbTableFilter.Location = new Point(786, 10);
             cmbTableFilter.Name = "cmbTableFilter";
-            cmbTableFilter.Size = new Size(93, 35);
+            cmbTableFilter.Size = new Size(120, 35);
             cmbTableFilter.TabIndex = 2;
             // 
             // tabControlMain
@@ -473,7 +473,7 @@
             txtSearch.ForeColor = Color.Silver;
             txtSearch.Location = new Point(10, 10);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(850, 39);
+            txtSearch.Size = new Size(650, 39);
             txtSearch.TabIndex = 0;
             txtSearch.Text = "Search by test name";
             // 
@@ -485,7 +485,7 @@
             btnSearch.FlatStyle = FlatStyle.Flat;
             btnSearch.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnSearch.ForeColor = Color.White;
-            btnSearch.Location = new Point(766, 10);
+            btnSearch.Location = new Point(680, 10);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(93, 35);
             btnSearch.TabIndex = 1;
