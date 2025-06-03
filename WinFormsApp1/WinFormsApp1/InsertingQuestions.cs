@@ -98,6 +98,17 @@ namespace WinFormsApp1
                                 "שגיאת קלט", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return; // מפסיק את הפעולה אם שדות לא מולאו
             }
+
+            // If question type is "True or False", validate correct answer
+            if (type_text.Text.Trim().ToLower() == "true/false")
+            {
+                string answer = c_a_text.Text.Trim().ToLower();
+                if (caText.Trim().ToLower() != "true" && caText.Trim().ToLower() != "false")
+                {
+                    MessageBox.Show("For 'True or False' questions, the correct answer must be either 'true' or 'false'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
             // 3. שאילתת INSERT
             string query = @"
             INSERT INTO Question_new 

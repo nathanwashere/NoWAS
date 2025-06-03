@@ -147,6 +147,18 @@ namespace WinFormsApp1
                 return;
             }
 
+            // If question type is "True or False", only allow "true" or "false" as correct answer
+            if (type_text.Text.Trim().ToLower() == "true or false")
+            {
+                string answer = c_a_text.Text.Trim().ToLower();
+                if (answer != "true" && answer != "false")
+                {
+                    MessageBox.Show("For 'True or False' questions, the correct answer must be either 'true' or 'false'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
+
             // שמירה למסד הנתונים
             var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
             dbPath = Path.GetFullPath(dbPath);
