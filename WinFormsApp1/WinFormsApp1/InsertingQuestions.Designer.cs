@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InsertingQuestions));
             course = new Label();
             level = new Label();
             c_a = new Label();
@@ -115,6 +116,7 @@
             // 
             Deleting_questions.AutoSize = true;
             Deleting_questions.BackColor = Color.RoyalBlue;
+            Deleting_questions.FlatAppearance.BorderSize = 0;
             Deleting_questions.FlatAppearance.MouseOverBackColor = Color.Blue;
             Deleting_questions.FlatStyle = FlatStyle.Flat;
             Deleting_questions.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
@@ -184,6 +186,7 @@
             // button1
             // 
             button1.BackColor = Color.PaleGreen;
+            button1.FlatAppearance.BorderSize = 0;
             button1.FlatAppearance.MouseOverBackColor = Color.Lime;
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
@@ -279,7 +282,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = Properties.Resources.סימן_שאלה_גדול_באמצע_png;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1348, 776);
             Controls.Add(button2);
             Controls.Add(Possible_answer_3);

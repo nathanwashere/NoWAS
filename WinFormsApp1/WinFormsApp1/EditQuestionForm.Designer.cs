@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditQuestionForm));
             question = new Label();
             type = new Label();
             course = new Label();
@@ -223,11 +224,13 @@
             // save
             // 
             save.BackColor = Color.LightGreen;
+            save.FlatAppearance.BorderSize = 0;
             save.FlatAppearance.MouseOverBackColor = Color.LimeGreen;
             save.FlatStyle = FlatStyle.Flat;
+            save.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             save.Location = new Point(433, 642);
             save.Name = "save";
-            save.Size = new Size(216, 57);
+            save.Size = new Size(169, 40);
             save.TabIndex = 26;
             save.Text = "save";
             save.UseVisualStyleBackColor = false;
@@ -242,7 +245,7 @@
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             button1.Location = new Point(1013, 21);
             button1.Name = "button1";
-            button1.Size = new Size(135, 35);
+            button1.Size = new Size(135, 39);
             button1.TabIndex = 27;
             button1.Text = "Back to main";
             button1.UseVisualStyleBackColor = false;
@@ -267,7 +270,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = Properties.Resources.תמונה_שאלות2;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1200, 711);
             Controls.Add(button2);
             Controls.Add(button1);

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("inserting_Questions_delete_Questions.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+242d6b4d8aea6e37e8b8d7d6691b9c175093d704")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0277ecab9370d70b28cccca8c58854d531991efb")]
 [assembly: System.Reflection.AssemblyProductAttribute("inserting_Questions_delete_Questions.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("inserting_Questions_delete_Questions.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

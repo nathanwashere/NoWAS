@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Deleting_questions));
             dataGridViewQuestions = new DataGridView();
             button1 = new Button();
             button2 = new Button();
@@ -81,7 +82,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = Properties.Resources.תמונה_שאלות1;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1247, 660);
             Controls.Add(button2);
             Controls.Add(button1);
