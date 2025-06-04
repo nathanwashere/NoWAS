@@ -19,6 +19,14 @@ namespace WinFormsApp1
         {
             InitializeComponent();
             this.main = main;
+            // קובע שמיקום הפורם ייקבע ידנית
+            this.StartPosition = FormStartPosition.Manual;
+
+            // הגדר את הגודל המדויק הרצוי
+            this.Size = new Size(1280, 900);
+
+            // קבע את המיקום המדויק על המסך (לדוגמה: 100 פיקסלים מימין, 100 פיקסלים מלמעלה)
+            this.Location = new System.Drawing.Point(100, 100);
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -178,6 +186,21 @@ namespace WinFormsApp1
 
         private void Deleting_questions_Click(object sender, EventArgs e)
         {
+
+            /*panelContainer.Controls.Clear();
+
+            // 2. צור מופע של Form2 (השאר Form2 כתוצאה מובנית)
+            var f2 = new Deleting_questions(this.main, this);
+
+            // 3. זה הדבר החשוב: נגדיר אותו כפורם פנימי:
+            f2.TopLevel = false; // מונע יצירת חלון חדש
+            f2.FormBorderStyle = FormBorderStyle.None; // מסיר את המסגרת של החלון
+            f2.Dock = DockStyle.Fill; // יתפוס את כל שטח ה-panelContainer
+
+            // 4. הוסף את ה-Form ל-panelContainer
+            panelContainer.Controls.Add(f2);
+            f2.Show(); // הצג אותו בתוך הפאנל, בלי חלון חדש*/
+            
             Deleting_questions deleting_Questions = new Deleting_questions(this.main,this);
             deleting_Questions.Show();
             this.Hide();
@@ -250,7 +273,12 @@ namespace WinFormsApp1
         private void button2_Click(object sender, EventArgs e)
         {
             this.main.Show();
-            this.Close(); 
+            this.Close();
+        }
+
+        private void panelContainer_Paint(object sender, PaintEventArgs e)
+        {
+           
         }
     }
 }

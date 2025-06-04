@@ -120,7 +120,7 @@
             Deleting_questions.FlatAppearance.MouseOverBackColor = Color.Blue;
             Deleting_questions.FlatStyle = FlatStyle.Flat;
             Deleting_questions.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            Deleting_questions.Location = new Point(1047, 717);
+            Deleting_questions.Location = new Point(872, 714);
             Deleting_questions.Name = "Deleting_questions";
             Deleting_questions.Size = new Size(272, 44);
             Deleting_questions.TabIndex = 5;
@@ -270,7 +270,7 @@
             button2.FlatAppearance.MouseOverBackColor = Color.Blue;
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            button2.Location = new Point(1144, 36);
+            button2.Location = new Point(931, 43);
             button2.Name = "button2";
             button2.Size = new Size(153, 39);
             button2.TabIndex = 18;
