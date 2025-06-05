@@ -25,7 +25,7 @@ namespace WinFormsApp1
             {
                 Text = Body,
                 AutoSize = false,
-                Width = panel.Width - 20,
+                Width = 1000,
                 Height = 60,
                 Font = new Font("Segoe UI", 11, FontStyle.Bold),
                 ForeColor = Color.DarkSlateBlue,
@@ -41,7 +41,7 @@ namespace WinFormsApp1
                 Font = new Font("Segoe UI", 10, FontStyle.Italic),
                 ForeColor = Color.Black,
                 BackColor = Color.Transparent,
-                Width = panel.Width - 20,
+                Width = 1000,
                 Height = 150,
                 Location = new Point(10, lbl.Bottom + 10)
             };
