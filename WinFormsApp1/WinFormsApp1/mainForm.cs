@@ -12,27 +12,7 @@ namespace WinFormsApp1
         {
             userName = USERNAME;
             InitializeComponent();
-            SetupButtons();
-        }
-
-        private void SetupButtons()
-        {
-            SetupButton(btnTakeTest, "Take Test", new Point(150, 180));
-            SetupButton(btnGrades, "My Grades", new Point(400, 180));
-        
-           
-            SetupButton(btnLogout, "Logout", new Point(380, 340), small: true);
-        }
-
-        private void SetupButton(Button btn, string text, Point location, bool small = false)
-        {
-            btn.Text = text;
-            btn.Size = small ? new Size(100, 40) : new Size(200, 50);
-            btn.Location = location;
-            btn.BackColor = Color.SteelBlue;
-            btn.ForeColor = Color.White;
-            btn.FlatStyle = FlatStyle.Flat;
-            btn.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblWelcome.Text = $"Welcome, {userName}!";
         }
 
         private void btnGrades_Click(object sender, EventArgs e)
@@ -45,17 +25,18 @@ namespace WinFormsApp1
 
         private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if(!isCLosing)
+            if (!isCLosing)
             {
                 Application.Exit();
             }
         }
+
         private void btnTakeTest_Click(object sender, EventArgs e)
         {
             TestSelectionForm selector = new TestSelectionForm(userName);
             selector.Show();
-            
         }
+
         private void btnLogout_Click(object sender, EventArgs e)
         {
             Login_Signup loginForm = new Login_Signup();
