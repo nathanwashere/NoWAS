@@ -908,3 +908,6 @@ C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\obj\Debug\net8.0-windows\inserting_Questions_delete_Questions.Tests.dll
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\obj\Debug\net8.0-windows\refint\inserting_Questions_delete_Questions.Tests.dll
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\obj\Debug\net8.0-windows\inserting_Questions_delete_Questions.Tests.pdb
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\bin\Debug\net8.0-windows\xunit.abstractions.dll
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\bin\Debug\net8.0-windows\xunit.core.dll
+C:\Users\29ida\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\inserting_Questions_delete_Questions.Tests\bin\Debug\net8.0-windows\xunit.execution.dotnet.dll

@@ -152,12 +152,34 @@ namespace WinFormsApp1
 
         private void CmbFilterPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshData();
+            // Get filtered data based on selected filters
+            DataTable filteredData = GetFilteredData();
+
+            // Update the chart with filtered data
+            UpdateChart(filteredData);
+
+            // Update statistics with filtered data
+            UpdateStatistics(filteredData);
+
+            // Update status
+            string filterInfo = $"Period: {cmbFilterPeriod.SelectedItem}, Difficulty: {cmbFilterDifficulty.SelectedItem}";
+            statusLabel.Text = $"Showing filtered results | {filterInfo} | Last updated: {lastRefreshTime:HH:mm:ss}";
         }
 
         private void CmbFilterDifficulty_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshData();
+            // Get filtered data based on selected filters
+            DataTable filteredData = GetFilteredData();
+
+            // Update the chart with filtered data
+            UpdateChart(filteredData);
+
+            // Update statistics with filtered data
+            UpdateStatistics(filteredData);
+
+            // Update status
+            string filterInfo = $"Period: {cmbFilterPeriod.SelectedItem}, Difficulty: {cmbFilterDifficulty.SelectedItem}";
+            statusLabel.Text = $"Showing filtered results | {filterInfo} | Last updated: {lastRefreshTime:HH:mm:ss}";
         }
 
         private void CmbTableFilter_SelectedIndexChanged(object sender, EventArgs e)
@@ -176,7 +198,7 @@ namespace WinFormsApp1
                     case "Easy Tests":
                         shouldInclude = Convert.ToInt32(row["Difficulty"]) == 1;
                         break;
-                    case "Medium Tests":
+                    case "Intermediate Tests":
                         shouldInclude = Convert.ToInt32(row["Difficulty"]) == 2;
                         break;
                     case "Hard Tests":
@@ -296,7 +318,8 @@ namespace WinFormsApp1
             scoreTable.Columns.Add("Date", typeof(DateTime));
             scoreTable.Columns.Add("Subject", typeof(string));
             scoreTable.Columns.Add("Score", typeof(double));
-            scoreTable.Columns.Add("Difficulty", typeof(int));
+            scoreTable.Columns.Add("Difficulty", typeof(int)); // Keep as int for database compatibility
+            scoreTable.Columns.Add("DifficultyText", typeof(string)); // Add new column for display text
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -345,12 +368,23 @@ namespace WinFormsApp1
                                 reader["TestName"].ToString() :
                                 DetermineSubjectFromTestId(testId);
 
-                            // Add to our table
-                            scoreTable.Rows.Add(testDate, subject, percentScore, difficulty);
+                            // Add to our table with both numeric and text difficulty
+                            scoreTable.Rows.Add(testDate, subject, percentScore, difficulty, GetDifficultyText(difficulty));
                         }
                     }
                 }
             }
+        }
+
+        private string GetDifficultyText(int difficulty)
+        {
+            return difficulty switch
+            {
+                1 => "Easy",
+                2 => "Intermediate",
+                3 => "Hard",
+                _ => "Unknown"
+            };
         }
 
         // Helper method to determine subject from test ID
@@ -418,6 +452,16 @@ namespace WinFormsApp1
                 dgvHistory.Columns["Score"].DefaultCellStyle.Format = "F1";
             }
 
+            // Hide the numeric difficulty column and show only the text version
+            if (dgvHistory.Columns.Contains("Difficulty"))
+            {
+                dgvHistory.Columns["Difficulty"].Visible = false;
+            }
+            if (dgvHistory.Columns.Contains("DifficultyText"))
+            {
+                dgvHistory.Columns["DifficultyText"].HeaderText = "Difficulty";
+            }
+
             // Auto-resize columns
             dgvHistory.AutoResizeColumns();
         }
@@ -465,13 +509,13 @@ namespace WinFormsApp1
                     int difficulty = Convert.ToInt32(row["Difficulty"]);
                     switch (difficultyFilter)
                     {
-                        case "Easy (1)":
+                        case "Easy":
                             difficultyFilterPassed = difficulty == 1;
                             break;
-                        case "Medium (2)":
+                        case "Intermediate":
                             difficultyFilterPassed = difficulty == 2;
                             break;
-                        case "Hard (3)":
+                        case "Hard":
                             difficultyFilterPassed = difficulty == 3;
                             break;
                     }
@@ -692,7 +736,7 @@ namespace WinFormsApp1
         /// <summary>
         /// Calculates the average score from the data table
         /// </summary>
-        private double CalculateAverageScore(DataTable dataTable)
+        public double CalculateAverageScore(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count == 0)
                 return 0;
@@ -712,7 +756,7 @@ namespace WinFormsApp1
         /// <summary>
         /// Calculates the highest score from the data table
         /// </summary>
-        private double CalculateHighestScore(DataTable dataTable)
+        public double CalculateHighestScore(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count == 0)
                 return 0;
@@ -732,7 +776,7 @@ namespace WinFormsApp1
         /// <summary>
         /// Calculates the lowest score from the data table
         /// </summary>
-        private double CalculateLowestScore(DataTable dataTable)
+        public double CalculateLowestScore(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count == 0)
                 return 0;
@@ -752,7 +796,7 @@ namespace WinFormsApp1
         /// <summary>
         /// Calculates the standard deviation of scores
         /// </summary>
-        private double CalculateStandardDeviation(DataTable dataTable)
+        public double CalculateStandardDeviation(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count <= 1)
                 return 0;
@@ -774,7 +818,7 @@ namespace WinFormsApp1
         /// <summary>
         /// Calculates the median score from the data table
         /// </summary>
-        private double CalculateMedianScore(DataTable dataTable)
+        public double CalculateMedianScore(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count == 0)
                 return 0;
@@ -804,7 +848,7 @@ namespace WinFormsApp1
         /// <summary>
         /// Calculates the mode (most frequent score) from the data table
         /// </summary>
-        private double CalculateModeScore(DataTable dataTable)
+        public double CalculateModeScore(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count == 0)
                 return 0;
