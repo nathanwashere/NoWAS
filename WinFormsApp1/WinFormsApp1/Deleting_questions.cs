@@ -23,7 +23,7 @@ namespace WinFormsApp1
 
             this.FormBorderStyle = FormBorderStyle.FixedSingle; // גודל קבוע
             this.StartPosition = FormStartPosition.Manual; // נשלוט במיקום
-            this.Size = new Size(1300, 800); // גודל אחיד לפי רצונך
+            this.Size = new Size(1150, 800); // גודל אחיד לפי רצונך
             this.Location = new Point(100, 100); // מיקום רצוי במסך
 
             // אם לא רוצים שינוי גודל

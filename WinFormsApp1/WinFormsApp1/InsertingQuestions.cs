@@ -22,7 +22,7 @@ namespace WinFormsApp1
             this.main = main;
             this.FormBorderStyle = FormBorderStyle.FixedSingle; // גודל קבוע
             this.StartPosition = FormStartPosition.Manual; // נשלוט במיקום
-            this.Size = new Size(1300, 800); // גודל אחיד לפי רצונך
+            this.Size = new Size(1100, 800); // גודל אחיד לפי רצונך
             this.Location = new System.Drawing.Point(100, 100); // מיקום רצוי במסך
 
             // אם לא רוצים שינוי גודל
@@ -295,6 +295,16 @@ namespace WinFormsApp1
             float newFontSize = btn.Height * 0.4f;
 
             btn.Font = new Font(btn.Font.FontFamily, newFontSize, btn.Font.Style);
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

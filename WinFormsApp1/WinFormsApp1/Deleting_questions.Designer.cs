@@ -55,9 +55,9 @@
             button1.FlatAppearance.MouseOverBackColor = Color.Blue;
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            button1.Location = new Point(1129, 12);
+            button1.Location = new Point(214, 647);
             button1.Name = "button1";
-            button1.Size = new Size(124, 38);
+            button1.Size = new Size(196, 38);
             button1.TabIndex = 1;
             button1.Text = "Back to main";
             button1.UseVisualStyleBackColor = false;
@@ -70,9 +70,9 @@
             button2.FlatAppearance.MouseOverBackColor = Color.Blue;
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            button2.Location = new Point(1129, 74);
+            button2.Location = new Point(617, 647);
             button2.Name = "button2";
-            button2.Size = new Size(124, 36);
+            button2.Size = new Size(207, 36);
             button2.TabIndex = 2;
             button2.Text = "Go Back";
             button2.UseVisualStyleBackColor = false;
@@ -83,7 +83,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(1247, 660);
+            ClientSize = new Size(1247, 685);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(dataGridViewQuestions);

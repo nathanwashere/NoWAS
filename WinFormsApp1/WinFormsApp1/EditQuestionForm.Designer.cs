@@ -243,7 +243,7 @@
             button1.FlatAppearance.MouseOverBackColor = Color.Blue;
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            button1.Location = new Point(1013, 21);
+            button1.Location = new Point(837, 572);
             button1.Name = "button1";
             button1.Size = new Size(135, 39);
             button1.TabIndex = 27;
@@ -258,7 +258,7 @@
             button2.FlatAppearance.MouseOverBackColor = Color.Blue;
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            button2.Location = new Point(1013, 100);
+            button2.Location = new Point(837, 643);
             button2.Name = "button2";
             button2.Size = new Size(135, 39);
             button2.TabIndex = 28;
