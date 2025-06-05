@@ -390,10 +390,10 @@ namespace WinFormsApp1
         private Button buttonLoginToSignup;
         private Label labelSignupUsername;
         private Label labelSignupPassword;
-        private TextBox textBoxSignupUsername;
-        private TextBox textBoxSignupPassword;
-        private TextBox textBoxSignupID;
-        private TextBox textBoxSignupMail;
+        public TextBox textBoxSignupUsername;
+        public TextBox textBoxSignupPassword;
+        public TextBox textBoxSignupID;
+        public TextBox textBoxSignupMail;
         private Label labelID;
         private Label labelMail;
         private RadioButton rbStudent;

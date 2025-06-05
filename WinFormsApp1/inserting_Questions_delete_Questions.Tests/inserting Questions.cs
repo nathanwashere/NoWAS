@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Reflection;
 using System.Windows.Forms;
@@ -10,11 +11,13 @@ namespace WinFormsApp1.Tests
     public class InsertingQuestionsTests
     {
         private InsertingQuestions form;
+        private Form main = new Form(); // Create a dummy main form
 
         [TestInitialize]
         public void Setup()
         {
-            form = new InsertingQuestions();
+            
+            form = new InsertingQuestions(main);
         }
 
         //function type_text_SelectedIndexChanged()
@@ -32,7 +35,7 @@ namespace WinFormsApp1.Tests
         [TestMethod]
         public void AreRequiredFieldsFilled_ShouldReturnFalse_IfAnyRequiredFieldIsEmpty()
         {
-            var form = new InsertingQuestions();
+            var form = new InsertingQuestions(main);
 
             // סימולציה של טקסטבוקסים עם טקסט ריק
             form.Controls.Find("question_text", true)[0].Text = "";
