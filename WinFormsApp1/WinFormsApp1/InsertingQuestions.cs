@@ -19,14 +19,8 @@ namespace WinFormsApp1
         {
             InitializeComponent();
             this.main = main;
-            // קובע שמיקום הפורם ייקבע ידנית
-            this.StartPosition = FormStartPosition.Manual;
-
-            // הגדר את הגודל המדויק הרצוי
-            this.Size = new Size(1280, 900);
-
-            // קבע את המיקום המדויק על המסך (לדוגמה: 100 פיקסלים מימין, 100 פיקסלים מלמעלה)
-            this.Location = new System.Drawing.Point(100, 100);
+            this.FormBorderStyle = FormBorderStyle.Sizable; // שומר על המסגרת הרגילה
+            this.WindowState = FormWindowState.Maximized;   // ממלא את כל המסך
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -137,7 +131,7 @@ namespace WinFormsApp1
                 cmd.Parameters.AddWithValue("@ca", caText);
                 cmd.Parameters.AddWithValue("@lvl", lvlText);
 
-                if (type_text.Text == "Multiple choice")
+                if (type_text.Text == "Multiple Choice")
                 {
                     cmd.Parameters.AddWithValue("@p_a1", p_a1Text);
                     cmd.Parameters.AddWithValue("@p_a2", p_a2Text);

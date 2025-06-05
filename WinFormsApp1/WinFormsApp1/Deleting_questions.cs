@@ -21,13 +21,8 @@ namespace WinFormsApp1
             this.main = main;
             this.back_page = back_page; // Initialize the back page
 
-            // קובע שמיקום הפורם ייקבע ידנית
-            this.StartPosition = FormStartPosition.Manual;
-
-            // הגדר את הגודל המדויק הרצוי
-            this.Size = new Size(1280, 900);
-            // קבע את המיקום המדויק על המסך (לדוגמה: 100 פיקסלים מימין, 100 פיקסלים מלמעלה)
-            this.Location = new System.Drawing.Point(100, 100);
+            this.FormBorderStyle = FormBorderStyle.Sizable; // שומר על המסגרת הרגילה
+            this.WindowState = FormWindowState.Maximized;   // ממלא את כל המסך
         }
 
        

@@ -221,7 +221,7 @@ namespace WinFormsApp1
                                 };
                                 string answer = reader["Answer"].ToString().Trim();
 
-                                if (!optList.Contains(answer))
+                               
                                     optList.Add(answer);
 
                                 if (optList.Count > 4)
