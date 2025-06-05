@@ -41,12 +41,12 @@ namespace WinFormsApp1
             panelQuestion.Location = new Point(-4, -2);
             panelQuestion.Margin = new Padding(2);
             panelQuestion.Name = "panelQuestion";
-            panelQuestion.Size = new Size(809, 382);
+            panelQuestion.Size = new Size(1105, 389);
             panelQuestion.TabIndex = 0;
             // 
             // btnNext
             // 
-            btnNext.Location = new Point(322, 404);
+            btnNext.Location = new Point(510, 404);
             btnNext.Margin = new Padding(2);
             btnNext.Name = "btnNext";
             btnNext.Size = new Size(94, 29);
@@ -56,7 +56,7 @@ namespace WinFormsApp1
             // 
             // btnPrevious
             // 
-            btnPrevious.Location = new Point(68, 404);
+            btnPrevious.Location = new Point(174, 404);
             btnPrevious.Margin = new Padding(2);
             btnPrevious.Name = "btnPrevious";
             btnPrevious.Size = new Size(94, 29);
@@ -66,7 +66,7 @@ namespace WinFormsApp1
             // 
             // btnFinish
             // 
-            btnFinish.Location = new Point(570, 404);
+            btnFinish.Location = new Point(818, 404);
             btnFinish.Margin = new Padding(2);
             btnFinish.Name = "btnFinish";
             btnFinish.Size = new Size(94, 29);
@@ -80,7 +80,7 @@ namespace WinFormsApp1
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightSkyBlue;
             BackgroundImage = Properties.Resources.bgTestTake;
-            ClientSize = new Size(800, 462);
+            ClientSize = new Size(1102, 656);
             Controls.Add(btnFinish);
             Controls.Add(btnPrevious);
             Controls.Add(btnNext);
@@ -91,9 +91,6 @@ namespace WinFormsApp1
             Name = "StudentTestForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "StudentTestForm";
-            StyleButton(btnNext);
-            StyleButton(btnPrevious);
-            StyleButton(btnFinish);
             Load += StudentTestForm_Load;
             ResumeLayout(false);
         }
