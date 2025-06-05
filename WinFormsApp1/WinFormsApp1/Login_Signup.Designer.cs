@@ -71,9 +71,9 @@ namespace WinFormsApp1
             // pictureBoxLoginTogglePassword
             // 
             pictureBoxLoginTogglePassword.BackColor = Color.Transparent;
-            pictureBoxLoginTogglePassword.Location = new Point(652, 210);
+            pictureBoxLoginTogglePassword.Location = new Point(632, 213);
             pictureBoxLoginTogglePassword.Name = "pictureBoxLoginTogglePassword";
-            pictureBoxLoginTogglePassword.Size = new Size(97, 32);
+            pictureBoxLoginTogglePassword.Size = new Size(48, 32);
             pictureBoxLoginTogglePassword.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxLoginTogglePassword.TabIndex = 7;
             pictureBoxLoginTogglePassword.TabStop = false;
@@ -183,14 +183,13 @@ namespace WinFormsApp1
             panelSignup.Name = "panelSignup";
             panelSignup.Size = new Size(1022, 573);
             panelSignup.TabIndex = 0;
-            panelSignup.Paint += panelSignup_Paint;
             // 
             // pictureBoxSignupTogglePassword
             // 
             pictureBoxSignupTogglePassword.BackColor = Color.Transparent;
-            pictureBoxSignupTogglePassword.Location = new Point(652, 156);
+            pictureBoxSignupTogglePassword.Location = new Point(632, 152);
             pictureBoxSignupTogglePassword.Name = "pictureBoxSignupTogglePassword";
-            pictureBoxSignupTogglePassword.Size = new Size(97, 32);
+            pictureBoxSignupTogglePassword.Size = new Size(48, 32);
             pictureBoxSignupTogglePassword.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxSignupTogglePassword.TabIndex = 14;
             pictureBoxSignupTogglePassword.TabStop = false;
@@ -212,11 +211,11 @@ namespace WinFormsApp1
             // 
             labelSignupUsername.AutoSize = true;
             labelSignupUsername.BackColor = Color.Transparent;
-            labelSignupUsername.Font = new Font("Segoe UI", 12F);
+            labelSignupUsername.Font = new Font("Lucida Handwriting", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelSignupUsername.ForeColor = Color.FromArgb(54, 0, 102);
             labelSignupUsername.Location = new Point(290, 100);
             labelSignupUsername.Name = "labelSignupUsername";
-            labelSignupUsername.Size = new Size(103, 28);
+            labelSignupUsername.Size = new Size(143, 27);
             labelSignupUsername.TabIndex = 1;
             labelSignupUsername.Text = "Username:";
             // 
@@ -232,11 +231,11 @@ namespace WinFormsApp1
             // 
             labelSignupPassword.AutoSize = true;
             labelSignupPassword.BackColor = Color.Transparent;
-            labelSignupPassword.Font = new Font("Segoe UI", 12F);
+            labelSignupPassword.Font = new Font("Lucida Handwriting", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelSignupPassword.ForeColor = Color.FromArgb(54, 0, 102);
             labelSignupPassword.Location = new Point(290, 150);
             labelSignupPassword.Name = "labelSignupPassword";
-            labelSignupPassword.Size = new Size(97, 28);
+            labelSignupPassword.Size = new Size(133, 27);
             labelSignupPassword.TabIndex = 3;
             labelSignupPassword.Text = "Password:";
             // 
@@ -253,11 +252,11 @@ namespace WinFormsApp1
             // 
             labelID.AutoSize = true;
             labelID.BackColor = Color.Transparent;
-            labelID.Font = new Font("Segoe UI", 12F);
+            labelID.Font = new Font("Lucida Handwriting", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelID.ForeColor = Color.FromArgb(54, 0, 102);
             labelID.Location = new Point(290, 200);
             labelID.Name = "labelID";
-            labelID.Size = new Size(35, 28);
+            labelID.Size = new Size(50, 27);
             labelID.TabIndex = 5;
             labelID.Text = "ID:";
             // 
@@ -273,11 +272,11 @@ namespace WinFormsApp1
             // 
             labelMail.AutoSize = true;
             labelMail.BackColor = Color.Transparent;
-            labelMail.Font = new Font("Segoe UI", 12F);
+            labelMail.Font = new Font("Lucida Handwriting", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelMail.ForeColor = Color.FromArgb(54, 0, 102);
             labelMail.Location = new Point(290, 250);
             labelMail.Name = "labelMail";
-            labelMail.Size = new Size(63, 28);
+            labelMail.Size = new Size(92, 27);
             labelMail.TabIndex = 7;
             labelMail.Text = "Email:";
             // 
@@ -348,16 +347,17 @@ namespace WinFormsApp1
             // labelPasswordInfo
             // 
             labelPasswordInfo.BackColor = Color.Transparent;
-            labelPasswordInfo.BackgroundImageLayout = ImageLayout.Stretch;
             labelPasswordInfo.Font = new Font("Segoe UI", 10F);
             labelPasswordInfo.ForeColor = Color.FromArgb(54, 0, 102);
-            labelPasswordInfo.ImageAlign = ContentAlignment.TopLeft;
+            labelPasswordInfo.Image = (Image)resources.GetObject("labelPasswordInfo.Image");
+            labelPasswordInfo.ImageAlign = ContentAlignment.TopCenter;
             labelPasswordInfo.Location = new Point(686, 100);
             labelPasswordInfo.Name = "labelPasswordInfo";
-            labelPasswordInfo.Padding = new Padding(10, 50, 20, 10);
-            labelPasswordInfo.Size = new Size(290, 276);
-            labelPasswordInfo.TabIndex = 13;
-            labelPasswordInfo.Text = resources.GetString("labelPasswordInfo.Text");
+            labelPasswordInfo.Padding = new Padding(0, 10, 0, 10);
+            labelPasswordInfo.Size = new Size(290, 332);
+            labelPasswordInfo.TabIndex = 15;
+            labelPasswordInfo.Text = "\r\nPassword requirements:\r\n\r\n*8–10 characters\r\n*At least one digit\r\n*At least one letter\r\n            *At least one special               character (!@#...)\r\n";
+            labelPasswordInfo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Login_Signup
             // 
@@ -379,7 +379,7 @@ namespace WinFormsApp1
         }
 
         #endregion
-
+        private ErrorProvider errorProvider = new ErrorProvider();
         private Panel panelLogin;
         private Panel panelSignup;
         private Label labelLoginUsername;
