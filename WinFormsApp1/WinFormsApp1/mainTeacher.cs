@@ -48,7 +48,13 @@ namespace WinFormsApp1
             isCLosing = true;
             this.Close();
         }
-
+        private void DeleteQuestionsbtn_Click(object sender,EventArgs e)
+        {
+            Deleting_questions DeleteQuestionForm = new Deleting_questions(this,this);
+            DeleteQuestionForm.Show();
+            isCLosing = true;
+            this.Hide();
+        }
         private void mainTeacher_Load(object sender, EventArgs e)
         {
 

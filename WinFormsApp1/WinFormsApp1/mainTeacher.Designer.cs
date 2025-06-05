@@ -1,4 +1,5 @@
-﻿namespace WinFormsApp1
+﻿
+namespace WinFormsApp1
 {
     partial class mainTeacher
     {
@@ -11,7 +12,8 @@
         private System.Windows.Forms.Button btnCreateTest;
         private System.Windows.Forms.Button btnCheckSubmissions;
         private System.Windows.Forms.Button btnLogout;
-
+        private Button button1;
+        private Button Delete_Questions;
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -31,6 +33,7 @@
             btnCheckSubmissions = new Button();
             btnLogout = new Button();
             button1 = new Button();
+            Delete_Questions = new Button();
             pnlStats.SuspendLayout();
             SuspendLayout();
             // 
@@ -124,13 +127,26 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(280, 305);
+            button1.Location = new Point(280, 353);
             button1.Name = "button1";
             button1.Size = new Size(200, 50);
             button1.TabIndex = 8;
             button1.Text = "Statistical Data";
             button1.UseVisualStyleBackColor = false;
             button1.Click += Button1_click;
+            // 
+            // Delete_Questions
+            // 
+            Delete_Questions.BackColor = Color.SteelBlue;
+            Delete_Questions.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            Delete_Questions.ForeColor = Color.White;
+            Delete_Questions.Location = new Point(280, 291);
+            Delete_Questions.Name = "Delete_Questions";
+            Delete_Questions.Size = new Size(200, 56);
+            Delete_Questions.TabIndex = 9;
+            Delete_Questions.Text = "Delete Questions";
+            Delete_Questions.UseVisualStyleBackColor = false;
+            Delete_Questions.Click += DeleteQuestionsbtn_Click;
             // 
             // mainTeacher
             // 
@@ -139,6 +155,7 @@
             BackColor = Color.WhiteSmoke;
             BackgroundImage = Properties.Resources.bgMain;
             ClientSize = new Size(800, 500);
+            Controls.Add(Delete_Questions);
             Controls.Add(button1);
             Controls.Add(lblWelcome);
             Controls.Add(pnlStats);
@@ -155,13 +172,11 @@
             PerformLayout();
         }
 
-        private void DeleteQuestionsbtn_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+
+
 
         #endregion
 
-        private Button button1;
+
     }
 }

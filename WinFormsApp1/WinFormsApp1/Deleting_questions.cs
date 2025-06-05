@@ -22,6 +22,8 @@ namespace WinFormsApp1
             this.back_page = back_page; // Initialize the back page
         }
 
+       
+
         private void Deleting_questions_Load(object sender, EventArgs e)
         {
             this.BackgroundImageLayout = ImageLayout.Stretch;
