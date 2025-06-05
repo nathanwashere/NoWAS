@@ -84,9 +84,11 @@ namespace WinFormsApp1
 
         private void SaveCurrentPanel()
         {
-            if (currentQuestionIndex < allAnswerPanels.Count)
+            if (currentQuestionIndex < allAnswerPanels.Count && panelQuestion.Controls.Count > 0)
             {
-                allAnswerPanels[currentQuestionIndex] = panelQuestion.Controls[0] as Panel;
+                var panel = panelQuestion;
+                if (panel != null)
+                    allAnswerPanels[currentQuestionIndex] = panel;
             }
         }
 
@@ -156,7 +158,7 @@ namespace WinFormsApp1
                                         reader["PossibleAnswer3"].ToString()
                                     };
 
-                                    if (!optList.Contains(answer))
+                                    
                                         optList.Add(answer);
 
                                     while (optList.Count < 4)

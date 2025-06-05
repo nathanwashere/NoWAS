@@ -61,7 +61,11 @@ namespace WinFormsApp1
 
         public override bool CheckAnswer(Panel panel)
         {
-            foreach (Control ctrl in panel.Controls)
+            var groupBox = panel.Controls.OfType<GroupBox>().FirstOrDefault();
+            if (groupBox == null)
+                return false;
+
+            foreach (Control ctrl in groupBox.Controls)
             {
                 if (ctrl is TextBox tb)
                 {
@@ -70,5 +74,6 @@ namespace WinFormsApp1
             }
             return false;
         }
+
     }
 }

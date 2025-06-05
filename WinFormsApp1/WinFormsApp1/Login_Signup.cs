@@ -175,13 +175,13 @@ namespace WinFormsApp1
                 string.IsNullOrEmpty(id) ||
                 string.IsNullOrEmpty(mail))
             {
-                //MessageBox.Show("Please fill in Username, Password, ID and E-mail.");
+                MessageBox.Show("Please fill in Username, Password, ID and E-mail.");
                 return false;
             }
 
             if (username.Length < 6 || username.Length > 8)
             {
-                //MessageBox.Show("Username must be between 6 and 8 characters long.");
+                MessageBox.Show("Username must be between 6 and 8 characters long.");
                 return false;
             }
             bool IsEnglishLetter(char c) => (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
@@ -190,13 +190,13 @@ namespace WinFormsApp1
             bool allValid = username.All(c => char.IsDigit(c) || IsEnglishLetter(c));
             if (!allValid || digitCount > 2 || letterCount != username.Length - digitCount)
             {
-                //MessageBox.Show("Username must contain only English letters and up to 2 digits.");
+                MessageBox.Show("Username must contain only English letters and up to 2 digits.");
                 return false;
             }
 
             if (password.Length < 8 || password.Length > 10)
             {
-                //MessageBox.Show("Password must be between 8 and 10 characters long.");
+                MessageBox.Show("Password must be between 8 and 10 characters long.");
                 return false;
             }
             bool hasLetter = password.Any(IsEnglishLetter);
@@ -204,20 +204,20 @@ namespace WinFormsApp1
             bool hasSpecial = password.Any(c => "!@#$%^&*()-_=+[]{};:'\".,.<>?/|".Contains(c));
             if (!hasLetter || !hasDigit || !hasSpecial)
             {
-                //MessageBox.Show("Password must contain at least one English letter, one digit, and one special character (!@#$%^&*...).");
+                MessageBox.Show("Password must contain at least one English letter, one digit, and one special character (!@#$%^&*...).");
                 return false;
             }
 
             if (id.Length != 9 || !id.All(char.IsDigit))
             {
-                //MessageBox.Show("ID must be exactly 9 digits.");
+                MessageBox.Show("ID must be exactly 9 digits.");
                 return false;
             }
 
             var emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             if (!Regex.IsMatch(mail, emailPattern))
             {
-                //MessageBox.Show("Please enter a valid e-mail address.");
+                MessageBox.Show("Please enter a valid e-mail address.");
                 return false;
             }
 
@@ -240,19 +240,19 @@ namespace WinFormsApp1
                 if (userNameExistsExcel(worksheet, userName) &&
                     userNameExistsDataBase(userName))
                 {
-                    //MessageBox.Show("User already exists");
+                    MessageBox.Show("User already exists");
                     return;
                 }
 
                 if (tazExistsDataBase(taz))
                 {
-                    //MessageBox.Show("ID (taz) already exists");
+                    MessageBox.Show("ID (taz) already exists");
                     return;
                 }
 
                 if (mailExistsDataBase(mail))
                 {
-                    //MessageBox.Show("E-mail already exists");
+                    MessageBox.Show("E-mail already exists");
                     return;
                 }
 
@@ -267,7 +267,7 @@ namespace WinFormsApp1
                     mail
                 );
 
-                //MessageBox.Show("Account was successfully registered!");
+                MessageBox.Show("Account was successfully registered!");
 
                 if (checkLogin(worksheet, userName, password) && getUserType(userName) == "Student")
                 {
@@ -283,7 +283,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                //MessageBox.Show($"An error occurred while trying to sign up: {ex.Message}");
+                MessageBox.Show($"An error occurred while trying to sign up: {ex.Message}");
             }
             finally
             {
@@ -295,7 +295,7 @@ namespace WinFormsApp1
         {
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
             {
-                //MessageBox.Show("Please enter both username and password.");
+               MessageBox.Show("Please enter both username and password.");
                 return;
             }
 
@@ -308,24 +308,24 @@ namespace WinFormsApp1
 
                 if (checkLogin(worksheet, userName, password) && getUserType(userName) == "Student")
                 {
-                    //MessageBox.Show("Login successful!");
+                    MessageBox.Show("Login successful!");
                     new mainForm(userName).Show();
                     this.Hide();
                 }
                 else if (checkLogin(worksheet, userName, password) && getUserType(userName) == "Professor")
                 {
-                    //MessageBox.Show("Login successful!");
+                    MessageBox.Show("Login successful!");
                     new mainTeacher().Show();
                     this.Hide();
                 }
                 else
                 {
-                    //MessageBox.Show("Invalid username or password.");
+                    MessageBox.Show("Invalid username or password.");
                 }
             }
             catch (Exception ex)
             {
-                //MessageBox.Show($"An error occurred while trying to login: {ex.Message}");
+               MessageBox.Show($"An error occurred while trying to login: {ex.Message}");
             }
             finally
             {
@@ -340,7 +340,7 @@ namespace WinFormsApp1
 
             if (!File.Exists(dbPath))
             {
-                //MessageBox.Show("Database file not found!");
+                MessageBox.Show("Database file not found!");
                 return null;
             }
             try
@@ -357,7 +357,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                //MessageBox.Show($"Failed to open database:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Failed to open database:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
         }
