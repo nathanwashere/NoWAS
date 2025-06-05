@@ -692,7 +692,7 @@ namespace WinFormsApp1
         /// <summary>
         /// Calculates the average score from the data table
         /// </summary>
-        private double CalculateAverageScore(DataTable dataTable)
+        public double CalculateAverageScore(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count == 0)
                 return 0;
@@ -712,7 +712,7 @@ namespace WinFormsApp1
         /// <summary>
         /// Calculates the highest score from the data table
         /// </summary>
-        private double CalculateHighestScore(DataTable dataTable)
+        public double CalculateHighestScore(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count == 0)
                 return 0;
@@ -732,7 +732,7 @@ namespace WinFormsApp1
         /// <summary>
         /// Calculates the lowest score from the data table
         /// </summary>
-        private double CalculateLowestScore(DataTable dataTable)
+        public double CalculateLowestScore(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count == 0)
                 return 0;
@@ -752,7 +752,7 @@ namespace WinFormsApp1
         /// <summary>
         /// Calculates the standard deviation of scores
         /// </summary>
-        private double CalculateStandardDeviation(DataTable dataTable)
+        public double CalculateStandardDeviation(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count <= 1)
                 return 0;
@@ -774,7 +774,7 @@ namespace WinFormsApp1
         /// <summary>
         /// Calculates the median score from the data table
         /// </summary>
-        private double CalculateMedianScore(DataTable dataTable)
+        public double CalculateMedianScore(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count == 0)
                 return 0;
@@ -804,7 +804,7 @@ namespace WinFormsApp1
         /// <summary>
         /// Calculates the mode (most frequent score) from the data table
         /// </summary>
-        private double CalculateModeScore(DataTable dataTable)
+        public double CalculateModeScore(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count == 0)
                 return 0;
