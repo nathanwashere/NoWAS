@@ -153,6 +153,16 @@ namespace WinFormsApp1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] ErrorIcon {
+            get {
+                object obj = ResourceManager.GetObject("ErrorIcon", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] eye_closed {
             get {
                 object obj = ResourceManager.GetObject("eye_closed", resourceCulture);
