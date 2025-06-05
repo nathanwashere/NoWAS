@@ -92,6 +92,9 @@ namespace WinFormsApp1
             StartPosition = FormStartPosition.CenterScreen;
             Text = "StudentTestForm";
             Load += StudentTestForm_Load;
+            StyleButton(btnFinish);
+            StyleButton(btnPrevious);
+            StyleButton(btnNext);
             ResumeLayout(false);
         }
 
