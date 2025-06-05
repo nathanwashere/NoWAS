@@ -137,7 +137,7 @@ namespace WinFormsApp1
                 cmd.Parameters.AddWithValue("@ca", caText);
                 cmd.Parameters.AddWithValue("@lvl", lvlText);
 
-                if (type_text.Text == "Multiple choice")
+                if (type_text.Text == "Multiple Choice")
                 {
                     cmd.Parameters.AddWithValue("@p_a1", p_a1Text);
                     cmd.Parameters.AddWithValue("@p_a2", p_a2Text);
