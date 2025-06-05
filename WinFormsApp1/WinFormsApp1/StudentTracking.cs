@@ -152,12 +152,34 @@ namespace WinFormsApp1
 
         private void CmbFilterPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshData();
+            // Get filtered data based on selected filters
+            DataTable filteredData = GetFilteredData();
+
+            // Update the chart with filtered data
+            UpdateChart(filteredData);
+
+            // Update statistics with filtered data
+            UpdateStatistics(filteredData);
+
+            // Update status
+            string filterInfo = $"Period: {cmbFilterPeriod.SelectedItem}, Difficulty: {cmbFilterDifficulty.SelectedItem}";
+            statusLabel.Text = $"Showing filtered results | {filterInfo} | Last updated: {lastRefreshTime:HH:mm:ss}";
         }
 
         private void CmbFilterDifficulty_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshData();
+            // Get filtered data based on selected filters
+            DataTable filteredData = GetFilteredData();
+
+            // Update the chart with filtered data
+            UpdateChart(filteredData);
+
+            // Update statistics with filtered data
+            UpdateStatistics(filteredData);
+
+            // Update status
+            string filterInfo = $"Period: {cmbFilterPeriod.SelectedItem}, Difficulty: {cmbFilterDifficulty.SelectedItem}";
+            statusLabel.Text = $"Showing filtered results | {filterInfo} | Last updated: {lastRefreshTime:HH:mm:ss}";
         }
 
         private void CmbTableFilter_SelectedIndexChanged(object sender, EventArgs e)
@@ -176,7 +198,7 @@ namespace WinFormsApp1
                     case "Easy Tests":
                         shouldInclude = Convert.ToInt32(row["Difficulty"]) == 1;
                         break;
-                    case "Medium Tests":
+                    case "Intermediate Tests":
                         shouldInclude = Convert.ToInt32(row["Difficulty"]) == 2;
                         break;
                     case "Hard Tests":
@@ -296,7 +318,8 @@ namespace WinFormsApp1
             scoreTable.Columns.Add("Date", typeof(DateTime));
             scoreTable.Columns.Add("Subject", typeof(string));
             scoreTable.Columns.Add("Score", typeof(double));
-            scoreTable.Columns.Add("Difficulty", typeof(int));
+            scoreTable.Columns.Add("Difficulty", typeof(int)); // Keep as int for database compatibility
+            scoreTable.Columns.Add("DifficultyText", typeof(string)); // Add new column for display text
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -345,12 +368,23 @@ namespace WinFormsApp1
                                 reader["TestName"].ToString() :
                                 DetermineSubjectFromTestId(testId);
 
-                            // Add to our table
-                            scoreTable.Rows.Add(testDate, subject, percentScore, difficulty);
+                            // Add to our table with both numeric and text difficulty
+                            scoreTable.Rows.Add(testDate, subject, percentScore, difficulty, GetDifficultyText(difficulty));
                         }
                     }
                 }
             }
+        }
+
+        private string GetDifficultyText(int difficulty)
+        {
+            return difficulty switch
+            {
+                1 => "Easy",
+                2 => "Intermediate",
+                3 => "Hard",
+                _ => "Unknown"
+            };
         }
 
         // Helper method to determine subject from test ID
@@ -418,6 +452,16 @@ namespace WinFormsApp1
                 dgvHistory.Columns["Score"].DefaultCellStyle.Format = "F1";
             }
 
+            // Hide the numeric difficulty column and show only the text version
+            if (dgvHistory.Columns.Contains("Difficulty"))
+            {
+                dgvHistory.Columns["Difficulty"].Visible = false;
+            }
+            if (dgvHistory.Columns.Contains("DifficultyText"))
+            {
+                dgvHistory.Columns["DifficultyText"].HeaderText = "Difficulty";
+            }
+
             // Auto-resize columns
             dgvHistory.AutoResizeColumns();
         }
@@ -465,13 +509,13 @@ namespace WinFormsApp1
                     int difficulty = Convert.ToInt32(row["Difficulty"]);
                     switch (difficultyFilter)
                     {
-                        case "Easy (1)":
+                        case "Easy":
                             difficultyFilterPassed = difficulty == 1;
                             break;
-                        case "Medium (2)":
+                        case "Intermediate":
                             difficultyFilterPassed = difficulty == 2;
                             break;
-                        case "Hard (3)":
+                        case "Hard":
                             difficultyFilterPassed = difficulty == 3;
                             break;
                     }

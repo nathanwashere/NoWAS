@@ -404,7 +404,7 @@
             cmbFilterDifficulty.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbFilterDifficulty.ForeColor = Color.White;
             cmbFilterDifficulty.FormattingEnabled = true;
-            cmbFilterDifficulty.Items.AddRange(new object[] { "All Difficulties", "Easy (1)", "Medium (2)", "Hard (3)" });
+            cmbFilterDifficulty.Items.AddRange(new object[] { "All Difficulties", "Easy", "Intermediate", "Hard" });
             cmbFilterDifficulty.Location = new Point(770, 142);
             cmbFilterDifficulty.Name = "cmbFilterDifficulty";
             cmbFilterDifficulty.Size = new Size(140, 29);
@@ -419,7 +419,7 @@
             cmbTableFilter.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbTableFilter.ForeColor = Color.White;
             cmbTableFilter.FormattingEnabled = true;
-            cmbTableFilter.Items.AddRange(new object[] { "All Results", "Easy Tests", "Medium Tests", "Hard Tests", "Last Week", "Last Month", "Last Quarter", "Last Year" });
+            cmbTableFilter.Items.AddRange(new object[] { "All Results", "Easy Tests", "Intermediate Tests", "Hard Tests", "Last Week", "Last Month", "Last Quarter", "Last Year" });
             cmbTableFilter.Location = new Point(786, 10);
             cmbTableFilter.Name = "cmbTableFilter";
             cmbTableFilter.Size = new Size(120, 29);
