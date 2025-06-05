@@ -160,7 +160,7 @@ namespace WinFormsApp1
             textBoxSignupPassword.Text = "";
             textBoxSignupID.Text = "";
             textBoxSignupMail.Text = "";
-            
+
         }
 
         public bool checkInputsSignUp()
@@ -295,7 +295,7 @@ namespace WinFormsApp1
         {
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
             {
-               MessageBox.Show("Please enter both username and password.");
+                MessageBox.Show("Please enter both username and password.");
                 return;
             }
 
@@ -325,7 +325,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-               MessageBox.Show($"An error occurred while trying to login: {ex.Message}");
+                MessageBox.Show($"An error occurred while trying to login: {ex.Message}");
             }
             finally
             {
@@ -532,6 +532,11 @@ namespace WinFormsApp1
         {
             using (var ms = new MemoryStream(bytes))
                 return Image.FromStream(ms);
+        }
+
+        private void panelSignup_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
