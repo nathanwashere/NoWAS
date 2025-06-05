@@ -237,7 +237,7 @@
             label1.ForeColor = Color.White;
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(395, 45);
+            label1.Size = new Size(337, 37);
             label1.TabIndex = 4;
             label1.Text = "Student Progress Tracker";
             // 
@@ -253,6 +253,7 @@
             panelHeader.Name = "panelHeader";
             panelHeader.Size = new Size(1000, 67);
             panelHeader.TabIndex = 6;
+            panelHeader.Paint += panelHeader_Paint;
             // 
             // btnGoBack
             // 
@@ -276,7 +277,7 @@
             lblHeaderSubtitle.ForeColor = Color.WhiteSmoke;
             lblHeaderSubtitle.Location = new Point(3, 42);
             lblHeaderSubtitle.Name = "lblHeaderSubtitle";
-            lblHeaderSubtitle.Size = new Size(345, 25);
+            lblHeaderSubtitle.Size = new Size(287, 20);
             lblHeaderSubtitle.TabIndex = 5;
             lblHeaderSubtitle.Text = "Monitor and analyze student performance";
             // 
@@ -391,7 +392,7 @@
             cmbFilterPeriod.Items.AddRange(new object[] { "Last Week", "Last Month", "Last Quarter", "Last Year", "All Time" });
             cmbFilterPeriod.Location = new Point(620, 142);
             cmbFilterPeriod.Name = "cmbFilterPeriod";
-            cmbFilterPeriod.Size = new Size(140, 36);
+            cmbFilterPeriod.Size = new Size(140, 29);
             cmbFilterPeriod.TabIndex = 3;
             // 
             // cmbFilterDifficulty
@@ -406,7 +407,7 @@
             cmbFilterDifficulty.Items.AddRange(new object[] { "All Difficulties", "Easy (1)", "Medium (2)", "Hard (3)" });
             cmbFilterDifficulty.Location = new Point(770, 142);
             cmbFilterDifficulty.Name = "cmbFilterDifficulty";
-            cmbFilterDifficulty.Size = new Size(140, 36);
+            cmbFilterDifficulty.Size = new Size(140, 29);
             cmbFilterDifficulty.TabIndex = 4;
             // 
             // cmbTableFilter
@@ -421,7 +422,7 @@
             cmbTableFilter.Items.AddRange(new object[] { "All Results", "Easy Tests", "Medium Tests", "Hard Tests", "Last Week", "Last Month", "Last Quarter", "Last Year" });
             cmbTableFilter.Location = new Point(786, 10);
             cmbTableFilter.Name = "cmbTableFilter";
-            cmbTableFilter.Size = new Size(120, 35);
+            cmbTableFilter.Size = new Size(120, 29);
             cmbTableFilter.TabIndex = 2;
             // 
             // tabControlMain
@@ -473,7 +474,7 @@
             txtSearch.ForeColor = Color.Silver;
             txtSearch.Location = new Point(10, 10);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(650, 39);
+            txtSearch.Size = new Size(650, 34);
             txtSearch.TabIndex = 0;
             txtSearch.Text = "Search by test name";
             // 
@@ -513,9 +514,9 @@
             statusStrip.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             statusStrip.ImageScalingSize = new Size(24, 24);
             statusStrip.Items.AddRange(new ToolStripItem[] { statusLabel, progressBar });
-            statusStrip.Location = new Point(0, 608);
+            statusStrip.Location = new Point(0, 614);
             statusStrip.Name = "statusStrip";
-            statusStrip.Size = new Size(1000, 32);
+            statusStrip.Size = new Size(1000, 26);
             statusStrip.TabIndex = 8;
             statusStrip.Text = "statusStrip1";
             // 
@@ -523,7 +524,7 @@
             // 
             statusLabel.ForeColor = Color.White;
             statusLabel.Name = "statusLabel";
-            statusLabel.Size = new Size(181, 25);
+            statusLabel.Size = new Size(151, 20);
             statusLabel.Text = "Ready | Last updated:";
             // 
             // progressBar
@@ -534,7 +535,7 @@
             // 
             // StudentTracking
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(30, 33, 36);
             ClientSize = new Size(1000, 640);

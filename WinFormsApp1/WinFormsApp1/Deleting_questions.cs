@@ -19,13 +19,19 @@ namespace WinFormsApp1
         {
             InitializeComponent();
             this.main = main;
-            this.back_page = back_page; // Initialize the back page
+            this.back_page = back_page;
 
-            this.FormBorderStyle = FormBorderStyle.Sizable; // שומר על המסגרת הרגילה
-            this.WindowState = FormWindowState.Maximized;   // ממלא את כל המסך
+            this.FormBorderStyle = FormBorderStyle.FixedSingle; // גודל קבוע
+            this.StartPosition = FormStartPosition.Manual; // נשלוט במיקום
+            this.Size = new Size(1300, 800); // גודל אחיד לפי רצונך
+            this.Location = new Point(100, 100); // מיקום רצוי במסך
+
+            // אם לא רוצים שינוי גודל
+            this.MaximizeBox = false;
+            this.MinimizeBox = true;
         }
 
-       
+
 
         private void Deleting_questions_Load(object sender, EventArgs e)
         {

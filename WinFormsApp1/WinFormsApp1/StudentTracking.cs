@@ -341,8 +341,8 @@ namespace WinFormsApp1
                             double percentScore = totalQuestions > 0 ? (score / totalQuestions) * 100 : grade;
 
                             // Use TestName if available, otherwise create a generic name
-                            string subject = reader["TestName"] != DBNull.Value ? 
-                                reader["TestName"].ToString() : 
+                            string subject = reader["TestName"] != DBNull.Value ?
+                                reader["TestName"].ToString() :
                                 DetermineSubjectFromTestId(testId);
 
                             // Add to our table
@@ -844,6 +844,11 @@ namespace WinFormsApp1
             {
                 Application.Exit();
             }
+        }
+
+        private void panelHeader_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

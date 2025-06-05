@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SQLite;
 using DocumentFormat.OpenXml.Drawing.Diagrams;
 
+
 namespace WinFormsApp1
 {
     public partial class InsertingQuestions : Form
@@ -19,8 +20,14 @@ namespace WinFormsApp1
         {
             InitializeComponent();
             this.main = main;
-            this.FormBorderStyle = FormBorderStyle.Sizable; // שומר על המסגרת הרגילה
-            this.WindowState = FormWindowState.Maximized;   // ממלא את כל המסך
+            this.FormBorderStyle = FormBorderStyle.FixedSingle; // גודל קבוע
+            this.StartPosition = FormStartPosition.Manual; // נשלוט במיקום
+            this.Size = new Size(1300, 800); // גודל אחיד לפי רצונך
+            this.Location = new System.Drawing.Point(100, 100); // מיקום רצוי במסך
+
+            // אם לא רוצים שינוי גודל
+            this.MaximizeBox = false;
+            this.MinimizeBox = true;
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -180,7 +187,7 @@ namespace WinFormsApp1
 
         private void Deleting_questions_Click(object sender, EventArgs e)
         {
-            Deleting_questions deleting_Questions = new Deleting_questions(this.main,this);
+            Deleting_questions deleting_Questions = new Deleting_questions(this.main, this);
             deleting_Questions.Show();
             this.Hide();
         }
@@ -257,7 +264,37 @@ namespace WinFormsApp1
 
         private void panelContainer_Paint(object sender, PaintEventArgs e)
         {
-           
+
+        }
+
+        private void button1_Resize(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+
+            // מחושב לפי גובה הכפתור
+            float newFontSize = btn.Height * 0.4f;
+
+            btn.Font = new Font(btn.Font.FontFamily, newFontSize, btn.Font.Style);
+        }
+
+        private void Deleting_questions_Resize(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+
+            // מחושב לפי גובה הכפתור
+            float newFontSize = btn.Height * 0.4f;
+
+            btn.Font = new Font(btn.Font.FontFamily, newFontSize, btn.Font.Style);
+        }
+
+        private void button2_Resize(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+
+            // מחושב לפי גובה הכפתור
+            float newFontSize = btn.Height * 0.4f;
+
+            btn.Font = new Font(btn.Font.FontFamily, newFontSize, btn.Font.Style);
         }
     }
 }

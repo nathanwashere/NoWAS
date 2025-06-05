@@ -52,6 +52,7 @@
             // 
             // course
             // 
+            course.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             course.AutoSize = true;
             course.BackColor = Color.Transparent;
             course.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
@@ -64,6 +65,7 @@
             // 
             // level
             // 
+            level.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             level.AutoSize = true;
             level.BackColor = Color.Transparent;
             level.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
@@ -77,6 +79,7 @@
             // 
             // c_a
             // 
+            c_a.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             c_a.AutoSize = true;
             c_a.BackColor = Color.Transparent;
             c_a.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
@@ -89,6 +92,7 @@
             // 
             // type
             // 
+            type.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             type.AutoSize = true;
             type.BackColor = Color.Transparent;
             type.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
@@ -101,6 +105,7 @@
             // 
             // question
             // 
+            question.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             question.AutoSize = true;
             question.BackColor = Color.Transparent;
             question.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
@@ -114,34 +119,38 @@
             // 
             // Deleting_questions
             // 
+            Deleting_questions.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             Deleting_questions.AutoSize = true;
             Deleting_questions.BackColor = Color.RoyalBlue;
             Deleting_questions.FlatAppearance.BorderSize = 0;
             Deleting_questions.FlatAppearance.MouseOverBackColor = Color.Blue;
             Deleting_questions.FlatStyle = FlatStyle.Flat;
             Deleting_questions.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            Deleting_questions.Location = new Point(872, 714);
+            Deleting_questions.Location = new Point(922, 714);
             Deleting_questions.Name = "Deleting_questions";
-            Deleting_questions.Size = new Size(272, 44);
+            Deleting_questions.Size = new Size(270, 44);
             Deleting_questions.TabIndex = 5;
             Deleting_questions.Text = "Delete/edit questions";
             Deleting_questions.UseVisualStyleBackColor = false;
             Deleting_questions.Click += Deleting_questions_Click;
+            Deleting_questions.Resize += Deleting_questions_Resize;
             // 
             // type_text
             // 
+            type_text.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             type_text.DropDownStyle = ComboBoxStyle.DropDownList;
             type_text.Font = new Font("Segoe UI", 14F);
             type_text.FormattingEnabled = true;
             type_text.Items.AddRange(new object[] { "Multiple Choice", "True/False", "Sentence Completion" });
             type_text.Location = new Point(373, 111);
             type_text.Name = "type_text";
-            type_text.Size = new Size(400, 39);
+            type_text.Size = new Size(360, 39);
             type_text.TabIndex = 6;
             type_text.SelectedIndexChanged += type_text_SelectedIndexChanged;
             // 
             // course_text
             // 
+            course_text.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             course_text.AutoCompleteCustomSource.AddRange(new string[] { "חדו\"א", "פיזיקה", "תכנות שפת c" });
             course_text.DropDownStyle = ComboBoxStyle.DropDownList;
             course_text.Font = new Font("Segoe UI", 14F);
@@ -149,42 +158,46 @@
             course_text.Items.AddRange(new object[] { "Calculus", "Physics ", "Introduction to Computer Science" });
             course_text.Location = new Point(373, 197);
             course_text.Name = "course_text";
-            course_text.Size = new Size(400, 39);
+            course_text.Size = new Size(360, 39);
             course_text.TabIndex = 7;
             course_text.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
             // 
             // c_a_text
             // 
+            c_a_text.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             c_a_text.Font = new Font("Segoe UI", 14F);
             c_a_text.Location = new Point(373, 290);
             c_a_text.Name = "c_a_text";
-            c_a_text.Size = new Size(400, 39);
+            c_a_text.Size = new Size(360, 39);
             c_a_text.TabIndex = 8;
             c_a_text.TextChanged += textBox1_TextChanged;
             // 
             // level_text
             // 
+            level_text.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             level_text.DropDownStyle = ComboBoxStyle.DropDownList;
             level_text.Font = new Font("Segoe UI", 14F);
             level_text.FormattingEnabled = true;
             level_text.Items.AddRange(new object[] { "Easy", "Intermediate", "Advanced" });
             level_text.Location = new Point(373, 377);
             level_text.Name = "level_text";
-            level_text.Size = new Size(400, 39);
+            level_text.Size = new Size(360, 39);
             level_text.TabIndex = 9;
             level_text.SelectedIndexChanged += comboBox3_SelectedIndexChanged;
             // 
             // question_text
             // 
+            question_text.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             question_text.Font = new Font("Segoe UI", 14F);
             question_text.Location = new Point(373, 36);
             question_text.Name = "question_text";
-            question_text.Size = new Size(400, 39);
+            question_text.Size = new Size(360, 39);
             question_text.TabIndex = 10;
             question_text.TextChanged += textBox2_TextChanged;
             // 
             // button1
             // 
+            button1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             button1.BackColor = Color.PaleGreen;
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatAppearance.MouseOverBackColor = Color.Lime;
@@ -192,14 +205,16 @@
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             button1.Location = new Point(458, 717);
             button1.Name = "button1";
-            button1.Size = new Size(214, 47);
+            button1.Size = new Size(174, 46);
             button1.TabIndex = 11;
             button1.Text = "Creat a question";
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
+            button1.Resize += button1_Resize;
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
@@ -212,6 +227,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
@@ -225,25 +241,28 @@
             // 
             // Possible_answer_1
             // 
+            Possible_answer_1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             Possible_answer_1.Font = new Font("Segoe UI", 14F);
             Possible_answer_1.Location = new Point(373, 464);
             Possible_answer_1.Name = "Possible_answer_1";
-            Possible_answer_1.Size = new Size(400, 39);
+            Possible_answer_1.Size = new Size(360, 39);
             Possible_answer_1.TabIndex = 14;
             Possible_answer_1.Visible = false;
             // 
             // Possible_answer_2
             // 
+            Possible_answer_2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             Possible_answer_2.Font = new Font("Segoe UI", 14F);
             Possible_answer_2.Location = new Point(373, 555);
             Possible_answer_2.Name = "Possible_answer_2";
-            Possible_answer_2.Size = new Size(400, 39);
+            Possible_answer_2.Size = new Size(360, 39);
             Possible_answer_2.TabIndex = 15;
             Possible_answer_2.Visible = false;
             Possible_answer_2.TextChanged += textBox2_TextChanged_1;
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
@@ -256,15 +275,17 @@
             // 
             // Possible_answer_3
             // 
+            Possible_answer_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             Possible_answer_3.Font = new Font("Segoe UI", 14F);
             Possible_answer_3.Location = new Point(373, 639);
             Possible_answer_3.Name = "Possible_answer_3";
-            Possible_answer_3.Size = new Size(400, 39);
+            Possible_answer_3.Size = new Size(360, 39);
             Possible_answer_3.TabIndex = 17;
             Possible_answer_3.Visible = false;
             // 
             // button2
             // 
+            button2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             button2.BackColor = Color.RoyalBlue;
             button2.FlatAppearance.BorderSize = 0;
             button2.FlatAppearance.MouseOverBackColor = Color.Blue;
@@ -272,18 +293,19 @@
             button2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             button2.Location = new Point(931, 43);
             button2.Name = "button2";
-            button2.Size = new Size(153, 39);
+            button2.Size = new Size(113, 38);
             button2.TabIndex = 18;
             button2.Text = "Back to main";
             button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
+            button2.Resize += button2_Resize;
             // 
             // InsertingQuestions
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(1348, 776);
+            ClientSize = new Size(1308, 775);
             Controls.Add(button2);
             Controls.Add(Possible_answer_3);
             Controls.Add(label3);

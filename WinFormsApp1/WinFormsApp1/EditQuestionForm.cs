@@ -26,8 +26,14 @@ namespace WinFormsApp1
             this.main = main;
             previousForm = BackForm; // Initialize the back form
 
-            this.FormBorderStyle = FormBorderStyle.Sizable; // שומר על המסגרת הרגילה
-            this.WindowState = FormWindowState.Maximized;   // ממלא את כל המסך
+            this.FormBorderStyle = FormBorderStyle.FixedSingle; // גודל קבוע
+            this.StartPosition = FormStartPosition.Manual; // נשלוט במיקום
+            this.Size = new Size(1300, 800); // גודל אחיד לפי רצונך
+            this.Location = new System.Drawing.Point(100, 100); // מיקום רצוי במסך
+
+            // אם לא רוצים שינוי גודל
+            this.MaximizeBox = false;
+            this.MinimizeBox = true;
 
             // נשלוף את ה-ID של השאלה מהשורה
             questionId = Convert.ToInt32(row.Cells["QuestionID"].Value);
