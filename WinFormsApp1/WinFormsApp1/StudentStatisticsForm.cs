@@ -36,12 +36,13 @@ namespace WinFormsApp1
                 string query = @"
             SELECT 
                 p.username AS StudentName,
-                r.Score,
-                r.TotalQuestions,
-                r.Grade,
-                r.TestDate
+                COUNT(r.TestId) AS TestsTaken,
+                AVG(r.Grade) AS AverageGrade,
+                MAX(r.Grade) AS HighestGrade,
+                MIN(r.Grade) AS LowestGrade
             FROM StudentResults r
             JOIN Person p ON p.Id = r.StudentId
+            GROUP BY p.username
         ";
 
                 using (var adapter = new SQLiteDataAdapter(query, conn))
@@ -58,7 +59,7 @@ namespace WinFormsApp1
             {
                 string studentName = row["StudentName"].ToString();
                 var rows = table.AsEnumerable().Where(r => r.Field<string>("StudentName") == studentName);
-                double avg = rows.Average(r => Convert.ToDouble(r["Grade"]));
+                double avg = rows.Average(r => Convert.ToDouble(r["AverageGrade"]));
                 row["StudentAverage"] = avg;
             }
 
@@ -81,12 +82,13 @@ namespace WinFormsApp1
                 string query = @"
             SELECT 
                 p.username AS StudentName,
-                r.Score,
-                r.TotalQuestions,
-                r.Grade,
-                r.TestDate
+                COUNT(r.TestId) AS TestsTaken,
+                AVG(r.Grade) AS AverageGrade,
+                MAX(r.Grade) AS HighestGrade,
+                MIN(r.Grade) AS LowestGrade
             FROM StudentResults r
             JOIN Person p ON p.Id = r.StudentId
+            GROUP BY p.username
         ";
 
                 using (var adapter = new SQLiteDataAdapter(query, conn))
@@ -103,7 +105,7 @@ namespace WinFormsApp1
             {
                 string studentName = row["StudentName"].ToString();
                 var rows = table.AsEnumerable().Where(r => r.Field<string>("StudentName") == studentName);
-                double avg = rows.Average(r => Convert.ToDouble(r["Grade"]));
+                double avg = rows.Average(r => Convert.ToDouble(r["AverageGrade"]));
                 row["StudentAverage"] = avg;
             }
 
@@ -126,26 +128,26 @@ namespace WinFormsApp1
                 return;
             }
 
-            double avg = dataTable.AsEnumerable().Average(row => Convert.ToDouble(row["Grade"]));
+            double avg = dataTable.AsEnumerable().Average(row => Convert.ToDouble(row["AverageGrade"]));
             int totalExams = dataTable.Rows.Count;
 
             var topStudent = dataTable.AsEnumerable()
-                .OrderByDescending(row => Convert.ToDouble(row["Grade"]))
+                .OrderByDescending(row => Convert.ToDouble(row["HighestGrade"]))
                 .First();
 
             string topName = topStudent.Field<string>("StudentName");
-            double topGrade = Convert.ToDouble(topStudent["Grade"]);
+            double topGrade = Convert.ToDouble(topStudent["HighestGrade"]);
 
             var mostFrequent = dataTable.AsEnumerable()
-                .GroupBy(r => r.Field<string>("StudentName"))
-                .OrderByDescending(g => g.Count())
+                .OrderByDescending(r => Convert.ToInt32(r["TestsTaken"]))
                 .First();
 
             labelStats.Text = $"🧮 Overall Average Grade: {avg:F1}%\n" +
                               $"🎓 Highest Grade: {topName} ({topGrade:F1}%)\n" +
-                              $"📊 Most Tests Taken: {mostFrequent.Key} ({mostFrequent.Count()} tests)\n" +
-                              $"📄 Total Tests Taken: {totalExams}";
+                              $"📊 Most Tests Taken: {mostFrequent["StudentName"]} ({mostFrequent["TestsTaken"]} tests)\n" +
+                              $"📄 Total Students: {totalExams}";
         }
+
 
 
         private void comboFilter_SelectedIndexChanged(object sender, EventArgs e)
@@ -156,51 +158,25 @@ namespace WinFormsApp1
             switch (selected)
             {
                 case "Below 60":
-                    filter = "Grade < 60";
+                    filter = "AverageGrade < 60";
                     break;
                 case "60 - 80":
-                    filter = "Grade >= 60 AND Grade <= 80";
+                    filter = "AverageGrade >= 60 AND AverageGrade <= 80";
                     break;
                 case "Above 80":
-                    filter = "Grade > 80";
+                    filter = "AverageGrade > 80";
                     break;
                 default:
                     filter = "";
                     break;
             }
 
-            (dataGridViewResults.DataSource as DataTable).DefaultView.RowFilter = filter;
+     (dataGridViewResults.DataSource as DataTable).DefaultView.RowFilter = filter;
         }
 
 
-        private void LoadResults()
-        {
-            DataTable dataTable = new DataTable();
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                string query = @"
-                SELECT 
-                    s.FirstName + ' ' + s.LastName AS StudentName,
-                    r.Score,
-                    r.TotalQuestions,
-                    r.Grade,
-                    r.TestDate
-                FROM StudentResults r
-                JOIN Student s ON s.StudentID = r.StudentID";
 
-                SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                adapter.Fill(dataTable);
-            }
 
-            dataGridViewResults.DataSource = dataTable;
-
-            comboFilter.Items.Clear();
-            comboFilter.Items.AddRange(new[] { "All", "Below 60", "60 - 80", "Above 80" });
-            comboFilter.SelectedIndex = 0;
-
-            ShowStatistics(dataTable);
-        }
 
         private void dataGridViewResults_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {

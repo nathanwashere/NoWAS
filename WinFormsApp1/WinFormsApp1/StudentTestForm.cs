@@ -86,7 +86,7 @@ namespace WinFormsApp1
         {
             if (currentQuestionIndex < allAnswerPanels.Count && panelQuestion.Controls.Count > 0)
             {
-                var panel = panelQuestion;
+                var panel = panelQuestion.Controls[0] as Panel;
                 if (panel != null)
                     allAnswerPanels[currentQuestionIndex] = panel;
             }
