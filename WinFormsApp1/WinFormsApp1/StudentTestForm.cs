@@ -97,13 +97,14 @@ namespace WinFormsApp1
             SaveCurrentPanel();
 
             int finalScore = 0;
-            for (int i = 0; i < questions.Count; i++)
-            {
-                if (questions[i].CheckAnswer(allAnswerPanels[i]))
+            if (allAnswerPanels.Count > 0) {
+                for (int i = 0; i < allAnswerPanels.Count; i++)
                 {
-                    finalScore++;
-                }
-            }
+                    if (questions[i].CheckAnswer(allAnswerPanels[i]))
+                    {
+                        finalScore++;
+                    }
+                } }
 
             double grade = (double)finalScore / questions.Count * 100;
             MessageBox.Show(
@@ -196,6 +197,8 @@ namespace WinFormsApp1
                     }
                 }
             }
+            allAnswerPanels = new List<Panel>(questions.Count);
+            for (int i = 0; i < allAnswerPanels.Count; i++) { allAnswerPanels[i] = new Panel(); }
         }
 
         private void SaveResultForExistingPerson(string username, int testId, int score, int total, double grade, string connectionString)
