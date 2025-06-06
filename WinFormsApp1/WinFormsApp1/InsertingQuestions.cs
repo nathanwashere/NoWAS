@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using System.Data.SQLite;
 using DocumentFormat.OpenXml.Drawing.Diagrams;
 
-
 namespace WinFormsApp1
 {
     public partial class InsertingQuestions : Form
@@ -20,80 +19,86 @@ namespace WinFormsApp1
         {
             InitializeComponent();
             this.main = main;
-            this.FormBorderStyle = FormBorderStyle.FixedSingle; // גודל קבוע
-            this.StartPosition = FormStartPosition.Manual; // נשלוט במיקום
-            this.Size = new Size(1100, 800); // גודל אחיד לפי רצונך
-            this.Location = new System.Drawing.Point(100, 100); // מיקום רצוי במסך
 
-            // אם לא רוצים שינוי גודל
+            // Fixed window size
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            // Manual positioning
+            this.StartPosition = FormStartPosition.Manual;
+            // Set desired size
+            this.Size = new Size(1100, 800);
+            // Set desired location on screen
+            this.Location = new System.Drawing.Point(100, 100);
+
+            // Disable resizing
             this.MaximizeBox = false;
             this.MinimizeBox = true;
         }
 
         private void InsertingQuestions_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // Exit the entire application when this form is closed
             Application.Exit();
         }
 
         private void label2_Click(object sender, EventArgs e)
         {
-
+            // (Empty handler)
         }
 
         private void course_Click(object sender, EventArgs e)
         {
-
+            // (Empty handler)
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
-
+            // (Empty handler)
         }
 
         private void label3_Click(object sender, EventArgs e)
         {
-
+            // (Empty handler)
         }
-
-
 
         private void InsertingQuestions_Load(object sender, EventArgs e)
         {
+            // Stretch the background image to fill the form
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            // (Empty handler)
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-
+            // (Empty handler)
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            // (Empty handler)
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
+            // (Empty handler)
         }
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            // (Empty handler)
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // Build the database path
             var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
             dbPath = Path.GetFullPath(dbPath);
             string connectionString = $"Data Source={dbPath};Version=3;";
 
-            // 2. קריאה מה־TextBox-ים
+            // 2. Read values from TextBoxes
             string qText = question_text.Text;
             string tText = type_text.Text;
             string cText = course_text.Text;
@@ -103,14 +108,17 @@ namespace WinFormsApp1
             string p_a2Text = Possible_answer_2.Text;
             string p_a3Text = Possible_answer_3.Text;
 
-
-
-            // בדיקת שדות חובה
+            // Check required fields
             if (!AreRequiredFieldsFilled())
             {
-                MessageBox.Show("Please fill in all required fields: Question, Question Type, Course, Answer, Difficulty Level, and Possible Answer.",
-                                "שגיאת קלט", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return; // מפסיק את הפעולה אם שדות לא מולאו
+                MessageBox.Show(
+                    "All required fields must be filled in.",
+                    "Input Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                // Stop operation if fields are not filled
+                return;
             }
 
             // If question type is "True or False", validate correct answer
@@ -119,24 +127,28 @@ namespace WinFormsApp1
                 string answer = c_a_text.Text.Trim().ToLower();
                 if (caText.Trim().ToLower() != "true" && caText.Trim().ToLower() != "false")
                 {
-                    MessageBox.Show("For 'True or False' questions, the correct answer must be either 'true' or 'false'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(
+                        "For 'True or False' questions, the correct answer must be either 'true' or 'false'.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
                     return;
                 }
             }
-            // 3. שאילתת INSERT
+
+            // 3. INSERT query
             string query = @"
-            INSERT INTO Question_new 
-                (Body, type, [Course],answer, [Difficulty level],[Possible answer 1],[Possible answer 2],[Possible answer 3]) 
-            VALUES 
-                (@q, @t, @c, @ca, @lvl,@p_a1,@p_a2,@p_a3);";
+                INSERT INTO Question_new 
+                    (Body, type, [Course], answer, [Difficulty level], [Possible answer 1], [Possible answer 2], [Possible answer 3]) 
+                VALUES 
+                    (@q, @t, @c, @ca, @lvl, @p_a1, @p_a2, @p_a3);";
 
-
-
-            // 4. ביצוע ההכנסה
+            // 4. Execute the insertion
             using (var conn = new SQLiteConnection(connectionString))
             using (var cmd = new SQLiteCommand(query, conn))
             {
-                // הוספת פרמטרים (ומניעת SQL Injection)
+                // Add parameters (prevents SQL Injection)
                 cmd.Parameters.AddWithValue("@q", qText);
                 cmd.Parameters.AddWithValue("@t", tText);
                 cmd.Parameters.AddWithValue("@c", cText);
@@ -160,32 +172,39 @@ namespace WinFormsApp1
                 {
                     conn.Open();
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("השאלה הוכנסה בהצלחה!", "Success",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    // ניקוי שדות לאחר ההכנסה
+                    MessageBox.Show(
+                        "The question was inserted successfully!",
+                        "Success",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+
+                    // Clear fields after insertion
                     question_text.Clear();
                     type_text.SelectedIndex = -1;
                     course_text.SelectedIndex = -1;
                     c_a_text.Clear();
                     level_text.SelectedIndex = -1;
-
                     Possible_answer_1.Clear();
                     Possible_answer_2.Clear();
                     Possible_answer_3.Clear();
 
-                    // הסתרת שדות של תשובות אפשריות אם לא נדרש
+                    // Hide possible answer fields if not required
                     label1.Visible = false;
                     label2.Visible = false;
                     label3.Visible = false;
                     Possible_answer_1.Visible = false;
                     Possible_answer_2.Visible = false;
                     Possible_answer_3.Visible = false;
-
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("שגיאה בהכנסה: " + ex.Message, "Error",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(
+                        "Error during insertion: " + ex.Message,
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
                 }
             }
         }
@@ -199,11 +218,11 @@ namespace WinFormsApp1
 
         private void type_text_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // בודק אם סוג השאלה הוא "Multiple Choice"
+            // Check if question type is "Multiple Choice"
             if (type_text.Text == "Multiple Choice")
             {
                 this.SuspendLayout();
-                // הצגת תיבות טקסט עבור תשובות אפשריות
+                // Show textboxes for possible answers
                 label1.Visible = true;
                 label2.Visible = true;
                 label3.Visible = true;
@@ -211,12 +230,11 @@ namespace WinFormsApp1
                 Possible_answer_2.Visible = true;
                 Possible_answer_3.Visible = true;
                 this.ResumeLayout();
-
             }
             else
             {
                 this.SuspendLayout();
-                // הסתרת תיבות טקסט עבור תשובות אפשריות
+                // Hide textboxes for possible answers
                 label1.Visible = false;
                 label2.Visible = false;
                 label3.Visible = false;
@@ -229,17 +247,17 @@ namespace WinFormsApp1
 
         private void textBox2_TextChanged_1(object sender, EventArgs e)
         {
-
+            // (Empty handler)
         }
 
         private void label2_Click_1(object sender, EventArgs e)
         {
-
+            // (Empty handler)
         }
 
         private void question_Click(object sender, EventArgs e)
         {
-
+            // (Empty handler)
         }
 
         public bool AreRequiredFieldsFilled()
@@ -274,14 +292,14 @@ namespace WinFormsApp1
 
         private void panelContainer_Paint(object sender, PaintEventArgs e)
         {
-
+            // (Empty handler)
         }
 
         private void button1_Resize(object sender, EventArgs e)
         {
             Button btn = sender as Button;
 
-            // מחושב לפי גובה הכפתור
+            // Calculate font size based on button height
             float newFontSize = btn.Height * 0.4f;
 
             btn.Font = new Font(btn.Font.FontFamily, newFontSize, btn.Font.Style);
@@ -291,7 +309,7 @@ namespace WinFormsApp1
         {
             Button btn = sender as Button;
 
-            // מחושב לפי גובה הכפתור
+            // Calculate font size based on button height
             float newFontSize = btn.Height * 0.4f;
 
             btn.Font = new Font(btn.Font.FontFamily, newFontSize, btn.Font.Style);
@@ -301,7 +319,7 @@ namespace WinFormsApp1
         {
             Button btn = sender as Button;
 
-            // מחושב לפי גובה הכפתור
+            // Calculate font size based on button height
             float newFontSize = btn.Height * 0.4f;
 
             btn.Font = new Font(btn.Font.FontFamily, newFontSize, btn.Font.Style);
@@ -309,12 +327,12 @@ namespace WinFormsApp1
 
         private void label1_Click_1(object sender, EventArgs e)
         {
-
+            // (Empty handler)
         }
 
         private void label3_Click_1(object sender, EventArgs e)
         {
-
+            // (Empty handler)
         }
     }
 }

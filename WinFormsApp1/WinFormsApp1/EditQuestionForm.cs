@@ -11,34 +11,37 @@ using System.Windows.Forms;
 using System.Data.SQLite;
 using System.IO;
 
-
 namespace WinFormsApp1
 {
     public partial class EditQuestionForm : Form
     {
-        private int questionId; // assuming your table has an ID column
-        private Form previousForm;
-        private Form main;
+        private int questionId; // stores the ID of the question being edited
+        private Form previousForm; // reference to the form to return to when closing
+        private Form main; // reference to the main form
 
         public EditQuestionForm(DataGridViewRow row, Form main, Form BackForm)
         {
             InitializeComponent();
             this.main = main;
-            previousForm = BackForm; // Initialize the back form
+            previousForm = BackForm; // Initialize the form to return to after editing
 
-            this.FormBorderStyle = FormBorderStyle.FixedSingle; // גודל קבוע
-            this.StartPosition = FormStartPosition.Manual; // נשלוט במיקום
-            this.Size = new Size(1150, 800); // גודל אחיד לפי רצונך
-            this.Location = new Point(100, 100); // מיקום רצוי במסך// גודל אחיד לפי רצונך
+            // Set the form to a fixed single border so it cannot be resized
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            // Position the form manually
+            this.StartPosition = FormStartPosition.Manual;
+            // Set a consistent form size of 1150x800
+            this.Size = new Size(1150, 800);
+            // Place the form at coordinates (100, 100) on the screen
+            this.Location = new Point(100, 100);
 
-            // אם לא רוצים שינוי גודל
+            // Disable the maximize button and enable the minimize button
             this.MaximizeBox = false;
             this.MinimizeBox = true;
 
-            // נשלוף את ה-ID של השאלה מהשורה
+            // Retrieve the QuestionID from the selected DataGridView row
             questionId = Convert.ToInt32(row.Cells["QuestionID"].Value);
 
-            // נטען את הנתונים לשדות
+            // Populate form fields with data from the selected row
             question_text.Text = row.Cells["Body"].Value?.ToString();
             type_text.SelectedItem = row.Cells["type"].Value?.ToString();
             course_text.Text = row.Cells["Course"].Value?.ToString();
@@ -52,44 +55,46 @@ namespace WinFormsApp1
 
         private void EditQuestionForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // Exit the entire application when this form is closed
             Application.Exit();
         }
 
-
         private void save_Click(object sender, EventArgs e)
         {
-            // בדיקה בסיסית
+            // Perform basic validation of required fields
             if (string.IsNullOrWhiteSpace(question_text.Text) ||
                 string.IsNullOrWhiteSpace(type_text.Text) ||
                 string.IsNullOrWhiteSpace(course_text.Text) ||
-            string.IsNullOrWhiteSpace(c_a_text.Text) ||
+                string.IsNullOrWhiteSpace(c_a_text.Text) ||
                 string.IsNullOrWhiteSpace(level_text.Text))
             {
                 MessageBox.Show("יש למלא את כל השדות החובה.", "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // שמירה למסד הנתונים
+            // Build database connection string
             var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
             dbPath = Path.GetFullPath(dbPath);
             string connectionString = $"Data Source={dbPath};Version=3;";
 
+            // Define the UPDATE query to save changes to the database
             string query = @"
-            UPDATE Question_new 
-            SET 
-                Body = @q, 
-                type = @t, 
-                [Course] = @c, 
-                Answer = @ca, 
-                [Difficulty level] = @lvl, 
-                [Possible answer 1] = @p1, 
-                [Possible answer 2] = @p2, 
-                [Possible answer 3] = @p3 
-            WHERE QuestionID = @id";
+                UPDATE Question_new 
+                SET 
+                    Body = @q, 
+                    type = @t, 
+                    [Course] = @c, 
+                    Answer = @ca, 
+                    [Difficulty level] = @lvl, 
+                    [Possible answer 1] = @p1, 
+                    [Possible answer 2] = @p2, 
+                    [Possible answer 3] = @p3 
+                WHERE QuestionID = @id";
 
             using (var conn = new SQLiteConnection(connectionString))
             using (var cmd = new SQLiteCommand(query, conn))
             {
+                // Add parameters to prevent SQL injection
                 cmd.Parameters.AddWithValue("@q", question_text.Text);
                 cmd.Parameters.AddWithValue("@t", type_text.Text);
                 cmd.Parameters.AddWithValue("@c", course_text.Text);
@@ -105,6 +110,7 @@ namespace WinFormsApp1
                     conn.Open();
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("השאלה עודכנה בהצלחה!");
+                    // Indicate to the calling form that the update succeeded
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
@@ -114,17 +120,18 @@ namespace WinFormsApp1
                 }
             }
         }
+
         private void c_a_Click(object sender, EventArgs e)
         {
-
+            // (Empty handler for the correct answer label click event)
         }
 
         private void type_text_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // בודק אם סוג השאלה הוא "Multiple Choice"
+            // Show or hide the possible answer textboxes depending on question type
             if (type_text.Text == "Multiple Choice")
             {
-                // הצגת תיבות טקסט עבור תשובות אפשריות
+                // Display labels and textboxes for multiple-choice answers
                 label1.Visible = true;
                 label2.Visible = true;
                 label3.Visible = true;
@@ -134,7 +141,7 @@ namespace WinFormsApp1
             }
             else
             {
-                // הסתרת תיבות טקסט עבור תשובות אפשריות
+                // Hide multiple-choice answer fields if type is not "Multiple Choice"
                 label1.Visible = false;
                 label2.Visible = false;
                 label3.Visible = false;
@@ -143,57 +150,61 @@ namespace WinFormsApp1
                 Possible_answer_3.Visible = false;
             }
         }
+
         private void EditQuestionForm_Load(object sender, EventArgs e)
         {
+            // Stretch the background image to fill the form
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void save_Click1(object sender, EventArgs e)
         {
-            // בדיקה בסיסית
-            if (string.IsNullOrWhiteSpace(question_text.Text) ||
-                string.IsNullOrWhiteSpace(type_text.Text) ||
-                string.IsNullOrWhiteSpace(course_text.Text) ||
-            string.IsNullOrWhiteSpace(c_a_text.Text) ||
-                string.IsNullOrWhiteSpace(level_text.Text))
+            // Perform basic validation of required fields
+            if (!AreRequiredFieldsFilled())
             {
-                MessageBox.Show("יש למלא את כל השדות החובה.", "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("All required fields must be filled in.", "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // If question type is "True or False", only allow "true" or "false" as correct answer
+            // If question type is "True or False", only allow "true" or "false" as the correct answer
             if (type_text.Text.Trim().ToLower() == "true or false")
             {
                 string answer = c_a_text.Text.Trim().ToLower();
                 if (answer != "true" && answer != "false")
                 {
-                    MessageBox.Show("For 'True or False' questions, the correct answer must be either 'true' or 'false'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(
+                        "For 'True or False' questions, the correct answer must be either 'true' or 'false'.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
                     return;
                 }
             }
 
-
-            // שמירה למסד הנתונים
+            // Build database connection string
             var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
             dbPath = Path.GetFullPath(dbPath);
             string connectionString = $"Data Source={dbPath};Version=3;";
 
+            // Define the UPDATE query to save changes to the database
             string query = @"
-            UPDATE Question_new 
-            SET 
-                Body = @q, 
-                type = @t, 
-                [Course] = @c, 
-                Answer = @ca, 
-                [Difficulty level] = @lvl, 
-                [Possible answer 1] = @p1, 
-                [Possible answer 2] = @p2, 
-                [Possible answer 3] = @p3 
-            WHERE QuestionID = @id";
+                UPDATE Question_new 
+                SET 
+                    Body = @q, 
+                    type = @t, 
+                    [Course] = @c, 
+                    Answer = @ca, 
+                    [Difficulty level] = @lvl, 
+                    [Possible answer 1] = @p1, 
+                    [Possible answer 2] = @p2, 
+                    [Possible answer 3] = @p3 
+                WHERE QuestionID = @id";
 
             using (var conn = new SQLiteConnection(connectionString))
             using (var cmd = new SQLiteCommand(query, conn))
             {
+                // Add parameters to prevent SQL injection
                 cmd.Parameters.AddWithValue("@q", question_text.Text);
                 cmd.Parameters.AddWithValue("@t", type_text.Text);
                 cmd.Parameters.AddWithValue("@c", course_text.Text);
@@ -208,22 +219,45 @@ namespace WinFormsApp1
                 {
                     conn.Open();
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("השאלה עודכנה בהצלחה!");
+                    MessageBox.Show("The question has been updated successfully!");
+                    // Indicate to the calling form that the update succeeded
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("שגיאה בעדכון השאלה: " + ex.Message, "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error updating question: " + ex.Message, "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public bool AreRequiredFieldsFilled()
+        {
+            if (string.IsNullOrWhiteSpace(question_text.Text) ||
+                string.IsNullOrWhiteSpace(type_text.Text) ||
+                string.IsNullOrWhiteSpace(course_text.Text) ||
+                string.IsNullOrWhiteSpace(c_a_text.Text) ||
+                string.IsNullOrWhiteSpace(level_text.Text))
+            {
+                return false;
+            }
+
+            if (type_text.Text == "Multiple Choice")
+            {
+                if (string.IsNullOrWhiteSpace(Possible_answer_1.Text) ||
+                    string.IsNullOrWhiteSpace(Possible_answer_2.Text) ||
+                    string.IsNullOrWhiteSpace(Possible_answer_3.Text))
+                {
+                    return false;
                 }
             }
 
-
+            return true;
         }
-
 
         private void GoBachToMain_Click(object sender, EventArgs e)
         {
+            // Show the main form, close this form, and close the previous form
             this.main.Show();
             this.Close();
             this.previousForm.Close();
@@ -231,9 +265,8 @@ namespace WinFormsApp1
 
         private void GoBack_Click(object sender, EventArgs e)
         {
+            // Close only this form and return to the caller
             this.Close();
         }
     }
 }
-
-
