@@ -18,14 +18,21 @@ namespace WinFormsApp1.Tests
         [TestInitialize]
         public void Setup()
         {
-            loginSignup = new Login_Signup();
-
-            // Setup test database
+            // delete any old temp file first (optional, but recommended)
             testDbPath = Path.Combine(Path.GetTempPath(), "TestDatabase.db");
-            CreateTestDatabase();
+            if (File.Exists(testDbPath))
+                File.Delete(testDbPath);
 
-            // Setup test Excel file
+            CreateTestDatabase();
+            // now CreateTestDatabase() has created a fresh TestDatabase.db at %TEMP%.
+
+            loginSignup = new Login_Signup(testDbPath);
+            // Because of our refactoring, connectDataBase() will now open TestDatabase.db.
+
+            // Set up the Excel file as before…
             testExcelPath = Path.Combine(Path.GetTempPath(), "TestInfo.xlsx");
+            if (File.Exists(testExcelPath))
+                File.Delete(testExcelPath);
             CreateTestExcelFile();
         }
 
@@ -524,9 +531,18 @@ namespace WinFormsApp1.Tests
             loginSignup = new TestableLoginSignup();
 
             testDbPath = Path.Combine(Path.GetTempPath(), "TestDatabase.db");
+
+            if (File.Exists(testDbPath))
+                File.Delete(testDbPath);
+
             CreateTestDatabase();
 
             testExcelPath = Path.Combine(Path.GetTempPath(), "TestInfo.xlsx");
+
+            testExcelPath = Path.Combine(Path.GetTempPath(), "TestInfo.xlsx");
+            if (File.Exists(testExcelPath))
+                File.Delete(testExcelPath);
+
             CreateTestExcelFile();
         }
 

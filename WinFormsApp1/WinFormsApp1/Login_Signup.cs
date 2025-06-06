@@ -19,11 +19,12 @@ namespace WinFormsApp1
         private bool showingSignup = false;
         private bool isPasswordVisible = false;
         private bool isSignupPasswordVisible = false;
+        private string _dbFilePath;
 
         private Image loginBackground;
         private Image signupBackground;
 
-        public Login_Signup()
+        public Login_Signup(string dbFilePath = null)
         {
             InitializeComponent();
             this.DoubleBuffered = true;
@@ -47,6 +48,9 @@ namespace WinFormsApp1
                     errorProvider.Icon = icon;
                 }
             }
+
+            _dbFilePath = dbFilePath
+            ?? Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db"));
         }
 
 
@@ -348,19 +352,17 @@ namespace WinFormsApp1
 
         public SQLiteConnection connectDataBase()
         {
-            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
-            dbPath = Path.GetFullPath(dbPath);
-
-            if (!File.Exists(dbPath))
+            if (string.IsNullOrEmpty(_dbFilePath) || !File.Exists(_dbFilePath))
             {
                 MessageBox.Show("Database file not found!");
                 return null;
             }
+
             try
             {
                 var connectString = new SQLiteConnectionStringBuilder
                 {
-                    DataSource = dbPath,
+                    DataSource = _dbFilePath,
                     Version = 3,
                 }.ToString();
 
