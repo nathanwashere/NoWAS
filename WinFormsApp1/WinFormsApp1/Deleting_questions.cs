@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
+using System.IO;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace WinFormsApp1
 {
@@ -15,37 +17,44 @@ namespace WinFormsApp1
     {
         private Form main;
         private Form back_page;
+
         public Deleting_questions(Form main, Form back_page)
         {
             InitializeComponent();
             this.main = main;
             this.back_page = back_page;
 
-            this.FormBorderStyle = FormBorderStyle.FixedSingle; // גודל קבוע
-            this.StartPosition = FormStartPosition.Manual; // נשלוט במיקום
-            this.Size = new Size(1150, 800); // גודל אחיד לפי רצונך
-            this.Location = new Point(100, 100); // מיקום רצוי במסך
+            // Fixed window size
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            // Manual positioning
+            this.StartPosition = FormStartPosition.Manual;
+            // Set desired size
+            this.Size = new Size(1150, 800);
+            // Set desired location on screen
+            this.Location = new Point(100, 100);
 
-            // אם לא רוצים שינוי גודל
+            // Disable maximize, enable minimize
             this.MaximizeBox = false;
             this.MinimizeBox = true;
         }
 
         private void Deleting_questions_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit(); 
+            // Exit the entire application when this form is closed
+            Application.Exit();
         }
-
-
 
         private void Deleting_questions_Load(object sender, EventArgs e)
         {
             this.BackgroundImageLayout = ImageLayout.Stretch;
 
+            // Build database path
             var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
             dbPath = Path.GetFullPath(dbPath);
             string connectionString = $"Data Source={dbPath};Version=3;";
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString)) // Declare and initialize 'connection'
+
+            // Optional: print all table names in the database to console
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
                 using (var cmd = new SQLiteCommand("SELECT name FROM sqlite_master WHERE type='table';", connection))
@@ -58,6 +67,7 @@ namespace WinFormsApp1
                 }
             }
 
+            // Load questions into DataGridView
             using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
@@ -68,14 +78,35 @@ namespace WinFormsApp1
                 {
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
+
+                    // Add a new column for row numbering (No)
+                    dt.Columns.Add("No", typeof(int));
+
+                    // Populate row numbers from 1 to N
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        dt.Rows[i]["No"] = i + 1;
+                    }
+
+                    // Move the "No" column to the first position
+                    dt.Columns["No"].SetOrdinal(0);
+
                     dataGridViewQuestions.DataSource = dt;
                 }
             }
+
+            // Hide TestID and QuestionID columns
+            if (dataGridViewQuestions.Columns.Contains("TestID"))
+                dataGridViewQuestions.Columns["TestID"].Visible = false;
+
+            if (dataGridViewQuestions.Columns.Contains("QuestionID"))
+                dataGridViewQuestions.Columns["QuestionID"].Visible = false;
+
             dataGridViewQuestions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            // Add Delete button column if not already added
             if (!dataGridViewQuestions.Columns.Contains("Delete"))
             {
-                // יצירת עמודת כפתור Delete
                 DataGridViewButtonColumn deleteButton = new DataGridViewButtonColumn();
                 deleteButton.Name = "Delete";
                 deleteButton.HeaderText = "";
@@ -83,9 +114,10 @@ namespace WinFormsApp1
                 deleteButton.UseColumnTextForButtonValue = true;
                 dataGridViewQuestions.Columns.Add(deleteButton);
             }
+
+            // Add Edit button column if not already added
             if (!dataGridViewQuestions.Columns.Contains("Edit"))
             {
-                // יצירת עמודת כפתור Edit
                 DataGridViewButtonColumn editButton = new DataGridViewButtonColumn();
                 editButton.Name = "Edit";
                 editButton.HeaderText = "";
@@ -113,17 +145,16 @@ namespace WinFormsApp1
             }
         }
 
-
         private void dataGridViewQuestions_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return; // התעלם מכותרת
+            if (e.RowIndex < 0) return; // Ignore header row
 
-            // אם לחצו על עמודת Delete
+            // If Delete button clicked
             if (dataGridViewQuestions.Columns[e.ColumnIndex].Name == "Delete")
             {
                 var id = dataGridViewQuestions.Rows[e.RowIndex].Cells["QuestionID"].Value;
-                var result = MessageBox.Show("האם אתה בטוח שברצונך למחוק את השאלה?", "אישור מחיקה",
-                                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                var result = MessageBox.Show("Are you sure you want to delete this question?", "Delete Confirmation",
+                                             MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.Yes)
                 {
@@ -132,7 +163,7 @@ namespace WinFormsApp1
                 }
             }
 
-            // אם לחצו על עמודת Edit
+            // If Edit button clicked
             if (dataGridViewQuestions.Columns[e.ColumnIndex].Name == "Edit")
             {
                 var row = dataGridViewQuestions.Rows[e.RowIndex];
@@ -160,11 +191,11 @@ namespace WinFormsApp1
 
         private void EditQuestion(DataGridViewRow row)
         {
-            // כאן אתה פותח טופס חדש עם הנתונים מהשורה ומאפשר עריכה
+            // Open a new form to edit the selected question
             EditQuestionForm editForm = new EditQuestionForm(row, this.main, this);
             if (editForm.ShowDialog() == DialogResult.OK)
             {
-                // טען מחדש את הנתונים מה־DB אחרי עריכה
+                // Reload data from DB after editing
                 Deleting_questions_Load(null, null);
             }
         }
