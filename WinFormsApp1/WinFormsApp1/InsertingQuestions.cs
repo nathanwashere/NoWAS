@@ -30,6 +30,11 @@ namespace WinFormsApp1
             this.MinimizeBox = true;
         }
 
+        private void InsertingQuestions_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+
         private void label2_Click(object sender, EventArgs e)
         {
 
@@ -197,6 +202,7 @@ namespace WinFormsApp1
             // בודק אם סוג השאלה הוא "Multiple Choice"
             if (type_text.Text == "Multiple Choice")
             {
+                this.SuspendLayout();
                 // הצגת תיבות טקסט עבור תשובות אפשריות
                 label1.Visible = true;
                 label2.Visible = true;
@@ -204,9 +210,12 @@ namespace WinFormsApp1
                 Possible_answer_1.Visible = true;
                 Possible_answer_2.Visible = true;
                 Possible_answer_3.Visible = true;
+                this.ResumeLayout();
+
             }
             else
             {
+                this.SuspendLayout();
                 // הסתרת תיבות טקסט עבור תשובות אפשריות
                 label1.Visible = false;
                 label2.Visible = false;
@@ -214,6 +223,7 @@ namespace WinFormsApp1
                 Possible_answer_1.Visible = false;
                 Possible_answer_2.Visible = false;
                 Possible_answer_3.Visible = false;
+                this.ResumeLayout();
             }
         }
 

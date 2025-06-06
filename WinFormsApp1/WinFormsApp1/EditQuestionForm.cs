@@ -50,6 +50,12 @@ namespace WinFormsApp1
             Possible_answer_3.Text = row.Cells["Possible answer 3"].Value?.ToString();
         }
 
+        private void EditQuestionForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+
+
         private void save_Click(object sender, EventArgs e)
         {
             // בדיקה בסיסית

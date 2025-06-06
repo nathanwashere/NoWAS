@@ -31,6 +31,11 @@ namespace WinFormsApp1
             this.MinimizeBox = true;
         }
 
+        private void Deleting_questions_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit(); 
+        }
+
 
 
         private void Deleting_questions_Load(object sender, EventArgs e)

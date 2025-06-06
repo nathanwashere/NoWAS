@@ -219,7 +219,7 @@
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            label1.Location = new Point(18, 437);
+            label1.Location = new Point(12, 433);
             label1.Name = "label1";
             label1.Size = new Size(250, 37);
             label1.TabIndex = 12;
@@ -233,7 +233,7 @@
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            label2.Location = new Point(18, 528);
+            label2.Location = new Point(18, 524);
             label2.Name = "label2";
             label2.Size = new Size(250, 37);
             label2.TabIndex = 13;
@@ -245,7 +245,7 @@
             // 
             Possible_answer_1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             Possible_answer_1.Font = new Font("Segoe UI", 14F);
-            Possible_answer_1.Location = new Point(371, 439);
+            Possible_answer_1.Location = new Point(371, 435);
             Possible_answer_1.Name = "Possible_answer_1";
             Possible_answer_1.Size = new Size(337, 39);
             Possible_answer_1.TabIndex = 14;
@@ -255,7 +255,7 @@
             // 
             Possible_answer_2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             Possible_answer_2.Font = new Font("Segoe UI", 14F);
-            Possible_answer_2.Location = new Point(371, 530);
+            Possible_answer_2.Location = new Point(371, 526);
             Possible_answer_2.Name = "Possible_answer_2";
             Possible_answer_2.Size = new Size(337, 39);
             Possible_answer_2.TabIndex = 15;
@@ -268,7 +268,7 @@
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            label3.Location = new Point(18, 612);
+            label3.Location = new Point(18, 603);
             label3.Name = "label3";
             label3.Size = new Size(250, 37);
             label3.TabIndex = 16;
@@ -280,7 +280,7 @@
             // 
             Possible_answer_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             Possible_answer_3.Font = new Font("Segoe UI", 14F);
-            Possible_answer_3.Location = new Point(371, 614);
+            Possible_answer_3.Location = new Point(371, 605);
             Possible_answer_3.Name = "Possible_answer_3";
             Possible_answer_3.Size = new Size(337, 39);
             Possible_answer_3.TabIndex = 17;
