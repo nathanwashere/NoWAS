@@ -8595,23 +8595,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lizav\\.nuget\\packages\\": {},
+    "C:\\Users\\zecha\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lizav\\OneDrive\\Documents\\GitHub\\NoWAS\\WinFormsApp1\\inserting_Questions_delete_Questions.Tests\\inserting_Questions_delete_Questions.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\zecha\\Documents\\GitHub\\NoWAS\\WinFormsApp1\\inserting_Questions_delete_Questions.Tests\\inserting_Questions_delete_Questions.Tests.csproj",
       "projectName": "inserting_Questions_delete_Questions.Tests",
-      "projectPath": "C:\\Users\\lizav\\OneDrive\\Documents\\GitHub\\NoWAS\\WinFormsApp1\\inserting_Questions_delete_Questions.Tests\\inserting_Questions_delete_Questions.Tests.csproj",
-      "packagesPath": "C:\\Users\\lizav\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lizav\\OneDrive\\Documents\\GitHub\\NoWAS\\WinFormsApp1\\inserting_Questions_delete_Questions.Tests\\obj\\",
+      "projectPath": "C:\\Users\\zecha\\Documents\\GitHub\\NoWAS\\WinFormsApp1\\inserting_Questions_delete_Questions.Tests\\inserting_Questions_delete_Questions.Tests.csproj",
+      "packagesPath": "C:\\Users\\zecha\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\zecha\\Documents\\GitHub\\NoWAS\\WinFormsApp1\\inserting_Questions_delete_Questions.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\lizav\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\zecha\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -8627,8 +8627,8 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "projectReferences": {
-            "C:\\Users\\lizav\\OneDrive\\Documents\\GitHub\\NoWAS\\WinFormsApp1\\WinFormsApp1\\WinFormsApp1.csproj": {
-              "projectPath": "C:\\Users\\lizav\\OneDrive\\Documents\\GitHub\\NoWAS\\WinFormsApp1\\WinFormsApp1\\WinFormsApp1.csproj"
+            "C:\\Users\\zecha\\Documents\\GitHub\\NoWAS\\WinFormsApp1\\WinFormsApp1\\WinFormsApp1.csproj": {
+              "projectPath": "C:\\Users\\zecha\\Documents\\GitHub\\NoWAS\\WinFormsApp1\\WinFormsApp1\\WinFormsApp1.csproj"
             }
           }
         }
