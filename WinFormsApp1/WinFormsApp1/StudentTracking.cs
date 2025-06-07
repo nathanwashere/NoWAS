@@ -632,7 +632,7 @@ namespace WinFormsApp1
             {
                 chartProgress.Legends[0].BackColor = Color.FromArgb(45, 45, 48);
                 chartProgress.Legends[0].ForeColor = Color.White;
-                chartProgress.Legends[0].Title = "Legend";
+                chartProgress.Legends[0].Title = "";
                 chartProgress.Series[0].LegendText = "Individual Scores";
                 if (chartProgress.Series.Count > 1)
                 {
