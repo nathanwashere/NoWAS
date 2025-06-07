@@ -11,13 +11,35 @@ namespace WinFormsApp1
     public partial class TestCreation : Form
     {
         private readonly List<Question> selectedQuestions = new();
-        private readonly string currentTestName = "Math Basics";
-        private readonly int currentPersonId = 1234;
 
-        public TestCreation()
+        //private readonly int currentPersonId = 1234;
+        private string lastSelectedCategory = "";
+        private string lastSelectedDifficulty = "";
+        private readonly string userName;
+        public TestCreation(string username)
         {
             InitializeComponent();
+            userName = username;
             LoadTestsToListView();
+           
+        }
+        private int GetPersonIdFromUsername(string username)
+        {
+            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
+            dbPath = Path.GetFullPath(dbPath);
+            string connectionString = $"Data Source={dbPath};Version=3;";
+
+            using (var conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT Id FROM Person WHERE userName = @username";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@username", username);
+                    object result = cmd.ExecuteScalar();
+                    return result != null ? Convert.ToInt32(result) : -1;
+                }
+            }
         }
 
         private void LoadTestsToListView()
@@ -27,20 +49,36 @@ namespace WinFormsApp1
             dbPath = Path.GetFullPath(dbPath);
             string connectionString = $"Data Source={dbPath};Version=3;";
 
+            int currentPersonId = GetPersonIdFromUsername(userName);
+            if (currentPersonId == -1)
+            {
+                MessageBox.Show("Unable to retrieve teacher ID.");
+                return;
+            }
+
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
-                string query = "SELECT TestID, TestName, DateCreated, COUNT(*) as QuestionCount FROM TestQuestions GROUP BY TestID";
+                string query = @"
+            SELECT tq.TestID, tq.TestName, MAX(tq.DateCreated) AS DateCreated, COUNT(*) as QuestionCount
+            FROM TestQuestions tq
+            INNER JOIN Test t ON tq.TestID = t.TestID
+            WHERE t.PersonID = @personId
+            GROUP BY tq.TestID, tq.TestName";
+
                 using (var cmd = new SQLiteCommand(query, conn))
-                using (var reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
+                    cmd.Parameters.AddWithValue("@personId", currentPersonId);
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        var item = new ListViewItem(reader["TestID"].ToString());
-                        item.SubItems.Add(reader["DateCreated"].ToString());
-                        item.SubItems.Add(reader["QuestionCount"].ToString());
-                        item.SubItems.Add(reader["TestName"].ToString());
-                        lvTests.Items.Add(item);
+                        while (reader.Read())
+                        {
+                            var item = new ListViewItem(reader["TestID"].ToString());
+                            item.SubItems.Add(reader["DateCreated"].ToString());
+                            item.SubItems.Add(reader["QuestionCount"].ToString());
+                            item.SubItems.Add(reader["TestName"].ToString());
+                            lvTests.Items.Add(item);
+                        }
                     }
                 }
             }
@@ -48,11 +86,27 @@ namespace WinFormsApp1
 
         private void btnAddQuestion_Click(object sender, EventArgs e)
         {
-            var availableQuestions = LoadQuestionsFromDB();
-            var selector = new QuestionSelectionForm(availableQuestions); // You must implement this form
+            if (chkTopics.CheckedItems.Count == 0 || chkDifficulty.CheckedItems.Count == 0)
+            {
+                MessageBox.Show("Please select one category and one difficulty level.");
+                return;
+            }
+
+            // Always store the selected values immediately
+            lastSelectedCategory = chkTopics.CheckedItems[0].ToString();
+            lastSelectedDifficulty = chkDifficulty.CheckedItems[0].ToString();
+
+            var availableQuestions = LoadQuestionsFromDB(lastSelectedCategory, lastSelectedDifficulty);
+            var selector = new QuestionSelectionForm(availableQuestions);
 
             if (selector.ShowDialog() == DialogResult.OK)
             {
+                if (!selector.SelectedQuestions.Any())
+                {
+                    MessageBox.Show("No questions were selected.");
+                    return;
+                }
+
                 foreach (var q in selector.SelectedQuestions)
                 {
                     selectedQuestions.Add(q);
@@ -61,9 +115,14 @@ namespace WinFormsApp1
             }
         }
 
+
+
+
         private void btnCreate_Click(object sender, EventArgs e)
         {
             long testId;
+            int currentPersonId = GetPersonIdFromUsername(userName);
+
             if (selectedQuestions.Count == 0)
             {
                 MessageBox.Show("Please add at least one question before creating the test.");
@@ -71,15 +130,13 @@ namespace WinFormsApp1
             }
 
             // Get selected category
-            string selectedCategory = chkTopics.CheckedItems.Count > 0 ? chkTopics.CheckedItems[0].ToString() : "";
-
-            // Get selected difficulty
-            string selectedDifficultyStr = chkDifficulty.CheckedItems.Count > 0 ? chkDifficulty.CheckedItems[0].ToString() : "";
+            string selectedCategory = lastSelectedCategory;
+            string selectedDifficultyStr = lastSelectedDifficulty;
             int difficultyValue = selectedDifficultyStr switch
             {
                 "Easy" => 1,
-                "Medium" => 2,
-                "Hard" => 3,
+                "Intermediate" => 2,
+                "Advanced" => 3,
                 _ => 0
             };
 
@@ -88,6 +145,7 @@ namespace WinFormsApp1
                 MessageBox.Show("Please select both a topic and difficulty level before creating the test.");
                 return;
             }
+            string currentTestName = $"{selectedDifficultyStr} {selectedCategory}";
 
             var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
             dbPath = Path.GetFullPath(dbPath);
@@ -97,7 +155,7 @@ namespace WinFormsApp1
                 conn.Open();
 
                 // Generate new TestID manually
-                string getIdQuery = "SELECT IFNULL(MAX(TestID), 0) + 1 FROM TestQuestions";
+                string getIdQuery = "SELECT IFNULL(MAX(TestID), 0) + 1 FROM Test";
                 using (var getIdCmd = new SQLiteCommand(getIdQuery, conn))
                 {
                     testId = Convert.ToInt64(getIdCmd.ExecuteScalar());
@@ -166,8 +224,8 @@ namespace WinFormsApp1
                         int difficultyInt = q.DifficultyLevel switch
                         {
                             "Easy" => 1,
-                            "Medium" => 2,
-                            "Hard" => 3,
+                            "Intermediate" => 2,
+                            "Advanced" => 3,
                             _ => 0
                         };
                         cmd.Parameters.AddWithValue("@level", difficultyInt);
@@ -191,7 +249,7 @@ namespace WinFormsApp1
             lstSelectedQuestions.Items.Clear();
         }
 
-        private List<Question> LoadQuestionsFromDB()
+        private List<Question> LoadQuestionsFromDB(string selectedCategory, string selectedDifficulty)
         {
             List<Question> questions = new();
             var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
@@ -201,55 +259,62 @@ namespace WinFormsApp1
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
-                string query = "SELECT QuestionID, Body, Answer, TestID, [Difficulty level], [Course], type, [Possible answer 1], [Possible answer 2], [Possible answer 3] FROM Question_new";
+
+                string query = @"
+            SELECT * FROM Question_new 
+            WHERE [Course] = @category AND [Difficulty level] = @difficulty";
 
                 using (var cmd = new SQLiteCommand(query, conn))
-                using (var reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
+                    // 🔽 Add parameters here
+                    cmd.Parameters.AddWithValue("@category", selectedCategory);
+                    cmd.Parameters.AddWithValue("@difficulty", selectedDifficulty);
+
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        string type = reader.IsDBNull(6) ? "" : reader.GetString(6);
-
-                        switch (type)
+                        while (reader.Read())
                         {
-                            case "Multiple Choice":
-                                var optList = new List<string>
-                                {
-                                    reader["Possible Answer 1"].ToString(),
-                                    reader["Possible Answer 2"].ToString(),
-                                    reader["Possible Answer 3"].ToString()
-                                };
-                                string answer = reader["Answer"].ToString().Trim();
+                            string type = reader.IsDBNull(6) ? "" : reader.GetString(6);
 
-                               
+                            switch (type)
+                            {
+                                case "Multiple Choice":
+                                    var optList = new List<string>
+                            {
+                                reader["Possible Answer 1"].ToString(),
+                                reader["Possible Answer 2"].ToString(),
+                                reader["Possible Answer 3"].ToString()
+                            };
+
+                                    string answer = reader["Answer"].ToString().Trim();
                                     optList.Add(answer);
 
-                                if (optList.Count > 4)
-                                {
-                                    var others = optList.Where(x => x != answer).Distinct().Take(3).ToList();
-                                    others.Add(answer);
-                                    optList = others;
-                                }
+                                    if (optList.Count > 4)
+                                    {
+                                        var others = optList.Where(x => x != answer).Distinct().Take(3).ToList();
+                                        others.Add(answer);
+                                        optList = others;
+                                    }
 
-                                var rng = new Random();
-                                optList = optList.OrderBy(x => rng.Next()).ToList();
+                                    var rng = new Random();
+                                    optList = optList.OrderBy(x => rng.Next()).ToList();
+                                    int correctIndex = optList.IndexOf(answer);
 
-                                int correctIndex = optList.IndexOf(answer);
+                                    questions.Add(new MultipleChoiceQuestion(reader["Body"].ToString(), optList.ToArray(), correctIndex));
+                                    break;
 
-                                questions.Add(new MultipleChoiceQuestion(reader["Body"].ToString(), optList.ToArray(), correctIndex));
-                                break;
+                                case "True/False":
+                                    bool tfAnswer = bool.TryParse(reader["Answer"].ToString(), out var val) && val;
+                                    questions.Add(new TrueFalseQuestion(reader["Body"].ToString(), tfAnswer));
+                                    break;
 
-                            case "True/False":
-                                bool tfAnswer = bool.TryParse(reader["Answer"].ToString(), out var val) && val;
-                                questions.Add(new TrueFalseQuestion(reader["Body"].ToString(), tfAnswer));
-                                break;
+                                case "Sentence Completion":
+                                    questions.Add(new FillInTheBlank(reader["Body"].ToString(), reader["Answer"].ToString()));
+                                    break;
 
-                            case "Sentence Completion":
-                                questions.Add(new FillInTheBlank(reader["Body"].ToString(), reader["Answer"].ToString()));
-                                break;
-
-                            default:
-                                break;
+                                default:
+                                    break;
+                            }
                         }
                     }
                 }
@@ -257,6 +322,7 @@ namespace WinFormsApp1
 
             return questions;
         }
+
 
         private void BtnDeleteTest_click(object sender, EventArgs e)
         {
@@ -331,6 +397,29 @@ namespace WinFormsApp1
             detailsForm.Controls.Add(box);
             detailsForm.Show();
         }
+        private void chkDifficulty_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (e.NewValue == CheckState.Checked)
+            {
+                for (int i = 0; i < chkDifficulty.Items.Count; i++)
+                {
+                    if (i != e.Index)
+                        chkDifficulty.SetItemChecked(i, false);
+                }
+            }
+        }
+
+        private void chkTopics_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (e.NewValue == CheckState.Checked)
+            {
+                for (int i = 0; i < chkTopics.Items.Count; i++)
+                {
+                    if (i != e.Index)
+                        chkTopics.SetItemChecked(i, false);
+                }
+            }
+        }
 
         private List<string> GetQuestionsForTest(int testId)
         {
@@ -364,8 +453,30 @@ namespace WinFormsApp1
         }
         private void btnBackToMain_Click(object sender, EventArgs e)
         {
-            mainTeacher mainTeacher = new mainTeacher();
+            mainTeacher mainTeacher = new mainTeacher(userName);
             mainTeacher.Show();
+            this.Hide();
+        }
+        private void AutomaticTest_Click(object sender, EventArgs e)
+        {
+            if (chkTopics.CheckedItems.Count == 0 || chkDifficulty.CheckedItems.Count == 0)
+            {
+                MessageBox.Show("Please select one category and one difficulty level.");
+                return;
+            }
+            // Always store the selected values immediately
+            lastSelectedCategory = chkTopics.CheckedItems[0].ToString();
+            lastSelectedDifficulty = chkDifficulty.CheckedItems[0].ToString();
+            var availableQuestions = LoadQuestionsFromDB(lastSelectedCategory, lastSelectedDifficulty);
+
+            var random = new Random();
+            var selectedForTest = availableQuestions.OrderBy(x => random.Next()).Take(5).ToList();
+            foreach (var q in selectedForTest)
+            {
+                selectedQuestions.Add(q);
+                lstSelectedQuestions.Items.Add(q.ToString());
+            }
         }
     }
 }
+

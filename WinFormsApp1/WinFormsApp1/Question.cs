@@ -15,7 +15,10 @@
         Course = course;
     }
 
-
+    public override string ToString()
+    {
+        return Body;
+    }
 
     public abstract void Display(Panel panel);
     public abstract bool CheckAnswer(Panel panel);

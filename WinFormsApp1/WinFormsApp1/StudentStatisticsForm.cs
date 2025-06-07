@@ -17,15 +17,22 @@ namespace WinFormsApp1
         //var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
         //dbPath = Path.GetFullPath(dbPath);
         //    string connectionString = $"Data Source={dbPath};Version=3;";
+        private readonly string userName;
 
-        public StudentStatisticsForm()
+        public StudentStatisticsForm(string username)
         {
             InitializeComponent();
             comboFilter.SelectedIndexChanged += comboFilter_SelectedIndexChanged;
             LoadResultsFromDatabase();
             LoadResultsToGrid();
+            userName = username;
         }
-
+        private void btnBackToMain_Click(Object sender, EventArgs e)
+        {
+            mainTeacher mainTeacher = new mainTeacher(userName);
+            mainTeacher.Show();
+            this.Hide();
+        }
         private void LoadResultsFromDatabase()
         {
             DataTable table = new DataTable();
@@ -188,6 +195,7 @@ namespace WinFormsApp1
 
         }
     }
+     
     public class Student
     {
         public int StudentID { get; set; }
@@ -203,4 +211,5 @@ namespace WinFormsApp1
         public double Grade { get; set; }
         public DateTime TestDate { get; set; }
     }
+  
 }

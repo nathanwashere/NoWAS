@@ -71,7 +71,7 @@ namespace WinFormsApp1
             // pictureBoxLoginTogglePassword
             // 
             pictureBoxLoginTogglePassword.BackColor = Color.Transparent;
-            pictureBoxLoginTogglePassword.Location = new Point(632, 213);
+            pictureBoxLoginTogglePassword.Location = new Point(655, 210);
             pictureBoxLoginTogglePassword.Name = "pictureBoxLoginTogglePassword";
             pictureBoxLoginTogglePassword.Size = new Size(48, 32);
             pictureBoxLoginTogglePassword.SizeMode = PictureBoxSizeMode.Zoom;
@@ -187,7 +187,7 @@ namespace WinFormsApp1
             // pictureBoxSignupTogglePassword
             // 
             pictureBoxSignupTogglePassword.BackColor = Color.Transparent;
-            pictureBoxSignupTogglePassword.Location = new Point(632, 152);
+            pictureBoxSignupTogglePassword.Location = new Point(655, 150);
             pictureBoxSignupTogglePassword.Name = "pictureBoxSignupTogglePassword";
             pictureBoxSignupTogglePassword.Size = new Size(48, 32);
             pictureBoxSignupTogglePassword.SizeMode = PictureBoxSizeMode.Zoom;
@@ -363,8 +363,8 @@ namespace WinFormsApp1
             // 
             BackColor = Color.FromArgb(245, 245, 255);
             ClientSize = new Size(1022, 573);
-            Controls.Add(panelSignup);
             Controls.Add(panelLogin);
+            Controls.Add(panelSignup);
             Font = new Font("Segoe UI", 12F);
             Name = "Login_Signup";
             Text = "Login";

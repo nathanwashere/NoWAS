@@ -46,7 +46,7 @@ namespace WinFormsApp1
             lblWelcome.Name = "lblWelcome";
             lblWelcome.Size = new Size(270, 41);
             lblWelcome.TabIndex = 0;
-            lblWelcome.Text = "Welcome, Teacher";
+            lblWelcome.Text = $"Hello, {userName}!";
             // 
             // pnlStats
             // 

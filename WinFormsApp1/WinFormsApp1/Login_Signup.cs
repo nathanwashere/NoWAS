@@ -191,7 +191,7 @@ namespace WinFormsApp1
             {
                 errorProvider.SetError(textBoxSignupID, "Please fill in all fields.");
                 errorProvider.SetError(textBoxSignupMail, "Please fill in all fields.");
-                errorProvider.SetError(textBoxLoginPassword, "Please fill in all fields.");
+                errorProvider.SetError(textBoxSignupPassword, "Please fill in all fields.");
                 errorProvider.SetError(textBoxSignupUsername, "Please fill in all fields.");
                 return false;
             }
@@ -293,7 +293,7 @@ namespace WinFormsApp1
                 }
                 else if (checkLogin(worksheet, userName, password) && getUserType(userName) == "Professor")
                 {
-                    new mainTeacher().Show();
+                    new mainTeacher(userName).Show();
                     this.Hide();
                 }
 
@@ -313,6 +313,7 @@ namespace WinFormsApp1
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
             {
                 errorProvider.SetError(textBoxLoginUsername, "Please fill in all fields.");
+                errorProvider.SetError(textBoxLoginPassword, "Please fill in all fields");
                 return;
             }
 
@@ -332,7 +333,7 @@ namespace WinFormsApp1
                 else if (checkLogin(worksheet, userName, password) && getUserType(userName) == "Professor")
                 {
                     MessageBox.Show("Login successful!");
-                    new mainTeacher().Show();
+                    new mainTeacher(userName).Show();
                     this.Hide();
                 }
                 else

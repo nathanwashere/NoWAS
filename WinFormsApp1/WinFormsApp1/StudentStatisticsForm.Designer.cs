@@ -12,7 +12,7 @@
         }
 
         #region Windows Form Designer generated code
-
+        private Button btnBackToMain;
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
@@ -22,6 +22,8 @@
             comboFilter = new ComboBox();
             labelFilter = new Label();
             labelStats = new Label();
+            btnBackToMain = new Button(); // ← added
+
             ((System.ComponentModel.ISupportInitialize)dataGridViewResults).BeginInit();
             SuspendLayout();
             // 
@@ -90,13 +92,29 @@
             labelStats.TabIndex = 0;
             labelStats.Text = "Statistics summary will appear here.";
             // 
-            // StudentStatisticsForm
+            // btnBackToMain
             // 
+            btnBackToMain.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnBackToMain.BackColor = Color.FromArgb(33, 150, 243);
+            btnBackToMain.ForeColor = Color.White;
+            btnBackToMain.FlatStyle = FlatStyle.Flat;
+            btnBackToMain.FlatAppearance.BorderSize = 0;
+            btnBackToMain.Location = new Point(900, 460);
+            btnBackToMain.Name = "btnBackToMain";
+            btnBackToMain.Size = new Size(200, 40);
+            btnBackToMain.TabIndex = 3;
+            btnBackToMain.Text = "Back to Main";
+            btnBackToMain.UseVisualStyleBackColor = false;
+            btnBackToMain.Click += btnBackToMain_Click; // Add event handler
+                                                                               // 
+                                                                               // StudentStatisticsForm
+                                                                               // 
             AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1150, 520);
+            Controls.Add(btnBackToMain);
             Controls.Add(labelStats);
             Controls.Add(labelFilter);
             Controls.Add(comboFilter);
