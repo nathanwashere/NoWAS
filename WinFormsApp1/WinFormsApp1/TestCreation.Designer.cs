@@ -38,6 +38,7 @@
         {
             lblTitle = new Label();
             grpTestSettings = new GroupBox();
+            AutomaticTest = new Button();
             numQuestions = new NumericUpDown();
             chkTopics = new CheckedListBox();
             chkDifficulty = new CheckedListBox();
@@ -54,7 +55,6 @@
             btnViewDetails = new Button();
             lstSelectedQuestions = new ListBox();
             backToMainbtn = new Button();
-            AutomaticTest = new Button();
             grpTestSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numQuestions).BeginInit();
             grpCreatedTests.SuspendLayout();
@@ -90,6 +90,16 @@
             grpTestSettings.TabStop = false;
             grpTestSettings.Text = "Test Settings";
             // 
+            // AutomaticTest
+            // 
+            AutomaticTest.Location = new Point(20, 248);
+            AutomaticTest.Name = "AutomaticTest";
+            AutomaticTest.Size = new Size(380, 43);
+            AutomaticTest.TabIndex = 6;
+            AutomaticTest.Text = "Create Automatic random test";
+            AutomaticTest.UseVisualStyleBackColor = true;
+            AutomaticTest.Click += AutomaticTest_Click;
+            // 
             // numQuestions
             // 
             numQuestions.Location = new Point(20, 30);
@@ -101,25 +111,25 @@
             // 
             // chkTopics
             // 
+            chkTopics.CheckOnClick = true;
             chkTopics.Items.AddRange(new object[] { "Calculus", "Physics", "Intro to CS" });
             chkTopics.Location = new Point(20, 80);
             chkTopics.Name = "chkTopics";
-            chkTopics.Size = new Size(170, 54);
+            chkTopics.Size = new Size(170, 79);
             chkTopics.TabIndex = 1;
-            chkDifficulty.ItemCheck += chkDifficulty_ItemCheck;
             chkTopics.ItemCheck += chkTopics_ItemCheck;
-            chkDifficulty.CheckOnClick = true;
-            chkTopics.CheckOnClick = true;
-
-
+            chkTopics.Text = "Categories";
             // 
             // chkDifficulty
             // 
+            chkDifficulty.CheckOnClick = true;
             chkDifficulty.Items.AddRange(new object[] { "Easy", "Intermediate", "Advanced" });
             chkDifficulty.Location = new Point(210, 80);
             chkDifficulty.Name = "chkDifficulty";
-            chkDifficulty.Size = new Size(170, 54);
+            chkDifficulty.Size = new Size(170, 79);
             chkDifficulty.TabIndex = 2;
+            chkDifficulty.ItemCheck += chkDifficulty_ItemCheck;
+            chkDifficulty.Text = "Difficulty";
             // 
             // btnCreate
             // 
@@ -235,16 +245,6 @@
             backToMainbtn.Text = "Back to main";
             backToMainbtn.UseVisualStyleBackColor = true;
             backToMainbtn.Click += btnBackToMain_Click;
-            // 
-            // AutomaticTest
-            // 
-            AutomaticTest.Location = new Point(20, 248);
-            AutomaticTest.Name = "AutomaticTest";
-            AutomaticTest.Size = new Size(380, 43);
-            AutomaticTest.TabIndex = 6;
-            AutomaticTest.Text = "Create Automatic random test";
-            AutomaticTest.UseVisualStyleBackColor = true;
-            AutomaticTest.Click += AutomaticTest_Click;
             // 
             // TestCreation
             // 

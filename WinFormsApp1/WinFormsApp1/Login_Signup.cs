@@ -56,12 +56,8 @@ namespace WinFormsApp1
 
         private void Login_Signup_Load(object sender, EventArgs e)
         {
-            panelLogin.Left = 0;
-            panelSignup.Left = panelLogin.Width;
-
-            slideTimer = new System.Windows.Forms.Timer();
-            slideTimer.Interval = 1;
-            slideTimer.Tick += SlideTimer_Tick;
+            panelLogin.Visible = true;
+            panelSignup.Visible = false;
 
             rbStudent.Checked = true;
 
@@ -71,69 +67,31 @@ namespace WinFormsApp1
             RoundButtonCorners(buttonLoginToSignup, buttonLoginToSignup.Height);
         }
 
-        private void buttonLoginToSignup_Click(object sender, EventArgs e)
-        {
-            showingSignup = true;
-            targetLeftLogin = -panelLogin.Width;
-            targetLeftSignup = 0;
-
-            loginBackground = panelLogin.BackgroundImage;
-            signupBackground = panelSignup.BackgroundImage;
-            panelLogin.BackgroundImage = null;
-            panelSignup.BackgroundImage = null;
-
-            slideTimer.Start();
-
-            clearInputs();
 
 
-        }
 
         private void buttonSignupToLogin_Click(object sender, EventArgs e)
         {
             showingSignup = false;
-            targetLeftLogin = 0;
-            targetLeftSignup = panelLogin.Width;
 
-            loginBackground = panelLogin.BackgroundImage;
-            signupBackground = panelSignup.BackgroundImage;
-            panelLogin.BackgroundImage = null;
-            panelSignup.BackgroundImage = null;
-
-            slideTimer.Start();
-
+            panelSignup.Visible = false;
+            panelLogin.Visible = true;
+            panelLogin.BringToFront(); // Optional
             clearInputs();
-
         }
 
-        private void SlideTimer_Tick(object sender, EventArgs e)
+
+
+
+        private void buttonLoginToSignup_Click(object sender, EventArgs e)
         {
-            bool done = true;
+            showingSignup = true;
 
-            if (panelLogin.Left != targetLeftLogin)
-            {
-                int distance = targetLeftLogin - panelLogin.Left;
-                int delta = Math.Min(slideSpeed, Math.Abs(distance)) * Math.Sign(distance);
-                panelLogin.Left += delta;
-                done = false;
-            }
-
-            if (panelSignup.Left != targetLeftSignup)
-            {
-                int distance = targetLeftSignup - panelSignup.Left;
-                int delta = Math.Min(slideSpeed, Math.Abs(distance)) * Math.Sign(distance);
-                panelSignup.Left += delta;
-                done = false;
-            }
-
-            if (done)
-            {
-                panelLogin.BackgroundImage = loginBackground;
-                panelSignup.BackgroundImage = signupBackground;
-                slideTimer.Stop();
-            }
+            panelLogin.Visible = false;
+            panelSignup.Visible = true;
+            panelSignup.BringToFront(); // Optional: keep order consistent
+            clearInputs();
         }
-
         private void RoundButtonCorners(Button btn, int radius)
         {
             Rectangle bounds = new Rectangle(0, 0, btn.Width, btn.Height);
@@ -174,7 +132,7 @@ namespace WinFormsApp1
             textBoxSignupPassword.Text = "";
             textBoxSignupID.Text = "";
             textBoxSignupMail.Text = "";
-            
+
         }
 
         public bool checkInputsSignUp()
@@ -213,7 +171,7 @@ namespace WinFormsApp1
 
             if (password.Length < 8 || password.Length > 10)
             {
-              errorProvider.SetError(textBoxSignupPassword, "Password must be between 8 and 10 characters long.");
+                errorProvider.SetError(textBoxSignupPassword, "Password must be between 8 and 10 characters long.");
                 return false;
             }
             bool hasLetter = password.Any(IsEnglishLetter);
@@ -221,13 +179,13 @@ namespace WinFormsApp1
             bool hasSpecial = password.Any(c => "!@#$%^&*()-_=+[]{};:'\".,.<>?/|".Contains(c));
             if (!hasLetter || !hasDigit || !hasSpecial)
             {
-               errorProvider.SetError(textBoxSignupPassword, "Password must contain at least one letter, one digit, and one special character.");
+                errorProvider.SetError(textBoxSignupPassword, "Password must contain at least one letter, one digit, and one special character.");
                 return false;
             }
 
             if (id.Length != 9 || !id.All(char.IsDigit))
             {
-               errorProvider.SetError(textBoxSignupID, "ID must be exactly 9 digits long.");
+                errorProvider.SetError(textBoxSignupID, "ID must be exactly 9 digits long.");
                 return false;
             }
 
@@ -257,7 +215,7 @@ namespace WinFormsApp1
                 if (userNameExistsExcel(worksheet, userName) &&
                     userNameExistsDataBase(userName))
                 {
-                   errorProvider.SetError(textBoxSignupUsername, "Username already exists");
+                    errorProvider.SetError(textBoxSignupUsername, "Username already exists");
                     return;
                 }
 

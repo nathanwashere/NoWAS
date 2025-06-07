@@ -63,9 +63,10 @@ namespace WinFormsApp1
             panelLogin.Controls.Add(textBoxLoginPassword);
             panelLogin.Controls.Add(buttonLoginEnter);
             panelLogin.Controls.Add(buttonLoginToSignup);
+            panelLogin.Dock = DockStyle.Fill;
             panelLogin.Location = new Point(0, 0);
             panelLogin.Name = "panelLogin";
-            panelLogin.Size = new Size(1022, 573);
+            panelLogin.Size = new Size(1006, 553);
             panelLogin.TabIndex = 1;
             // 
             // pictureBoxLoginTogglePassword
@@ -83,11 +84,11 @@ namespace WinFormsApp1
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            label1.Font = new Font("Lucida Handwriting", 20F, FontStyle.Bold);
             label1.ForeColor = Color.FromArgb(102, 0, 204);
-            label1.Location = new Point(360, 30);
+            label1.Location = new Point(274, 30);
             label1.Name = "label1";
-            label1.Size = new Size(393, 46);
+            label1.Size = new Size(479, 44);
             label1.TabIndex = 0;
             label1.Text = "Welcome to TestMania!";
             // 
@@ -95,11 +96,11 @@ namespace WinFormsApp1
             // 
             labelLoginUsername.AutoSize = true;
             labelLoginUsername.BackColor = Color.Transparent;
-            labelLoginUsername.Font = new Font("Segoe UI", 12F);
+            labelLoginUsername.Font = new Font("Lucida Handwriting", 12F, FontStyle.Bold);
             labelLoginUsername.ForeColor = Color.FromArgb(54, 0, 102);
-            labelLoginUsername.Location = new Point(290, 150);
+            labelLoginUsername.Location = new Point(255, 150);
             labelLoginUsername.Name = "labelLoginUsername";
-            labelLoginUsername.Size = new Size(103, 28);
+            labelLoginUsername.Size = new Size(143, 27);
             labelLoginUsername.TabIndex = 1;
             labelLoginUsername.Text = "Username:";
             // 
@@ -107,11 +108,11 @@ namespace WinFormsApp1
             // 
             labelLoginPassword.AutoSize = true;
             labelLoginPassword.BackColor = Color.Transparent;
-            labelLoginPassword.Font = new Font("Segoe UI", 12F);
+            labelLoginPassword.Font = new Font("Lucida Handwriting", 12F, FontStyle.Bold);
             labelLoginPassword.ForeColor = Color.FromArgb(54, 0, 102);
-            labelLoginPassword.Location = new Point(290, 213);
+            labelLoginPassword.Location = new Point(255, 210);
             labelLoginPassword.Name = "labelLoginPassword";
-            labelLoginPassword.Size = new Size(97, 28);
+            labelLoginPassword.Size = new Size(133, 27);
             labelLoginPassword.TabIndex = 2;
             labelLoginPassword.Text = "Password:";
             // 
@@ -179,9 +180,10 @@ namespace WinFormsApp1
             panelSignup.Controls.Add(buttonSignupEnter);
             panelSignup.Controls.Add(buttonSignupToLogin);
             panelSignup.Controls.Add(labelPasswordInfo);
+            panelSignup.Dock = DockStyle.Fill;
             panelSignup.Location = new Point(0, 0);
             panelSignup.Name = "panelSignup";
-            panelSignup.Size = new Size(1022, 573);
+            panelSignup.Size = new Size(1006, 553);
             panelSignup.TabIndex = 0;
             // 
             // pictureBoxSignupTogglePassword
@@ -199,11 +201,11 @@ namespace WinFormsApp1
             // 
             labelTitleSignup.AutoSize = true;
             labelTitleSignup.BackColor = Color.Transparent;
-            labelTitleSignup.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            labelTitleSignup.Font = new Font("Lucida Handwriting", 20F, FontStyle.Bold);
             labelTitleSignup.ForeColor = Color.FromArgb(102, 0, 204);
-            labelTitleSignup.Location = new Point(360, 30);
+            labelTitleSignup.Location = new Point(255, 30);
             labelTitleSignup.Name = "labelTitleSignup";
-            labelTitleSignup.Size = new Size(393, 46);
+            labelTitleSignup.Size = new Size(479, 44);
             labelTitleSignup.TabIndex = 0;
             labelTitleSignup.Text = "Welcome to TestMania!";
             // 
@@ -213,7 +215,7 @@ namespace WinFormsApp1
             labelSignupUsername.BackColor = Color.Transparent;
             labelSignupUsername.Font = new Font("Lucida Handwriting", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelSignupUsername.ForeColor = Color.FromArgb(54, 0, 102);
-            labelSignupUsername.Location = new Point(290, 100);
+            labelSignupUsername.Location = new Point(239, 100);
             labelSignupUsername.Name = "labelSignupUsername";
             labelSignupUsername.Size = new Size(143, 27);
             labelSignupUsername.TabIndex = 1;
@@ -233,7 +235,7 @@ namespace WinFormsApp1
             labelSignupPassword.BackColor = Color.Transparent;
             labelSignupPassword.Font = new Font("Lucida Handwriting", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelSignupPassword.ForeColor = Color.FromArgb(54, 0, 102);
-            labelSignupPassword.Location = new Point(290, 150);
+            labelSignupPassword.Location = new Point(239, 150);
             labelSignupPassword.Name = "labelSignupPassword";
             labelSignupPassword.Size = new Size(133, 27);
             labelSignupPassword.TabIndex = 3;
@@ -254,7 +256,7 @@ namespace WinFormsApp1
             labelID.BackColor = Color.Transparent;
             labelID.Font = new Font("Lucida Handwriting", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelID.ForeColor = Color.FromArgb(54, 0, 102);
-            labelID.Location = new Point(290, 200);
+            labelID.Location = new Point(239, 200);
             labelID.Name = "labelID";
             labelID.Size = new Size(50, 27);
             labelID.TabIndex = 5;
@@ -274,7 +276,7 @@ namespace WinFormsApp1
             labelMail.BackColor = Color.Transparent;
             labelMail.Font = new Font("Lucida Handwriting", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelMail.ForeColor = Color.FromArgb(54, 0, 102);
-            labelMail.Location = new Point(290, 250);
+            labelMail.Location = new Point(239, 250);
             labelMail.Name = "labelMail";
             labelMail.Size = new Size(92, 27);
             labelMail.TabIndex = 7;
@@ -362,11 +364,14 @@ namespace WinFormsApp1
             // Login_Signup
             // 
             BackColor = Color.FromArgb(245, 245, 255);
-            ClientSize = new Size(1022, 573);
-            Controls.Add(panelLogin);
+            ClientSize = new Size(1006, 553);
             Controls.Add(panelSignup);
+            Controls.Add(panelLogin);
             Font = new Font("Segoe UI", 12F);
+            MaximumSize = new Size(1024, 600);
+            MinimumSize = new Size(1024, 600);
             Name = "Login_Signup";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";
             Load += Login_Signup_Load;
             panelLogin.ResumeLayout(false);
