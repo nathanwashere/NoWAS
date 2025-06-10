@@ -137,67 +137,159 @@ namespace WinFormsApp1
 
         public bool checkInputsSignUp()
         {
-            string username = textBoxSignupUsername.Text;
+            // 1) Clear any old errors
+            errorProvider.Clear();
+
+            bool isValid = true;
+
+            string username = textBoxSignupUsername.Text.Trim();
             string password = textBoxSignupPassword.Text;
-            string id = textBoxSignupID.Text;
-            string mail = textBoxSignupMail.Text;
+            string id = textBoxSignupID.Text.Trim();
+            string mail = textBoxSignupMail.Text.Trim();
 
-            if (string.IsNullOrEmpty(username) ||
-                string.IsNullOrEmpty(password) ||
-                string.IsNullOrEmpty(id) ||
-                string.IsNullOrEmpty(mail))
+            // 2) Check for empty
+            if (string.IsNullOrEmpty(username))
             {
-                errorProvider.SetError(textBoxSignupID, "Please fill in all fields.");
-                errorProvider.SetError(textBoxSignupMail, "Please fill in all fields.");
-                errorProvider.SetError(textBoxSignupPassword, "Please fill in all fields.");
-                errorProvider.SetError(textBoxSignupUsername, "Please fill in all fields.");
-                return false;
+                errorProvider.SetError(textBoxSignupUsername, "Please fill in your username.");
+                isValid = false;
             }
-
-            if (username.Length < 6 || username.Length > 8)
+            if (string.IsNullOrEmpty(password))
             {
-                errorProvider.SetError(textBoxSignupUsername, "Username must be between 6 and 8 characters long.");
-                return false;
+                errorProvider.SetError(textBoxSignupPassword, "Please fill in your password.");
+                isValid = false;
             }
-            bool IsEnglishLetter(char c) => (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
-            int digitCount = username.Count(char.IsDigit);
-            int letterCount = username.Count(IsEnglishLetter);
-            bool allValid = username.All(c => char.IsDigit(c) || IsEnglishLetter(c));
-            if (!allValid || digitCount > 2 || letterCount != username.Length - digitCount)
+            if (string.IsNullOrEmpty(id))
             {
-                errorProvider.SetError(textBoxSignupUsername, "Username must contain at most 2 digits and at least 4 letters.");
-                return false;
+                errorProvider.SetError(textBoxSignupID, "Please fill in your ID.");
+                isValid = false;
+            }
+            if (string.IsNullOrEmpty(mail))
+            {
+                errorProvider.SetError(textBoxSignupMail, "Please fill in your email.");
+                isValid = false;
             }
 
-            if (password.Length < 8 || password.Length > 10)
+            // 3) Username rules (only if non-empty)
+            if (!string.IsNullOrEmpty(username))
             {
-                errorProvider.SetError(textBoxSignupPassword, "Password must be between 8 and 10 characters long.");
-                return false;
-            }
-            bool hasLetter = password.Any(IsEnglishLetter);
-            bool hasDigit = password.Any(char.IsDigit);
-            bool hasSpecial = password.Any(c => "!@#$%^&*()-_=+[]{};:'\".,.<>?/|".Contains(c));
-            if (!hasLetter || !hasDigit || !hasSpecial)
-            {
-                errorProvider.SetError(textBoxSignupPassword, "Password must contain at least one letter, one digit, and one special character.");
-                return false;
+                if (username.Length < 6 || username.Length > 8)
+                {
+                    errorProvider.SetError(textBoxSignupUsername, "Username must be between 6 and 8 characters long.");
+                    isValid = false;
+                }
+                else
+                {
+                    bool IsEnglishLetter(char c) =>
+                        (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+
+                    int digitCount = username.Count(char.IsDigit);
+                    int letterCount = username.Count(IsEnglishLetter);
+                    bool allValid = username.All(c => char.IsDigit(c) || IsEnglishLetter(c));
+
+                    if (!allValid || digitCount > 2 || letterCount < 4)
+                    {
+                        errorProvider.SetError(textBoxSignupUsername,
+                            "Username must use only English letters, have at most 2 digits and at least 4 letters.");
+                        isValid = false;
+                    }
+                }
             }
 
-            if (id.Length != 9 || !id.All(char.IsDigit))
-            {
-                errorProvider.SetError(textBoxSignupID, "ID must be exactly 9 digits long.");
-                return false;
-            }
+            // Original:
+            // // 4) Password rules (only if non-empty)
+            // if (!string.IsNullOrEmpty(password))
+            // {
+            //     if (password.Length < 8 || password.Length > 10)
+            //     {
+            //         errorProvider.SetError(textBoxSignupPassword,
+            //             "Password must be between 8 and 10 characters long.");
+            //         isValid = false;
+            //     }
+            //     else
+            //     {
+            //         bool IsEnglishLetter(char c) =>
+            //             (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+            //
+            //         bool hasLetter = password.Any(IsEnglishLetter);
+            //         bool hasDigit = password.Any(char.IsDigit);
+            //         bool hasSpecial = password.Any(c => "!@#$%^&*()-_=+[]{};:'\".,.<>?/|".Contains(c));
+            //
+            //         if (!hasLetter || !hasDigit || !hasSpecial)
+            //         {
+            //             errorProvider.SetError(textBoxSignupPassword,
+            //                 "Password must contain at least one letter, one digit, and one special character.");
+            //             isValid = false;
+            //         }
+            //     }
+            // }
 
-            var emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-            if (!Regex.IsMatch(mail, emailPattern))
-            {
-                errorProvider.SetError(textBoxSignupMail, "Please enter a valid email address.");
-                return false;
-            }
+          // 4) Password rules (only if non-empty)
+if (!string.IsNullOrEmpty(password))
+{
+    const int MinLength = 8;
+    const int MaxLength = 10;
+    const string AllowedSpecials = "!@#$%^&*()-_=+[]{};:'\".,.<>?/|";
 
-            return true;
+    // 4a) Length check
+    if (password.Length < MinLength || password.Length > MaxLength)
+    {
+        errorProvider.SetError(
+            textBoxSignupPassword,
+            $"Password must be between {MinLength} and {MaxLength} characters long."
+        );
+        isValid = false;
+    }
+    else
+    {
+        // 4b) Composition checks
+        bool hasLetter = password.Any(c =>
+            (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+        );
+        bool hasDigit = password.Any(char.IsDigit);
+        bool hasSpecial = password.Any(c => AllowedSpecials.Contains(c));
+        bool allValid = password.All(c =>
+            ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+            || char.IsDigit(c)
+            || AllowedSpecials.Contains(c)
+        );
+
+        if (!hasLetter || !hasDigit || !hasSpecial || !allValid)
+        {
+            errorProvider.SetError(
+                textBoxSignupPassword,
+                 "Password must include at least one letter, one digit, and one special character, " +
+                $"and be {MinLength}–{MaxLength} characters long."
+            );
+            isValid = false;
         }
+    }
+}
+
+
+            // 5) ID rules (only if non-empty)
+            if (!string.IsNullOrEmpty(id))
+            {
+                if (id.Length != 9 || !id.All(char.IsDigit))
+                {
+                    errorProvider.SetError(textBoxSignupID, "ID must be exactly 9 digits long.");
+                    isValid = false;
+                }
+            }
+
+            // 6) Email rules (only if non-empty)
+            if (!string.IsNullOrEmpty(mail))
+            {
+                var emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+                if (!Regex.IsMatch(mail, emailPattern))
+                {
+                    errorProvider.SetError(textBoxSignupMail, "Please enter a valid email address.");
+                    isValid = false;
+                }
+            }
+
+            return isValid;
+        }
+
 
         private void signUp(string userName, string password, string taz, string mail)
         {
