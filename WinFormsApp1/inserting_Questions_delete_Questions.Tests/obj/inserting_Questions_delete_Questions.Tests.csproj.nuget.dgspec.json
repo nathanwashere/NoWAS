@@ -137,7 +137,7 @@
           "dependencies": {
             "ClosedXML": {
               "target": "Package",
-              "version": "[0.104.2, )"
+              "version": "[0.95.4, )"
             },
             "Microsoft.Data.Sqlite": {
               "target": "Package",

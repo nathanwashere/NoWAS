@@ -55,10 +55,10 @@
             course.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             course.AutoSize = true;
             course.BackColor = Color.Transparent;
-            course.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            course.Font = new Font("Sitka Text", 16F, FontStyle.Bold);
             course.Location = new Point(27, 174);
             course.Name = "course";
-            course.Size = new Size(162, 37);
+            course.Size = new Size(173, 39);
             course.TabIndex = 0;
             course.Text = "The course:";
             course.Click += course_Click;
@@ -68,11 +68,11 @@
             level.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             level.AutoSize = true;
             level.BackColor = Color.Transparent;
-            level.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            level.Font = new Font("Sitka Text", 16F, FontStyle.Bold);
             level.ForeColor = Color.Black;
             level.Location = new Point(18, 350);
             level.Name = "level";
-            level.Size = new Size(211, 37);
+            level.Size = new Size(224, 39);
             level.TabIndex = 1;
             level.Text = "Difficulty level:";
             level.Click += label2_Click;
@@ -82,10 +82,10 @@
             c_a.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             c_a.AutoSize = true;
             c_a.BackColor = Color.Transparent;
-            c_a.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            c_a.Font = new Font("Sitka Text", 16F, FontStyle.Bold);
             c_a.Location = new Point(18, 263);
             c_a.Name = "c_a";
-            c_a.Size = new Size(218, 37);
+            c_a.Size = new Size(230, 39);
             c_a.TabIndex = 2;
             c_a.Text = "Correct answer:";
             c_a.Click += label3_Click;
@@ -95,10 +95,10 @@
             type.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             type.AutoSize = true;
             type.BackColor = Color.Transparent;
-            type.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            type.Font = new Font("Sitka Text", 16F, FontStyle.Bold);
             type.Location = new Point(27, 88);
             type.Name = "type";
-            type.Size = new Size(204, 37);
+            type.Size = new Size(213, 39);
             type.TabIndex = 3;
             type.Text = "Question type:";
             type.Click += label1_Click;
@@ -108,10 +108,10 @@
             question.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             question.AutoSize = true;
             question.BackColor = Color.Transparent;
-            question.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            question.Font = new Font("Sitka Text", 16F, FontStyle.Bold);
             question.Location = new Point(27, 13);
             question.Name = "question";
-            question.Size = new Size(190, 37);
+            question.Size = new Size(201, 39);
             question.TabIndex = 4;
             question.Text = "The question:";
             question.TextAlign = ContentAlignment.TopCenter;
@@ -126,10 +126,10 @@
             Deleting_questions.FlatAppearance.BorderSize = 0;
             Deleting_questions.FlatAppearance.MouseOverBackColor = Color.Blue;
             Deleting_questions.FlatStyle = FlatStyle.Flat;
-            Deleting_questions.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            Deleting_questions.Font = new Font("Sitka Text", 14F, FontStyle.Bold);
             Deleting_questions.Location = new Point(18, 692);
             Deleting_questions.Name = "Deleting_questions";
-            Deleting_questions.Size = new Size(270, 42);
+            Deleting_questions.Size = new Size(281, 45);
             Deleting_questions.TabIndex = 5;
             Deleting_questions.Text = "Delete/edit questions";
             Deleting_questions.UseVisualStyleBackColor = false;
@@ -140,12 +140,12 @@
             // 
             type_text.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             type_text.DropDownStyle = ComboBoxStyle.DropDownList;
-            type_text.Font = new Font("Segoe UI", 14F);
+            type_text.Font = new Font("Sitka Text", 14F);
             type_text.FormattingEnabled = true;
             type_text.Items.AddRange(new object[] { "Multiple Choice", "True/False", "Sentence Completion" });
             type_text.Location = new Point(371, 86);
             type_text.Name = "type_text";
-            type_text.Size = new Size(337, 39);
+            type_text.Size = new Size(337, 41);
             type_text.TabIndex = 6;
             type_text.SelectedIndexChanged += type_text_SelectedIndexChanged;
             // 
@@ -154,22 +154,22 @@
             course_text.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             course_text.AutoCompleteCustomSource.AddRange(new string[] { "חדו\"א", "פיזיקה", "תכנות שפת c" });
             course_text.DropDownStyle = ComboBoxStyle.DropDownList;
-            course_text.Font = new Font("Segoe UI", 14F);
+            course_text.Font = new Font("Sitka Text", 14F);
             course_text.FormattingEnabled = true;
             course_text.Items.AddRange(new object[] { "Calculus", "Physics ", "Introduction to Computer Science" });
             course_text.Location = new Point(371, 172);
             course_text.Name = "course_text";
-            course_text.Size = new Size(337, 39);
+            course_text.Size = new Size(337, 41);
             course_text.TabIndex = 7;
             course_text.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
             // 
             // c_a_text
             // 
             c_a_text.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            c_a_text.Font = new Font("Segoe UI", 14F);
+            c_a_text.Font = new Font("Sitka Text", 14F);
             c_a_text.Location = new Point(371, 265);
             c_a_text.Name = "c_a_text";
-            c_a_text.Size = new Size(337, 39);
+            c_a_text.Size = new Size(337, 37);
             c_a_text.TabIndex = 8;
             c_a_text.TextChanged += textBox1_TextChanged;
             // 
@@ -177,22 +177,22 @@
             // 
             level_text.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             level_text.DropDownStyle = ComboBoxStyle.DropDownList;
-            level_text.Font = new Font("Segoe UI", 14F);
+            level_text.Font = new Font("Sitka Text", 14F);
             level_text.FormattingEnabled = true;
             level_text.Items.AddRange(new object[] { "Easy", "Intermediate", "Advanced" });
             level_text.Location = new Point(371, 352);
             level_text.Name = "level_text";
-            level_text.Size = new Size(337, 39);
+            level_text.Size = new Size(337, 41);
             level_text.TabIndex = 9;
             level_text.SelectedIndexChanged += comboBox3_SelectedIndexChanged;
             // 
             // question_text
             // 
             question_text.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            question_text.Font = new Font("Segoe UI", 14F);
+            question_text.Font = new Font("Sitka Text", 14F);
             question_text.Location = new Point(371, 11);
             question_text.Name = "question_text";
-            question_text.Size = new Size(337, 39);
+            question_text.Size = new Size(337, 37);
             question_text.TabIndex = 10;
             question_text.TextChanged += textBox2_TextChanged;
             // 
@@ -203,7 +203,7 @@
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatAppearance.MouseOverBackColor = Color.Lime;
             button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            button1.Font = new Font("Sitka Text", 9F, FontStyle.Bold);
             button1.Location = new Point(457, 688);
             button1.Name = "button1";
             button1.Size = new Size(174, 46);
@@ -218,10 +218,10 @@
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            label1.Font = new Font("Sitka Text", 16F, FontStyle.Bold);
             label1.Location = new Point(12, 433);
             label1.Name = "label1";
-            label1.Size = new Size(250, 37);
+            label1.Size = new Size(264, 39);
             label1.TabIndex = 12;
             label1.Text = "Possible answer 1:";
             label1.Visible = false;
@@ -232,10 +232,10 @@
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            label2.Font = new Font("Sitka Text", 16F, FontStyle.Bold);
             label2.Location = new Point(18, 524);
             label2.Name = "label2";
-            label2.Size = new Size(250, 37);
+            label2.Size = new Size(267, 39);
             label2.TabIndex = 13;
             label2.Text = "Possible answer 2:";
             label2.Visible = false;
@@ -244,20 +244,20 @@
             // Possible_answer_1
             // 
             Possible_answer_1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            Possible_answer_1.Font = new Font("Segoe UI", 14F);
+            Possible_answer_1.Font = new Font("Sitka Text", 14F);
             Possible_answer_1.Location = new Point(371, 435);
             Possible_answer_1.Name = "Possible_answer_1";
-            Possible_answer_1.Size = new Size(337, 39);
+            Possible_answer_1.Size = new Size(337, 37);
             Possible_answer_1.TabIndex = 14;
             Possible_answer_1.Visible = false;
             // 
             // Possible_answer_2
             // 
             Possible_answer_2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            Possible_answer_2.Font = new Font("Segoe UI", 14F);
+            Possible_answer_2.Font = new Font("Sitka Text", 14F);
             Possible_answer_2.Location = new Point(371, 526);
             Possible_answer_2.Name = "Possible_answer_2";
-            Possible_answer_2.Size = new Size(337, 39);
+            Possible_answer_2.Size = new Size(337, 37);
             Possible_answer_2.TabIndex = 15;
             Possible_answer_2.Visible = false;
             Possible_answer_2.TextChanged += textBox2_TextChanged_1;
@@ -267,10 +267,10 @@
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            label3.Font = new Font("Sitka Text", 16F, FontStyle.Bold);
             label3.Location = new Point(18, 603);
             label3.Name = "label3";
-            label3.Size = new Size(250, 37);
+            label3.Size = new Size(267, 39);
             label3.TabIndex = 16;
             label3.Text = "Possible answer 3:";
             label3.Visible = false;
@@ -279,10 +279,10 @@
             // Possible_answer_3
             // 
             Possible_answer_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            Possible_answer_3.Font = new Font("Segoe UI", 14F);
+            Possible_answer_3.Font = new Font("Sitka Text", 14F);
             Possible_answer_3.Location = new Point(371, 605);
             Possible_answer_3.Name = "Possible_answer_3";
-            Possible_answer_3.Size = new Size(337, 39);
+            Possible_answer_3.Size = new Size(337, 37);
             Possible_answer_3.TabIndex = 17;
             Possible_answer_3.Visible = false;
             // 
@@ -293,10 +293,10 @@
             button2.FlatAppearance.BorderSize = 0;
             button2.FlatAppearance.MouseOverBackColor = Color.Blue;
             button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            button2.Font = new Font("Sitka Text", 9F, FontStyle.Bold);
             button2.Location = new Point(838, 688);
             button2.Name = "button2";
-            button2.Size = new Size(113, 45);
+            button2.Size = new Size(116, 45);
             button2.TabIndex = 18;
             button2.Text = "Back to main";
             button2.UseVisualStyleBackColor = false;

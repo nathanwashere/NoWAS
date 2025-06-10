@@ -44,7 +44,7 @@
             dataGridViewQuestions.Name = "dataGridViewQuestions";
             dataGridViewQuestions.ReadOnly = true;
             dataGridViewQuestions.RowHeadersWidth = 51;
-            dataGridViewQuestions.Size = new Size(1123, 628);
+            dataGridViewQuestions.Size = new Size(982, 658);
             dataGridViewQuestions.TabIndex = 0;
             dataGridViewQuestions.CellContentClick += dataGridViewQuestions_CellContentClick;
             // 
@@ -55,9 +55,9 @@
             button1.FlatAppearance.MouseOverBackColor = Color.Blue;
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            button1.Location = new Point(214, 647);
+            button1.Location = new Point(988, 121);
             button1.Name = "button1";
-            button1.Size = new Size(196, 38);
+            button1.Size = new Size(147, 38);
             button1.TabIndex = 1;
             button1.Text = "Back to main";
             button1.UseVisualStyleBackColor = false;
@@ -70,9 +70,9 @@
             button2.FlatAppearance.MouseOverBackColor = Color.Blue;
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            button2.Location = new Point(617, 647);
+            button2.Location = new Point(988, 47);
             button2.Name = "button2";
-            button2.Size = new Size(207, 36);
+            button2.Size = new Size(147, 36);
             button2.TabIndex = 2;
             button2.Text = "Go Back";
             button2.UseVisualStyleBackColor = false;
