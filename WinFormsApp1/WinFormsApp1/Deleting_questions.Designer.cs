@@ -54,7 +54,7 @@
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatAppearance.MouseOverBackColor = Color.Blue;
             button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            button1.Font = new Font("Sitka Text", 9F, FontStyle.Bold);
             button1.Location = new Point(988, 121);
             button1.Name = "button1";
             button1.Size = new Size(147, 38);
@@ -69,7 +69,7 @@
             button2.FlatAppearance.BorderSize = 0;
             button2.FlatAppearance.MouseOverBackColor = Color.Blue;
             button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            button2.Font = new Font("Sitka Text", 9F, FontStyle.Bold);
             button2.Location = new Point(988, 47);
             button2.Name = "button2";
             button2.Size = new Size(147, 36);
