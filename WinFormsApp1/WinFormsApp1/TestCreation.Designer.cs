@@ -36,6 +36,8 @@
 
         private void InitializeComponent()
         {
+         
+
             lblTitle = new Label();
             grpTestSettings = new GroupBox();
             AutomaticTest = new Button();
@@ -82,7 +84,7 @@
             grpTestSettings.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             grpTestSettings.Location = new Point(30, 70);
             grpTestSettings.Name = "grpTestSettings";
-            grpTestSettings.Size = new Size(420, 360);
+            grpTestSettings.Size = new Size(420, 323);
             grpTestSettings.TabIndex = 1;
             grpTestSettings.TabStop = false;
             grpTestSettings.Text = "Test Settings";
@@ -126,6 +128,7 @@
             btnCreate.Text = "Create Test";
             btnCreate.UseVisualStyleBackColor = true;
             btnCreate.Click += btnCreate_Click;
+            btnCreate.BackColor= Color.FromArgb(102, 0, 204);
             // 
             // btnClear
             // 
@@ -133,8 +136,10 @@
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(120, 40);
             btnClear.TabIndex = 4;
+          
             btnClear.Text = "Clear";
             btnClear.UseVisualStyleBackColor = true;
+            btnClear.BackColor= Color.FromArgb(102, 0, 204);
             btnClear.Click += BtnClear_Click;
             // 
             // btnAddQuestion
@@ -143,7 +148,9 @@
             btnAddQuestion.Name = "btnAddQuestion";
             btnAddQuestion.Size = new Size(120, 40);
             btnAddQuestion.TabIndex = 5;
+
             btnAddQuestion.Text = "Add Question";
+            
             btnAddQuestion.UseVisualStyleBackColor = true;
             btnAddQuestion.Click += btnAddQuestion_Click;
             // 
@@ -156,7 +163,7 @@
             grpCreatedTests.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             grpCreatedTests.Location = new Point(470, 70);
             grpCreatedTests.Name = "grpCreatedTests";
-            grpCreatedTests.Size = new Size(484, 360);
+            grpCreatedTests.Size = new Size(484, 323);
             grpCreatedTests.TabIndex = 2;
             grpCreatedTests.TabStop = false;
             grpCreatedTests.Text = "Created Tests";
@@ -167,7 +174,7 @@
             lvTests.FullRowSelect = true;
             lvTests.Location = new Point(15, 30);
             lvTests.Name = "lvTests";
-            lvTests.Size = new Size(448, 250);
+            lvTests.Size = new Size(448, 234);
             lvTests.TabIndex = 0;
             lvTests.UseCompatibleStateImageBehavior = false;
             lvTests.View = View.Details;
@@ -194,38 +201,43 @@
             // 
             // btnDeleteTest
             // 
-            btnDeleteTest.Location = new Point(15, 300);
+            btnDeleteTest.Location = new Point(15, 270);
             btnDeleteTest.Name = "btnDeleteTest";
             btnDeleteTest.Size = new Size(120, 40);
             btnDeleteTest.TabIndex = 1;
             btnDeleteTest.Text = "Delete Test";
             btnDeleteTest.UseVisualStyleBackColor = true;
             btnDeleteTest.Click += BtnDeleteTest_click;
+           
             // 
             // btnViewDetails
             // 
-            btnViewDetails.Location = new Point(145, 300);
+            btnViewDetails.Location = new Point(141, 270);
             btnViewDetails.Name = "btnViewDetails";
             btnViewDetails.Size = new Size(120, 40);
             btnViewDetails.TabIndex = 2;
             btnViewDetails.Text = "View Details";
+           
             btnViewDetails.UseVisualStyleBackColor = true;
+           
             btnViewDetails.Click += BtnViewDetails_click;
             // 
             // lstSelectedQuestions
             // 
             lstSelectedQuestions.BackColor = Color.LightSkyBlue;
             lstSelectedQuestions.FormattingEnabled = true;
-            lstSelectedQuestions.Location = new Point(30, 450);
+            lstSelectedQuestions.Location = new Point(30, 414);
             lstSelectedQuestions.Name = "lstSelectedQuestions";
-            lstSelectedQuestions.Size = new Size(920, 44);
+            lstSelectedQuestions.Size = new Size(920, 84);
             lstSelectedQuestions.TabIndex = 3;
             // 
             // backToMainbtn
             // 
+            backToMainbtn.BackColor = Color.RoyalBlue;
             backToMainbtn.FlatStyle = FlatStyle.Popup;
             backToMainbtn.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             backToMainbtn.ForeColor = Color.Black;
+            backToMainbtn.BackColor= Color.FromArgb(102, 0, 204);
             backToMainbtn.Location = new Point(834, 528);
             backToMainbtn.Name = "backToMainbtn";
             backToMainbtn.Size = new Size(153, 40);
@@ -250,6 +262,12 @@
             grpTestSettings.ResumeLayout(false);
             grpCreatedTests.ResumeLayout(false);
             ResumeLayout(false);
+            btnCreate.BackColor = Color.FromArgb(0, 120, 215);
+            btnClear.BackColor = Color.FromArgb(0, 120, 215);
+            btnAddQuestion.BackColor = Color.FromArgb(0, 120, 215);
+            btnDeleteTest.BackColor = Color.FromArgb(0, 120, 215);
+            btnViewDetails.BackColor = Color.FromArgb(0, 120, 215);
+            AutomaticTest.BackColor = Color.FromArgb(0, 120, 215);
         }
 
 

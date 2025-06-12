@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace WinFormsApp1
@@ -9,6 +10,7 @@ namespace WinFormsApp1
     {
         public List<Question> SelectedQuestions { get; private set; } = new List<Question>();
         private List<Question> availableQuestions;
+        private ComboBox cmbQuestionType;
 
         public QuestionSelectionForm(List<Question> questions)
         {
@@ -16,6 +18,27 @@ namespace WinFormsApp1
 
             availableQuestions = questions;
 
+            // ComboBox for filtering
+            cmbQuestionType = new ComboBox
+            {
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                Font = new Font("Segoe UI", 10),
+                Location = new Point(10, 10),
+                Width = 460
+            };
+            cmbQuestionType.Items.AddRange(new object[]
+            {
+                "All",
+                "Multiple Choice",
+                "True/False",
+                "Sentence Completion"
+            });
+            cmbQuestionType.SelectedIndexChanged += cmbQuestionType_SelectedIndexChanged;
+            Controls.Add(cmbQuestionType);
+            cmbQuestionType.SelectedIndex = 0;
+
+            // Move CheckedListBox down
+            checkedListBox1.Top = cmbQuestionType.Bottom + 10;
             checkedListBox1.DrawMode = DrawMode.OwnerDrawVariable;
             checkedListBox1.IntegralHeight = false;
 
@@ -71,7 +94,27 @@ namespace WinFormsApp1
                 checkedListBox1.Items.Add(q);
             }
 
-            // Auto-grow form height based on content
+            AutoAdjustFormHeight();
+        }
+
+        private void cmbQuestionType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedType = cmbQuestionType.SelectedItem.ToString();
+            checkedListBox1.Items.Clear();
+
+            IEnumerable<Question> filtered = selectedType switch
+            {
+                "Multiple Choice" => availableQuestions.Where(q => q is MultipleChoiceQuestion),
+                "True/False" => availableQuestions.Where(q => q is TrueFalseQuestion),
+                "Sentence Completion" => availableQuestions.Where(q => q is FillInTheBlank),
+                _ => availableQuestions
+            };
+
+            foreach (var q in filtered)
+            {
+                checkedListBox1.Items.Add(q);
+            }
+
             AutoAdjustFormHeight();
         }
 
@@ -96,7 +139,7 @@ namespace WinFormsApp1
 
             int minHeight = 350;
             int maxHeight = 700;
-            int padding = 60;
+            int padding = 80;
 
             int desiredHeight = Math.Min(Math.Max(totalHeight + btnConfirm.Height + padding, minHeight), maxHeight);
             this.Height = desiredHeight;

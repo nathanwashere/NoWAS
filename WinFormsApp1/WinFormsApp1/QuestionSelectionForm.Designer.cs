@@ -15,44 +15,48 @@
 
         private void InitializeComponent()
         {
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.btnConfirm = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            checkedListBox1 = new CheckedListBox();
+            btnConfirm = new Button();
+            SuspendLayout();
             // 
             // checkedListBox1
             // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(10, 10);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(480, 280);
-            this.checkedListBox1.TabIndex = 0;
-            this.checkedListBox1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom;
-            this.checkedListBox1.IntegralHeight = false;
-            this.checkedListBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.checkedListBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            checkedListBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            checkedListBox1.BorderStyle = BorderStyle.FixedSingle;
+            checkedListBox1.FormattingEnabled = true;
+            checkedListBox1.IntegralHeight = false;
+            checkedListBox1.Location = new Point(11, 13);
+            checkedListBox1.Margin = new Padding(3, 4, 3, 4);
+            checkedListBox1.Name = "checkedListBox1";
+            checkedListBox1.Size = new Size(548, 373);
+            checkedListBox1.TabIndex = 0;
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(10, 300);
-            this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(380, 35);
-            this.btnConfirm.TabIndex = 1;
-            this.btnConfirm.Text = "Confirm Selection";
-            this.btnConfirm.UseVisualStyleBackColor = true;
-            this.btnConfirm.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+            btnConfirm.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnConfirm.BackColor = Color.DeepSkyBlue;
+            btnConfirm.Location = new Point(11, 400);
+            btnConfirm.Margin = new Padding(3, 4, 3, 4);
+            btnConfirm.Name = "btnConfirm";
+            btnConfirm.Size = new Size(434, 47);
+            btnConfirm.TabIndex = 1;
+            btnConfirm.Text = "Confirm Selection";
+            btnConfirm.UseVisualStyleBackColor = false;
+            btnConfirm.Click += btnConfirm_Click;
             // 
             // QuestionSelectionForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 350);
-            this.Controls.Add(this.btnConfirm);
-            this.Controls.Add(this.checkedListBox1);
-            this.Name = "QuestionSelectionForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Select Questions";
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = Properties.Resources.bgCreateTest;
+            ClientSize = new Size(571, 467);
+            Controls.Add(btnConfirm);
+            Controls.Add(checkedListBox1);
+            Margin = new Padding(3, 4, 3, 4);
+            Name = "QuestionSelectionForm";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Select Questions";
+            ResumeLayout(false);
         }
     }
 }
