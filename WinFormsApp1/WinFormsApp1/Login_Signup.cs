@@ -27,6 +27,8 @@ namespace WinFormsApp1
         public Login_Signup(string dbFilePath = null)
         {
             InitializeComponent();
+            this.AutoScaleMode = AutoScaleMode.Dpi;
+            this.Font = new Font("Segoe UI", 12F);
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
             this.UpdateStyles();
@@ -37,7 +39,7 @@ namespace WinFormsApp1
 
             // INITIAL STATE: signup
 
-            pictureBoxSignupTogglePassword.Image = ByteArrayToImage(Properties.Resources.eye_closed);
+           
             errorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
 
             using (MemoryStream ms = new MemoryStream(Properties.Resources.ErrorIcon))
@@ -56,9 +58,11 @@ namespace WinFormsApp1
 
         private void Login_Signup_Load(object sender, EventArgs e)
         {
-            panelLogin.Visible = true;
-            panelSignup.Visible = false;
 
+            panelLogin.Visible = true;
+            panelSignup.Visible = true; // Keep both visible
+
+            panelLogin.BringToFront(); // Default view is login
             rbStudent.Checked = true;
 
             RoundButtonCorners(buttonSignupEnter, buttonSignupEnter.Height);
@@ -73,10 +77,7 @@ namespace WinFormsApp1
         private void buttonSignupToLogin_Click(object sender, EventArgs e)
         {
             showingSignup = false;
-
-            panelSignup.Visible = false;
-            panelLogin.Visible = true;
-            panelLogin.BringToFront(); // Optional
+            panelLogin.BringToFront();
             clearInputs();
         }
 
@@ -86,10 +87,7 @@ namespace WinFormsApp1
         private void buttonLoginToSignup_Click(object sender, EventArgs e)
         {
             showingSignup = true;
-
-            panelLogin.Visible = false;
-            panelSignup.Visible = true;
-            panelSignup.BringToFront(); // Optional: keep order consistent
+            panelSignup.BringToFront();
             clearInputs();
         }
         private void RoundButtonCorners(Button btn, int radius)

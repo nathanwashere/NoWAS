@@ -66,13 +66,8 @@ C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Deb
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.dll
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.pdb
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\ClosedXML.dll
-C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\ClosedXML.Parser.dll
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\DocumentFormat.OpenXml.dll
-C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\DocumentFormat.OpenXml.Framework.dll
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\ExcelNumberFormat.dll
-C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\RBush.dll
-C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\SixLabors.Fonts.dll
-C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\System.IO.Packaging.dll
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinForms.DataVisualization.Utilities.dll
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinForms.DataVisualization.dll
 C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.AssemblyReference.cache
@@ -408,3 +403,8 @@ C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Deb
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.TestCreation.resources
 C:\Users\natan\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.TestSelectionForm.resources
 C:\Users\avivb\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.TestSelectionForm.resources
+C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\Interop.WMPLib.dll
+C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\AxInterop.WMPLib.dll
+C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\Interop.WMPLib.dll
+C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\AxInterop.WMPLib.dll
+C:\Users\lizav\OneDrive\Documents\GitHub\NoWAS\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.dll.config

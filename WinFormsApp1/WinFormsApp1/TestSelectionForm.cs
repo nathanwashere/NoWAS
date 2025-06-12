@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.IO;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -16,24 +16,28 @@ namespace WinFormsApp1
             this.userName = userName;
             InitializeComponent();
             LoadTests();
+
+            // Round corners for buttons after InitializeComponent
+            RoundButtonCorners(btnFilter, btnFilter.Height);
+            RoundButtonCorners(btnTakeSelectedTest, btnTakeSelectedTest.Height);
         }
 
         private void LoadTests(List<string> categories = null, List<string> difficulties = null)
         {
             lvAvailableTests.Items.Clear();
 
-            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
-            dbPath = Path.GetFullPath(dbPath);
+            var dbPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
+            dbPath = System.IO.Path.GetFullPath(dbPath);
             string connectionString = $"Data Source={dbPath};Version=3;";
 
             using var conn = new SQLiteConnection(connectionString);
             conn.Open();
 
             string query = @"
-        SELECT t.TestID, t.TestName, MAX(tq.DateCreated) AS DateCreated
-        FROM Test t
-        JOIN TestQuestions tq ON t.TestID = tq.TestID
-        WHERE 1=1";
+                SELECT t.TestID, t.TestName, MAX(tq.DateCreated) AS DateCreated
+                FROM Test t
+                JOIN TestQuestions tq ON t.TestID = tq.TestID
+                WHERE 1=1";
 
             if (categories != null && categories.Count > 0)
             {
@@ -60,6 +64,7 @@ namespace WinFormsApp1
                 lvAvailableTests.Items.Add(item);
             }
         }
+
         private void clbCategory_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             if (e.NewValue == CheckState.Checked)
@@ -104,6 +109,19 @@ namespace WinFormsApp1
             StudentTestForm testForm = new StudentTestForm(testId, userName);
             testForm.Show();
             this.Close();
+        }
+
+        // Helper method to round button corners
+        private void RoundButtonCorners(Button btn, int radius)
+        {
+            var bounds = new Rectangle(0, 0, btn.Width, btn.Height);
+            var path = new System.Drawing.Drawing2D.GraphicsPath();
+            path.AddArc(bounds.X, bounds.Y, radius, radius, 180, 90);
+            path.AddArc(bounds.Right - radius, bounds.Y, radius, radius, 270, 90);
+            path.AddArc(bounds.Right - radius, bounds.Bottom - radius, radius, radius, 0, 90);
+            path.AddArc(bounds.X, bounds.Bottom - radius, radius, radius, 90, 90);
+            path.CloseAllFigures();
+            btn.Region = new Region(path);
         }
     }
 }

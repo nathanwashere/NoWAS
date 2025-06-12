@@ -13,7 +13,9 @@
           "Open-XML-SDK": "2.9.1",
           "System.Data.SQLite": "1.0.119",
           "System.Data.SQLite.Linq": "1.0.119",
-          "WinForms.DataVisualization": "1.10.0"
+          "WinForms.DataVisualization": "1.10.0",
+          "Interop.WMPLib": "1.0.0.0",
+          "AxInterop.WMPLib": "1.0.0.0"
         },
         "runtime": {
           "WinFormsApp1.dll": {}
@@ -1165,6 +1167,22 @@
             "fileVersion": "1.10.0.0"
           }
         }
+      },
+      "Interop.WMPLib/1.0.0.0": {
+        "runtime": {
+          "Interop.WMPLib.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "AxInterop.WMPLib/1.0.0.0": {
+        "runtime": {
+          "AxInterop.WMPLib.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -1971,6 +1989,16 @@
       "sha512": "sha512-QKFQUf6xnsseiRsWfIeKvbWRJWvOKOvkoec/pWxEjwYrr4Vix4xmAWmvTpJGxoeWRXOzV7Pprm5SCFqzXzBA4g==",
       "path": "winforms.datavisualization/1.10.0",
       "hashPath": "winforms.datavisualization.1.10.0.nupkg.sha512"
+    },
+    "Interop.WMPLib/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AxInterop.WMPLib/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

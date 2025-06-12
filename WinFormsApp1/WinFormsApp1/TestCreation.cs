@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -10,6 +11,11 @@ namespace WinFormsApp1
 {
     public partial class TestCreation : Form
     {
+        private static readonly Dictionary<string, string> topicMap = new Dictionary<string, string>
+        {
+            { "Intro to CS", "Introduction to Computer Science" }
+        };
+
         private readonly List<Question> selectedQuestions = new();
 
         //private readonly int currentPersonId = 1234;
@@ -19,10 +25,18 @@ namespace WinFormsApp1
         public TestCreation(string username)
         {
             InitializeComponent();
-            userName = username;
-            LoadTestsToListView();
            
+             userName = username;
+            LoadTestsToListView();
+            RoundButtonCorners(btnAddQuestion, btnAddQuestion.Height);
+            RoundButtonCorners(btnCreate, btnCreate.Height);
+            RoundButtonCorners(btnClear, btnClear.Height);
+            RoundButtonCorners(btnViewDetails, btnViewDetails.Height);
+            RoundButtonCorners(backToMainbtn, backToMainbtn.Height);
+            RoundButtonCorners(AutomaticTest, AutomaticTest.Height);
+            RoundButtonCorners(btnDeleteTest,btnDeleteTest.Height);
         }
+      
         private int GetPersonIdFromUsername(string username)
         {
             var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
@@ -41,7 +55,17 @@ namespace WinFormsApp1
                 }
             }
         }
-
+        private void RoundButtonCorners(Button btn, int radius)
+        {
+            var bounds = new Rectangle(0, 0, btn.Width, btn.Height);
+            var path = new GraphicsPath();
+            path.AddArc(bounds.X, bounds.Y, radius, radius, 180, 90);
+            path.AddArc(bounds.Right - radius, bounds.Y, radius, radius, 270, 90);
+            path.AddArc(bounds.Right - radius, bounds.Bottom - radius, radius, radius, 0, 90);
+            path.AddArc(bounds.X, bounds.Bottom - radius, radius, radius, 90, 90);
+            path.CloseAllFigures();
+            btn.Region = new Region(path);
+        }
         private void LoadTestsToListView()
         {
             lvTests.Items.Clear();
@@ -95,7 +119,7 @@ namespace WinFormsApp1
             // Always store the selected values immediately
             lastSelectedCategory = chkTopics.CheckedItems[0].ToString();
             lastSelectedDifficulty = chkDifficulty.CheckedItems[0].ToString();
-
+           
             var availableQuestions = LoadQuestionsFromDB(lastSelectedCategory, lastSelectedDifficulty);
             var selector = new QuestionSelectionForm(availableQuestions);
 
@@ -122,7 +146,7 @@ namespace WinFormsApp1
         {
             long testId;
             int currentPersonId = GetPersonIdFromUsername(userName);
-
+            
             if (selectedQuestions.Count == 0)
             {
                 MessageBox.Show("Please add at least one question before creating the test.");
@@ -130,7 +154,9 @@ namespace WinFormsApp1
             }
 
             // Get selected category
-            string selectedCategory = lastSelectedCategory;
+            string selectedCategory = topicMap.ContainsKey(lastSelectedCategory)
+    ? topicMap[lastSelectedCategory]
+    : lastSelectedCategory;
             string selectedDifficultyStr = lastSelectedDifficulty;
             int difficultyValue = selectedDifficultyStr switch
             {
@@ -261,13 +287,16 @@ namespace WinFormsApp1
                 conn.Open();
 
                 string query = @"
-            SELECT * FROM Question_new 
-            WHERE [Course] = @category AND [Difficulty level] = @difficulty";
+    SELECT * FROM Question_new 
+    WHERE TRIM(LOWER([Course])) = TRIM(LOWER(@category)) AND [Difficulty level] = @difficulty";
 
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
                     // 🔽 Add parameters here
-                    cmd.Parameters.AddWithValue("@category", selectedCategory);
+                    string mappedCategory = topicMap.ContainsKey(selectedCategory)
+    ? topicMap[selectedCategory]
+    : selectedCategory;
+                    cmd.Parameters.AddWithValue("@category", mappedCategory);
                     cmd.Parameters.AddWithValue("@difficulty", selectedDifficulty);
 
                     using (var reader = cmd.ExecuteReader())
@@ -467,7 +496,10 @@ namespace WinFormsApp1
             // Always store the selected values immediately
             lastSelectedCategory = chkTopics.CheckedItems[0].ToString();
             lastSelectedDifficulty = chkDifficulty.CheckedItems[0].ToString();
-            var availableQuestions = LoadQuestionsFromDB(lastSelectedCategory, lastSelectedDifficulty);
+            string mappedCategory = topicMap.ContainsKey(lastSelectedCategory)
+    ? topicMap[lastSelectedCategory]
+    : lastSelectedCategory;
+            var availableQuestions = LoadQuestionsFromDB(mappedCategory, lastSelectedDifficulty);
 
             var random = new Random();
             var selectedForTest = availableQuestions.OrderBy(x => random.Next()).Take(5).ToList();

@@ -39,7 +39,6 @@
             lblTitle = new Label();
             grpTestSettings = new GroupBox();
             AutomaticTest = new Button();
-            numQuestions = new NumericUpDown();
             chkTopics = new CheckedListBox();
             chkDifficulty = new CheckedListBox();
             btnCreate = new Button();
@@ -56,7 +55,6 @@
             lstSelectedQuestions = new ListBox();
             backToMainbtn = new Button();
             grpTestSettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numQuestions).BeginInit();
             grpCreatedTests.SuspendLayout();
             SuspendLayout();
             // 
@@ -76,7 +74,6 @@
             // 
             grpTestSettings.BackColor = Color.SkyBlue;
             grpTestSettings.Controls.Add(AutomaticTest);
-            grpTestSettings.Controls.Add(numQuestions);
             grpTestSettings.Controls.Add(chkTopics);
             grpTestSettings.Controls.Add(chkDifficulty);
             grpTestSettings.Controls.Add(btnCreate);
@@ -92,7 +89,7 @@
             // 
             // AutomaticTest
             // 
-            AutomaticTest.Location = new Point(20, 248);
+            AutomaticTest.Location = new Point(20, 221);
             AutomaticTest.Name = "AutomaticTest";
             AutomaticTest.Size = new Size(380, 43);
             AutomaticTest.TabIndex = 6;
@@ -100,40 +97,29 @@
             AutomaticTest.UseVisualStyleBackColor = true;
             AutomaticTest.Click += AutomaticTest_Click;
             // 
-            // numQuestions
-            // 
-            numQuestions.Location = new Point(20, 30);
-            numQuestions.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            numQuestions.Name = "numQuestions";
-            numQuestions.Size = new Size(120, 30);
-            numQuestions.TabIndex = 0;
-            numQuestions.Value = new decimal(new int[] { 10, 0, 0, 0 });
-            // 
             // chkTopics
             // 
             chkTopics.CheckOnClick = true;
             chkTopics.Items.AddRange(new object[] { "Calculus", "Physics", "Intro to CS" });
-            chkTopics.Location = new Point(20, 80);
+            chkTopics.Location = new Point(20, 55);
             chkTopics.Name = "chkTopics";
             chkTopics.Size = new Size(170, 79);
             chkTopics.TabIndex = 1;
             chkTopics.ItemCheck += chkTopics_ItemCheck;
-            chkTopics.Text = "Categories";
             // 
             // chkDifficulty
             // 
             chkDifficulty.CheckOnClick = true;
             chkDifficulty.Items.AddRange(new object[] { "Easy", "Intermediate", "Advanced" });
-            chkDifficulty.Location = new Point(210, 80);
+            chkDifficulty.Location = new Point(215, 55);
             chkDifficulty.Name = "chkDifficulty";
             chkDifficulty.Size = new Size(170, 79);
             chkDifficulty.TabIndex = 2;
             chkDifficulty.ItemCheck += chkDifficulty_ItemCheck;
-            chkDifficulty.Text = "Difficulty";
             // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(20, 200);
+            btnCreate.Location = new Point(20, 160);
             btnCreate.Name = "btnCreate";
             btnCreate.Size = new Size(120, 40);
             btnCreate.TabIndex = 3;
@@ -143,7 +129,7 @@
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(280, 200);
+            btnClear.Location = new Point(280, 160);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(120, 40);
             btnClear.TabIndex = 4;
@@ -153,7 +139,7 @@
             // 
             // btnAddQuestion
             // 
-            btnAddQuestion.Location = new Point(150, 200);
+            btnAddQuestion.Location = new Point(146, 160);
             btnAddQuestion.Name = "btnAddQuestion";
             btnAddQuestion.Size = new Size(120, 40);
             btnAddQuestion.TabIndex = 5;
@@ -237,10 +223,12 @@
             // 
             // backToMainbtn
             // 
+            backToMainbtn.FlatStyle = FlatStyle.Popup;
+            backToMainbtn.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             backToMainbtn.ForeColor = Color.Black;
             backToMainbtn.Location = new Point(834, 528);
             backToMainbtn.Name = "backToMainbtn";
-            backToMainbtn.Size = new Size(120, 40);
+            backToMainbtn.Size = new Size(153, 40);
             backToMainbtn.TabIndex = 6;
             backToMainbtn.Text = "Back to main";
             backToMainbtn.UseVisualStyleBackColor = true;
@@ -260,7 +248,6 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Create New Test";
             grpTestSettings.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)numQuestions).EndInit();
             grpCreatedTests.ResumeLayout(false);
             ResumeLayout(false);
         }
