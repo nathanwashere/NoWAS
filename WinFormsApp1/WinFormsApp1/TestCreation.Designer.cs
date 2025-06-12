@@ -7,6 +7,8 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.GroupBox grpTestSettings;
         private System.Windows.Forms.GroupBox grpCreatedTests;
+
+        private System.Windows.Forms.NumericUpDown numQuestions;
         private System.Windows.Forms.CheckedListBox chkTopics;
         private System.Windows.Forms.CheckedListBox chkDifficulty;
 
@@ -37,6 +39,7 @@
             lblTitle = new Label();
             grpTestSettings = new GroupBox();
             AutomaticTest = new Button();
+            numQuestions = new NumericUpDown();
             chkTopics = new CheckedListBox();
             chkDifficulty = new CheckedListBox();
             btnCreate = new Button();
@@ -53,6 +56,7 @@
             lstSelectedQuestions = new ListBox();
             backToMainbtn = new Button();
             grpTestSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numQuestions).BeginInit();
             grpCreatedTests.SuspendLayout();
             SuspendLayout();
             // 
@@ -72,6 +76,7 @@
             // 
             grpTestSettings.BackColor = Color.SkyBlue;
             grpTestSettings.Controls.Add(AutomaticTest);
+            grpTestSettings.Controls.Add(numQuestions);
             grpTestSettings.Controls.Add(chkTopics);
             grpTestSettings.Controls.Add(chkDifficulty);
             grpTestSettings.Controls.Add(btnCreate);
@@ -87,7 +92,7 @@
             // 
             // AutomaticTest
             // 
-            AutomaticTest.Location = new Point(20, 221);
+            AutomaticTest.Location = new Point(20, 248);
             AutomaticTest.Name = "AutomaticTest";
             AutomaticTest.Size = new Size(380, 43);
             AutomaticTest.TabIndex = 6;
@@ -95,29 +100,40 @@
             AutomaticTest.UseVisualStyleBackColor = true;
             AutomaticTest.Click += AutomaticTest_Click;
             // 
+            // numQuestions
+            // 
+            numQuestions.Location = new Point(20, 30);
+            numQuestions.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numQuestions.Name = "numQuestions";
+            numQuestions.Size = new Size(120, 30);
+            numQuestions.TabIndex = 0;
+            numQuestions.Value = new decimal(new int[] { 10, 0, 0, 0 });
+            // 
             // chkTopics
             // 
             chkTopics.CheckOnClick = true;
             chkTopics.Items.AddRange(new object[] { "Calculus", "Physics", "Intro to CS" });
-            chkTopics.Location = new Point(20, 48);
+            chkTopics.Location = new Point(20, 80);
             chkTopics.Name = "chkTopics";
             chkTopics.Size = new Size(170, 79);
             chkTopics.TabIndex = 1;
             chkTopics.ItemCheck += chkTopics_ItemCheck;
+            chkTopics.Text = "Categories";
             // 
             // chkDifficulty
             // 
             chkDifficulty.CheckOnClick = true;
             chkDifficulty.Items.AddRange(new object[] { "Easy", "Intermediate", "Advanced" });
-            chkDifficulty.Location = new Point(212, 48);
+            chkDifficulty.Location = new Point(210, 80);
             chkDifficulty.Name = "chkDifficulty";
             chkDifficulty.Size = new Size(170, 79);
             chkDifficulty.TabIndex = 2;
             chkDifficulty.ItemCheck += chkDifficulty_ItemCheck;
+            chkDifficulty.Text = "Difficulty";
             // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(20, 164);
+            btnCreate.Location = new Point(20, 200);
             btnCreate.Name = "btnCreate";
             btnCreate.Size = new Size(120, 40);
             btnCreate.TabIndex = 3;
@@ -127,7 +143,7 @@
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(280, 164);
+            btnClear.Location = new Point(280, 200);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(120, 40);
             btnClear.TabIndex = 4;
@@ -137,7 +153,7 @@
             // 
             // btnAddQuestion
             // 
-            btnAddQuestion.Location = new Point(154, 164);
+            btnAddQuestion.Location = new Point(150, 200);
             btnAddQuestion.Name = "btnAddQuestion";
             btnAddQuestion.Size = new Size(120, 40);
             btnAddQuestion.TabIndex = 5;
@@ -244,6 +260,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Create New Test";
             grpTestSettings.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)numQuestions).EndInit();
             grpCreatedTests.ResumeLayout(false);
             ResumeLayout(false);
         }
