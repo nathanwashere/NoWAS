@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace WinFormsApp1
 {
     public partial class QuestionSelectionForm : Form
     {
-        public List<Question> SelectedQuestions { get; private set; } = new List<Question>();
-        private List<Question> availableQuestions;
-        private ComboBox cmbQuestionType;
+        public List<Question> SelectedQuestions { get; private set; } = new List<Question>(); // Final selected questions
+        private List<Question> availableQuestions; // All loaded questions
+        private ComboBox cmbQuestionType; // For filtering by type
 
         public QuestionSelectionForm(List<Question> questions)
         {
             InitializeComponent();
 
-            availableQuestions = questions;
+            availableQuestions = questions; // Store original list
 
-            // ComboBox for filtering
+            // Setup ComboBox
             cmbQuestionType = new ComboBox
             {
                 DropDownStyle = ComboBoxStyle.DropDownList,
@@ -28,20 +29,21 @@ namespace WinFormsApp1
             };
             cmbQuestionType.Items.AddRange(new object[]
             {
-                "All",
-                "Multiple Choice",
-                "True/False",
-                "Sentence Completion"
+            "All",
+            "Multiple Choice",
+            "True/False",
+            "Sentence Completion"
             });
             cmbQuestionType.SelectedIndexChanged += cmbQuestionType_SelectedIndexChanged;
             Controls.Add(cmbQuestionType);
-            cmbQuestionType.SelectedIndex = 0;
+            cmbQuestionType.SelectedIndex = 0; // Default filter = All
 
-            // Move CheckedListBox down
+            // Adjust CheckedListBox position and behavior
             checkedListBox1.Top = cmbQuestionType.Bottom + 10;
             checkedListBox1.DrawMode = DrawMode.OwnerDrawVariable;
             checkedListBox1.IntegralHeight = false;
 
+            // Dynamic height for each item
             checkedListBox1.MeasureItem += (s, e) =>
             {
                 if (e.Index < 0) return;
@@ -59,6 +61,7 @@ namespace WinFormsApp1
                 e.ItemHeight = Math.Max(22, measuredSize.Height + 8);
             };
 
+            // Custom rendering of checkbox and text
             checkedListBox1.DrawItem += (s, e) =>
             {
                 e.DrawBackground();
@@ -67,16 +70,16 @@ namespace WinFormsApp1
                 string text = checkedListBox1.Items[e.Index].ToString();
                 bool isChecked = checkedListBox1.GetItemChecked(e.Index);
 
+                // Draw checkbox
                 Rectangle checkBoxRect = new Rectangle(e.Bounds.X + 4, e.Bounds.Y + 4, 16, 16);
                 CheckBoxRenderer.DrawCheckBox(
                     e.Graphics,
                     checkBoxRect.Location,
-                    isChecked ? System.Windows.Forms.VisualStyles.CheckBoxState.CheckedNormal
-                              : System.Windows.Forms.VisualStyles.CheckBoxState.UncheckedNormal
+                    isChecked ? CheckBoxState.CheckedNormal : CheckBoxState.UncheckedNormal
                 );
 
+                // Draw text
                 Rectangle textRect = new Rectangle(e.Bounds.X + 25, e.Bounds.Y + 2, e.Bounds.Width - 30, e.Bounds.Height);
-
                 TextRenderer.DrawText(
                     e.Graphics,
                     text,
@@ -89,19 +92,19 @@ namespace WinFormsApp1
                 e.DrawFocusRectangle();
             };
 
+            // Populate initial list
             foreach (var q in questions)
-            {
                 checkedListBox1.Items.Add(q);
-            }
 
-            AutoAdjustFormHeight();
+            AutoAdjustFormHeight(); // Adjust height based on content
         }
 
         private void cmbQuestionType_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedType = cmbQuestionType.SelectedItem.ToString();
-            checkedListBox1.Items.Clear();
+            checkedListBox1.Items.Clear(); // Clear previous list
 
+            // Filter by type
             IEnumerable<Question> filtered = selectedType switch
             {
                 "Multiple Choice" => availableQuestions.Where(q => q is MultipleChoiceQuestion),
@@ -111,16 +114,15 @@ namespace WinFormsApp1
             };
 
             foreach (var q in filtered)
-            {
                 checkedListBox1.Items.Add(q);
-            }
 
-            AutoAdjustFormHeight();
+            AutoAdjustFormHeight(); // Resize window if needed
         }
 
         private void AutoAdjustFormHeight()
         {
             int totalHeight = 0;
+
             using (Graphics g = checkedListBox1.CreateGraphics())
             {
                 foreach (var item in checkedListBox1.Items)
@@ -137,6 +139,7 @@ namespace WinFormsApp1
                 }
             }
 
+            // Clamp height between min and max
             int minHeight = 350;
             int maxHeight = 700;
             int padding = 80;
@@ -150,12 +153,11 @@ namespace WinFormsApp1
             SelectedQuestions.Clear();
 
             foreach (var item in checkedListBox1.CheckedItems)
-            {
-                SelectedQuestions.Add((Question)item);
-            }
+                SelectedQuestions.Add((Question)item); // Add selected items
 
             this.DialogResult = DialogResult.OK;
-            this.Close();
+            this.Close(); // Close dialog
         }
     }
+
 }

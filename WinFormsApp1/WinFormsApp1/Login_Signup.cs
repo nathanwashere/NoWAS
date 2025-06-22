@@ -26,71 +26,61 @@ namespace WinFormsApp1
 
         public Login_Signup(string dbFilePath = null)
         {
-            InitializeComponent();
-            this.AutoScaleMode = AutoScaleMode.Dpi;
-            this.Font = new Font("Segoe UI", 12F);
-            this.DoubleBuffered = true;
+            InitializeComponent();// Initializes all the UI components defined in the Form Designer (.Designer.cs)
+            this.AutoScaleMode = AutoScaleMode.Dpi;  // Scales the form's controls based on the screen's DPI (helps with high-DPI displays)
+            this.Font = new Font("Segoe UI", 12F); // Sets the default font for the form and its controls
+            this.DoubleBuffered = true;    // Reduces flickering by using double buffering (draws off-screen before displaying)
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
-            this.UpdateStyles();
+            // Optimizes drawing to further reduce flicker and control how painting is handled
+            this.UpdateStyles();// Applies the above SetStyle changes
 
-            // INITIAL STATE: login
+   
+            pictureBoxLoginTogglePassword.Image = ByteArrayToImage(Properties.Resources.eye_closed);// Sets the login password toggle image to a "closed eye"
+            errorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;   // Prevents the error icon from blinking (makes it static when shown)
 
-            pictureBoxLoginTogglePassword.Image = ByteArrayToImage(Properties.Resources.eye_closed);
-
-            // INITIAL STATE: signup
-
-           
-            errorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
-
-            using (MemoryStream ms = new MemoryStream(Properties.Resources.ErrorIcon))
+            using (MemoryStream ms = new MemoryStream(Properties.Resources.ErrorIcon))// Converts the ErrorIcon resource (byte array) to a stream
             {
-                using (Bitmap bmp = new Bitmap(ms))
+                using (Bitmap bmp = new Bitmap(ms))    // Creates a bitmap from the memory stream
                 {
-                    Icon icon = Icon.FromHandle(bmp.GetHicon());
-                    errorProvider.Icon = icon;
+                    Icon icon = Icon.FromHandle(bmp.GetHicon());  // Creates an Icon from the bitmap handle
+                    errorProvider.Icon = icon; // Sets the errorProvider's icon to the custom icon          
                 }
             }
 
             _dbFilePath = dbFilePath
             ?? Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db"));
+            // Sets the database file path. If none is given, uses the default path 3 levels up to 'Database.db'
         }
+
 
 
         private void Login_Signup_Load(object sender, EventArgs e)
         {
+            panelLogin.Visible = true; // Show login panel
+            panelSignup.Visible = true; // Show signup panel
 
-            panelLogin.Visible = true;
-            panelSignup.Visible = true; // Keep both visible
+            panelLogin.BringToFront(); // Bring login panel to front (default view)
+            rbStudent.Checked = true; // Select "Student" radio button by default
 
-            panelLogin.BringToFront(); // Default view is login
-            rbStudent.Checked = true;
-
-            RoundButtonCorners(buttonSignupEnter, buttonSignupEnter.Height);
-            RoundButtonCorners(buttonLoginEnter, buttonLoginEnter.Height);
-            RoundButtonCorners(buttonSignupToLogin, buttonSignupToLogin.Height);
-            RoundButtonCorners(buttonLoginToSignup, buttonLoginToSignup.Height);
+            RoundButtonCorners(buttonSignupEnter, buttonSignupEnter.Height); // Round signup button
+            RoundButtonCorners(buttonLoginEnter, buttonLoginEnter.Height); // Round login button
+            RoundButtonCorners(buttonSignupToLogin, buttonSignupToLogin.Height); // Round "Go to Login" button
+            RoundButtonCorners(buttonLoginToSignup, buttonLoginToSignup.Height); // Round "Go to Signup" button
         }
-
-
-
-
         private void buttonSignupToLogin_Click(object sender, EventArgs e)
         {
-            showingSignup = false;
-            panelLogin.BringToFront();
-            clearInputs();
+            showingSignup = false; // Mark that we're showing the login view now
+            panelLogin.BringToFront(); // Bring the login panel to the front
+            clearInputs(); // Clear all textboxes and reset form state
         }
-
-
-
-
         private void buttonLoginToSignup_Click(object sender, EventArgs e)
         {
-            showingSignup = true;
-            panelSignup.BringToFront();
-            clearInputs();
+            showingSignup = true; // Mark that we're showing the signup view now
+            panelSignup.BringToFront(); // Bring the signup panel to the front
+            clearInputs(); // Clear all textboxes and reset form state
         }
-        private void RoundButtonCorners(Button btn, int radius)
+
+        private void RoundButtonCorners(Button btn, int radius) // a visual method to round the corners of a button
         {
             Rectangle bounds = new Rectangle(0, 0, btn.Width, btn.Height);
             GraphicsPath path = new GraphicsPath();
@@ -105,24 +95,21 @@ namespace WinFormsApp1
 
         private void buttonSignupEnter_Click(object sender, EventArgs e)
         {
-            string userName = textBoxSignupUsername.Text;
-            string password = textBoxSignupPassword.Text;
-            string taz = textBoxSignupID.Text;
-            string mail = textBoxSignupMail.Text;
-            signUp(userName, password, taz, mail);
-
+            string userName = textBoxSignupUsername.Text; // Get username from input
+            string password = textBoxSignupPassword.Text; // Get password from input
+            string taz = textBoxSignupID.Text; // Get ID (Taz) from input
+            string mail = textBoxSignupMail.Text; // Get email from input
+            signUp(userName, password, taz, mail); // Call signup function with input values
         }
-
 
         private void buttonLoginEnter_Click(object sender, EventArgs e)
         {
-            string userName = textBoxLoginUsername.Text;
-            string password = textBoxLoginPassword.Text;
-            logIn(userName, password);
-
+            string userName = textBoxLoginUsername.Text; // Get username from input
+            string password = textBoxLoginPassword.Text; // Get password from input
+            logIn(userName, password); // Call login function with input values
         }
 
-        private void clearInputs()
+        private void clearInputs() //clearing input for visual improvement
         {
             textBoxLoginUsername.Text = "";
             textBoxLoginPassword.Text = "";
@@ -135,11 +122,12 @@ namespace WinFormsApp1
 
         public bool checkInputsSignUp()
         {
-            string username = textBoxSignupUsername.Text;
-            string password = textBoxSignupPassword.Text;
-            string id = textBoxSignupID.Text;
-            string mail = textBoxSignupMail.Text;
+            string username = textBoxSignupUsername.Text; // Get username
+            string password = textBoxSignupPassword.Text; // Get password
+            string id = textBoxSignupID.Text; // Get ID
+            string mail = textBoxSignupMail.Text; // Get email
 
+            // Check for empty fields
             if (string.IsNullOrEmpty(username) ||
                 string.IsNullOrEmpty(password) ||
                 string.IsNullOrEmpty(id) ||
@@ -152,11 +140,14 @@ namespace WinFormsApp1
                 return false;
             }
 
+            // Username must be 6–8 characters
             if (username.Length < 6 || username.Length > 8)
             {
                 errorProvider.SetError(textBoxSignupUsername, "Username must be between 6 and 8 characters long.");
                 return false;
             }
+
+            // Username validation: max 2 digits, rest letters, all must be English letters or digits
             bool IsEnglishLetter(char c) => (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
             int digitCount = username.Count(char.IsDigit);
             int letterCount = username.Count(IsEnglishLetter);
@@ -167,11 +158,14 @@ namespace WinFormsApp1
                 return false;
             }
 
+            // Password must be 8–10 characters
             if (password.Length < 8 || password.Length > 10)
             {
                 errorProvider.SetError(textBoxSignupPassword, "Password must be between 8 and 10 characters long.");
                 return false;
             }
+
+            // Password must include letter, digit, and special character
             bool hasLetter = password.Any(IsEnglishLetter);
             bool hasDigit = password.Any(char.IsDigit);
             bool hasSpecial = password.Any(c => "!@#$%^&*()-_=+[]{};:'\".,.<>?/|".Contains(c));
@@ -181,12 +175,14 @@ namespace WinFormsApp1
                 return false;
             }
 
+            // ID must be exactly 9 digits
             if (id.Length != 9 || !id.All(char.IsDigit))
             {
                 errorProvider.SetError(textBoxSignupID, "ID must be exactly 9 digits long.");
                 return false;
             }
 
+            // Email format validation
             var emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             if (!Regex.IsMatch(mail, emailPattern))
             {
@@ -194,22 +190,24 @@ namespace WinFormsApp1
                 return false;
             }
 
-            return true;
+            return true; // All inputs are valid
         }
+
 
         private void signUp(string userName, string password, string taz, string mail)
         {
-            if (!checkInputsSignUp())
+            if (!checkInputsSignUp()) // Validate all input fields
                 return;
 
             XLWorkbook workbook = null;
             try
             {
-                var result = OpenOrCreateExcel();
+                var result = OpenOrCreateExcel(); // Open or create the Excel file
                 workbook = result.Item1;
                 var worksheet = result.Item2;
-                int lastRow = worksheet.LastRowUsed()?.RowNumber() ?? 1;
+                int lastRow = worksheet.LastRowUsed()?.RowNumber() ?? 1; // Get last used row or 1 if empty
 
+                // Check if username already exists in both Excel and database
                 if (userNameExistsExcel(worksheet, userName) &&
                     userNameExistsDataBase(userName))
                 {
@@ -217,22 +215,26 @@ namespace WinFormsApp1
                     return;
                 }
 
+                // Check if ID already exists
                 if (tazExistsDataBase(taz))
                 {
                     errorProvider.SetError(textBoxSignupID, "ID already exists");
                     return;
                 }
 
+                // Check if email already exists
                 if (mailExistsDataBase(mail))
                 {
                     errorProvider.SetError(textBoxSignupMail, "Email already exists");
                     return;
                 }
 
+                // Save user to Excel
                 worksheet.Cell(lastRow + 1, 1).Value = userName;
                 worksheet.Cell(lastRow + 1, 2).Value = password;
                 workbook.SaveAs("Info.xlsx");
 
+                // Add user to DB with role
                 addUserToDataBase(
                     userName,
                     rbStudent.Checked ? "Student" : "Professor",
@@ -242,17 +244,17 @@ namespace WinFormsApp1
 
                 MessageBox.Show("Account was successfully registered!");
 
+                // Auto-login after signup
                 if (checkLogin(worksheet, userName, password) && getUserType(userName) == "Student")
                 {
-                    new mainForm(userName).Show();
+                    new mainForm(userName).Show(); // Open student view
                     this.Hide();
                 }
                 else if (checkLogin(worksheet, userName, password) && getUserType(userName) == "Professor")
                 {
-                    new mainTeacher(userName).Show();
+                    new mainTeacher(userName).Show(); // Open professor view
                     this.Hide();
                 }
-
             }
             catch (Exception ex)
             {
@@ -260,15 +262,16 @@ namespace WinFormsApp1
             }
             finally
             {
-                workbook?.Dispose();
+                workbook?.Dispose(); // Dispose workbook to free resources
             }
         }
+
 
         private void logIn(string userName, string password)
         {
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
             {
-                errorProvider.SetError(textBoxLoginUsername, "Please fill in all fields.");
+                errorProvider.SetError(textBoxLoginUsername, "Please fill in all fields."); // Show error if fields are empty
                 errorProvider.SetError(textBoxLoginPassword, "Please fill in all fields");
                 return;
             }
@@ -276,42 +279,45 @@ namespace WinFormsApp1
             XLWorkbook workbook = null;
             try
             {
-                var result = OpenOrCreateExcel();
+                var result = OpenOrCreateExcel(); // Open or create Excel file
                 workbook = result.Item1;
                 var worksheet = result.Item2;
 
+                // If login is successful and user is a student
                 if (checkLogin(worksheet, userName, password) && getUserType(userName) == "Student")
                 {
                     MessageBox.Show("Login successful!");
-                    new mainForm(userName).Show();
+                    new mainForm(userName).Show(); // Open student form
                     this.Hide();
                 }
+                // If login is successful and user is a professor
                 else if (checkLogin(worksheet, userName, password) && getUserType(userName) == "Professor")
                 {
                     MessageBox.Show("Login successful!");
-                    new mainTeacher(userName).Show();
+                    new mainTeacher(userName).Show(); // Open professor form
                     this.Hide();
                 }
                 else
                 {
-                    MessageBox.Show("Invalid username or password.");
+                    MessageBox.Show("Invalid username or password."); // Show error if login fails
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred while trying to login: {ex.Message}");
+                MessageBox.Show($"An error occurred while trying to login: {ex.Message}"); // Catch unexpected errors
             }
             finally
             {
-                workbook?.Dispose();
+                workbook?.Dispose(); // Dispose workbook to release resources
             }
         }
+
 
         public SQLiteConnection connectDataBase()
         {
             if (string.IsNullOrEmpty(_dbFilePath) || !File.Exists(_dbFilePath))
             {
-                MessageBox.Show("Database file not found!");
+                MessageBox.Show("Database file not found!"); // Show error if path is missing or file doesn't exist
                 return null;
             }
 
@@ -319,154 +325,171 @@ namespace WinFormsApp1
             {
                 var connectString = new SQLiteConnectionStringBuilder
                 {
-                    DataSource = _dbFilePath,
-                    Version = 3,
+                    DataSource = _dbFilePath, // Set database path
+                    Version = 3 // SQLite version
                 }.ToString();
 
-                var conn = new SQLiteConnection(connectString);
-                conn.Open();
-                return conn;
+                var conn = new SQLiteConnection(connectString); // Create connection object
+                conn.Open(); // Open connection
+                return conn; // Return open connection
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Failed to open database:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
+                return null; // Return null on error
             }
         }
 
+
         public (XLWorkbook, IXLWorksheet) OpenOrCreateExcel()
         {
-            var filePath = "Info.xlsx";
+            var filePath = "Info.xlsx"; // Excel file name
             XLWorkbook workbook;
             IXLWorksheet worksheet;
 
-            if (File.Exists(filePath))
+            if (File.Exists(filePath)) // If file exists, open it
             {
                 workbook = new XLWorkbook(filePath);
                 worksheet = workbook.Worksheet(1);
             }
-            else
+            else // If not, create new file and add header row
             {
                 workbook = new XLWorkbook();
                 worksheet = workbook.Worksheets.Add("Users");
-                worksheet.Cell("A1").Value = "Username";
-                worksheet.Cell("B1").Value = "Password";
-                workbook.SaveAs(filePath);
+                worksheet.Cell("A1").Value = "Username"; // Header for username
+                worksheet.Cell("B1").Value = "Password"; // Header for password
+                workbook.SaveAs(filePath); // Save new file
             }
 
-            return (workbook, worksheet);
+            return (workbook, worksheet); // Return both workbook and worksheet
         }
+
 
         public void addUserToDataBase(string userName, string type, string taz, string mail)
         {
-            using (var conn = connectDataBase())
+            using (var conn = connectDataBase()) // Open DB connection
             {
-                if (conn == null) return;
+                if (conn == null) return; // Exit if connection failed
 
                 string query = @"
-                    INSERT INTO Person (userName, type, taz, mail)
-                    VALUES (@userName, @type, @taz, @mail);
-                ";
+            INSERT INTO Person (userName, type, taz, mail)
+            VALUES (@userName, @type, @taz, @mail);
+        "; // SQL insert query
 
-                using (var cmd = new SQLiteCommand(query, conn))
+                using (var cmd = new SQLiteCommand(query, conn)) // Create SQL command
                 {
+                    // Bind parameters
                     cmd.Parameters.AddWithValue("@userName", userName);
                     cmd.Parameters.AddWithValue("@type", type);
                     cmd.Parameters.AddWithValue("@taz", taz);
                     cmd.Parameters.AddWithValue("@mail", mail);
-                    cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery(); // Execute insert
                 }
             }
         }
+
 
         public bool checkLogin(IXLWorksheet worksheet, string userName, string password)
         {
-            foreach (var row in worksheet.RowsUsed().Skip(1))
+            foreach (var row in worksheet.RowsUsed().Skip(1)) // Skip header row
             {
-                string userNameExcel = row.Cell(1).GetValue<string>();
-                string passwordExcel = row.Cell(2).GetValue<string>();
+                string userNameExcel = row.Cell(1).GetValue<string>(); // Get username from column A
+                string passwordExcel = row.Cell(2).GetValue<string>(); // Get password from column B
+
                 if (userNameExcel == userName && passwordExcel == password)
                 {
-                    return true;
+                    return true; // Match found
                 }
             }
-            return false;
+            return false; // No match found
         }
+
 
         public string getUserType(string username)
         {
-            using (var conn = connectDataBase())
+            using (var conn = connectDataBase()) // Open DB connection
             {
-                if (conn == null) return null;
+                if (conn == null) return null; // Exit if connection failed
 
-                string query = "SELECT type FROM Person WHERE userName = @username";
+                string query = "SELECT type FROM Person WHERE userName = @username"; // SQL query
 
-                using (var cmd = new SQLiteCommand(query, conn))
+                using (var cmd = new SQLiteCommand(query, conn)) // Create SQL command
                 {
-                    cmd.Parameters.AddWithValue("@username", username);
-                    var result = cmd.ExecuteScalar();
-                    return result?.ToString();
+                    cmd.Parameters.AddWithValue("@username", username); // Bind parameter
+                    var result = cmd.ExecuteScalar(); // Execute and get single result
+                    return result?.ToString(); // Return result as string (or null)
                 }
             }
         }
+
 
         public bool userNameExistsExcel(IXLWorksheet worksheet, string userName)
         {
-            foreach (var row in worksheet.RowsUsed().Skip(1))
+            foreach (var row in worksheet.RowsUsed().Skip(1)) // Skip header row
             {
-                string userNameExcel = row.Cell(1).GetValue<string>();
+                string userNameExcel = row.Cell(1).GetValue<string>(); // Get username from column A
                 if (userNameExcel == userName)
                 {
-                    return true;
+                    return true; // Username found
                 }
             }
-            return false;
+            return false; // Username not found
         }
+
 
         public bool userNameExistsDataBase(string username)
         {
-            using (var conn = connectDataBase())
+            using (var conn = connectDataBase()) // Open DB connection
             {
-                if (conn == null) return false;
-                string query = "SELECT COUNT(*) FROM Person WHERE userName = @username";
-                using (var cmd = new SQLiteCommand(query, conn))
+                if (conn == null) return false; // Exit if connection failed
+
+                string query = "SELECT COUNT(*) FROM Person WHERE userName = @username"; // Query to count matching usernames
+
+                using (var cmd = new SQLiteCommand(query, conn)) // Create SQL command
                 {
-                    cmd.Parameters.AddWithValue("@username", username);
-                    long count = (long)cmd.ExecuteScalar();
-                    return count > 0;
+                    cmd.Parameters.AddWithValue("@username", username); // Bind parameter
+                    long count = (long)cmd.ExecuteScalar(); // Execute and get count
+                    return count > 0; // Return true if user exists
                 }
             }
         }
+
 
         public bool mailExistsDataBase(string mail)
         {
-            using (var conn = connectDataBase())
+            using (var conn = connectDataBase()) // Open DB connection
             {
-                if (conn == null) return false;
-                string query = "SELECT COUNT(*) FROM Person WHERE mail = @mail";
-                using (var cmd = new SQLiteCommand(query, conn))
+                if (conn == null) return false; // Exit if connection failed
+
+                string query = "SELECT COUNT(*) FROM Person WHERE mail = @mail"; // Query to count matching emails
+
+                using (var cmd = new SQLiteCommand(query, conn)) // Create SQL command
                 {
-                    cmd.Parameters.AddWithValue("@mail", mail);
-                    long count = (long)cmd.ExecuteScalar();
-                    return count > 0;
+                    cmd.Parameters.AddWithValue("@mail", mail); // Bind parameter
+                    long count = (long)cmd.ExecuteScalar(); // Execute and get count
+                    return count > 0; // Return true if email exists
                 }
             }
         }
 
+
         public bool tazExistsDataBase(string taz)
         {
-            using (var conn = connectDataBase())
+            using (var conn = connectDataBase()) // Open DB connection
             {
-                if (conn == null) return false;
-                string query = "SELECT COUNT(*) FROM Person WHERE taz = @taz";
-                using (var cmd = new SQLiteCommand(query, conn))
+                if (conn == null) return false; // Exit if connection failed
+
+                string query = "SELECT COUNT(*) FROM Person WHERE taz = @taz"; // Query to count matching IDs
+
+                using (var cmd = new SQLiteCommand(query, conn)) // Create SQL command
                 {
-                    cmd.Parameters.AddWithValue("@taz", taz);
-                    long count = (long)cmd.ExecuteScalar();
-                    return count > 0;
+                    cmd.Parameters.AddWithValue("@taz", taz); // Bind parameter
+                    long count = (long)cmd.ExecuteScalar(); // Execute and get count
+                    return count > 0; // Return true if ID exists
                 }
             }
         }
+
 
         private void pictureBoxLoginTogglePassword_Click(object sender, EventArgs e)
         {
@@ -486,24 +509,25 @@ namespace WinFormsApp1
 
         private void pictureBoxSignupTogglePassword_Click(object sender, EventArgs e)
         {
-            isSignupPasswordVisible = !isSignupPasswordVisible;
+            isSignupPasswordVisible = !isSignupPasswordVisible; // Toggle password visibility state
 
             if (isSignupPasswordVisible)
             {
-                textBoxSignupPassword.PasswordChar = '\0';
-                pictureBoxSignupTogglePassword.Image = ByteArrayToImage(Properties.Resources.eye_open);
+                textBoxSignupPassword.PasswordChar = '\0'; // Show password
+                pictureBoxSignupTogglePassword.Image = ByteArrayToImage(Properties.Resources.eye_open); // Show open-eye icon
             }
             else
             {
-                textBoxSignupPassword.PasswordChar = '*';
-                pictureBoxSignupTogglePassword.Image = ByteArrayToImage(Properties.Resources.eye_closed);
+                textBoxSignupPassword.PasswordChar = '*'; // Hide password
+                pictureBoxSignupTogglePassword.Image = ByteArrayToImage(Properties.Resources.eye_closed); // Show closed-eye icon
             }
         }
 
         public Image ByteArrayToImage(byte[] bytes)
         {
-            using (var ms = new MemoryStream(bytes))
-                return Image.FromStream(ms);
+            using (var ms = new MemoryStream(bytes)) // Load image from byte array
+                return Image.FromStream(ms); // Return image object
         }
+
     }
 }

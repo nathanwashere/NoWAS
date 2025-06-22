@@ -15,34 +15,37 @@ namespace WinFormsApp1
     public partial class mainTeacher : Form
     {
         private readonly string connectionString = $"Data Source={Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db")};Version=3;";
-        private readonly string userName;
-        private bool isCLosing = false;
+        // SQLite connection string
+        private readonly string userName; // Logged-in teacher's username
+        private bool isCLosing = false; // Flag to handle controlled closing
+
         public mainTeacher(String username)
         {
-            userName = username;
-            InitializeComponent();
-            LoadTeacherStats();
+            userName = username; // Store username
+            InitializeComponent(); // Load form UI
+            LoadTeacherStats(); // Load stats on startup
         }
+
         private void LoadTeacherStats()
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString)) // Open DB connection
                 {
                     conn.Open();
 
                     string query = @"
-                SELECT 
-                    COUNT(*) AS TotalTests,
-                    ROUND(AVG(Score), 2) AS AverageScore
-                FROM Test
-                WHERE PersonID = (SELECT Id FROM Person WHERE username = @Username)";
+                        SELECT 
+                            COUNT(*) AS TotalTests,
+                            ROUND(AVG(Score), 2) AS AverageScore
+                        FROM Test
+                        WHERE PersonID = (SELECT Id FROM Person WHERE username = @Username)";
 
-                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn)) // Prepare SQL command
                     {
-                        cmd.Parameters.AddWithValue("@Username",userName);
+                        cmd.Parameters.AddWithValue("@Username", userName); // Bind username
 
-                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        using (SQLiteDataReader reader = cmd.ExecuteReader()) // Execute reader
                         {
                             int totalTests = 0;
                             double avgScore = 0;
@@ -54,7 +57,6 @@ namespace WinFormsApp1
 
                                 if (totalTestsObj != DBNull.Value)
                                     totalTests = Convert.ToInt32(totalTestsObj);
-
                                 if (avgScoreObj != DBNull.Value)
                                     avgScore = Convert.ToDouble(avgScoreObj);
                             }
@@ -67,53 +69,61 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
+                // Show error and set default values
                 MessageBox.Show("Failed to load teacher stats: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 lblTestsCreated.Text = "Tests created: 0";
                 lblAvgScore.Text = "Average score: 0%";
             }
         }
+
         private void btnCheckSubmissions_Click(object sender, EventArgs e)
         {
-            InsertingQuestions i_q = new InsertingQuestions(this);
+            InsertingQuestions i_q = new InsertingQuestions(this); // Open question insertion form
             i_q.Show();
             this.Hide();
         }
+
         private void btnCreateTest_Click(object sender, EventArgs e)
         {
-            TestCreation testCreation = new TestCreation(userName);
+            TestCreation testCreation = new TestCreation(userName); // Open test creation form
             testCreation.Show();
             this.Hide();
         }
+
         private void mainTeacher_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (!isCLosing)
             {
-                Application.Exit();
+                Application.Exit(); // Exit application if form is closed directly
             }
         }
+
         private void Button1_click(object sender, EventArgs e)
         {
-            StudentStatisticsForm studentStatisticsForm = new StudentStatisticsForm(userName);
+            StudentStatisticsForm studentStatisticsForm = new StudentStatisticsForm(userName); // Open student stats form
             studentStatisticsForm.Show();
             this.Hide();
         }
+
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            Login_Signup loginForm = new Login_Signup();
+            Login_Signup loginForm = new Login_Signup(); // Back to login screen
             loginForm.Show();
             isCLosing = true;
             this.Close();
         }
-        private void DeleteQuestionsbtn_Click(object sender,EventArgs e)
+
+        private void DeleteQuestionsbtn_Click(object sender, EventArgs e)
         {
-            Deleting_questions DeleteQuestionForm = new Deleting_questions(this,this);
+            Deleting_questions DeleteQuestionForm = new Deleting_questions(this, this); // Open delete questions form
             DeleteQuestionForm.Show();
             isCLosing = true;
             this.Hide();
         }
+
         private void mainTeacher_Load(object sender, EventArgs e)
         {
-
+            // Empty form load handler
         }
     }
 }
