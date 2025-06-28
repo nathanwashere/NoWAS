@@ -44,7 +44,7 @@
             dataGridViewQuestions.Name = "dataGridViewQuestions";
             dataGridViewQuestions.ReadOnly = true;
             dataGridViewQuestions.RowHeadersWidth = 51;
-            dataGridViewQuestions.Size = new Size(982, 658);
+            dataGridViewQuestions.Size = new Size(852, 645);
             dataGridViewQuestions.TabIndex = 0;
             dataGridViewQuestions.CellContentClick += dataGridViewQuestions_CellContentClick;
             // 
@@ -55,9 +55,9 @@
             button1.FlatAppearance.MouseOverBackColor = Color.Blue;
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Sitka Text", 9F, FontStyle.Bold);
-            button1.Location = new Point(988, 121);
+            button1.Location = new Point(875, 96);
             button1.Name = "button1";
-            button1.Size = new Size(147, 38);
+            button1.Size = new Size(118, 38);
             button1.TabIndex = 1;
             button1.Text = "Back to main";
             button1.UseVisualStyleBackColor = false;
@@ -70,9 +70,9 @@
             button2.FlatAppearance.MouseOverBackColor = Color.Blue;
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Sitka Text", 9F, FontStyle.Bold);
-            button2.Location = new Point(988, 47);
+            button2.Location = new Point(875, 27);
             button2.Name = "button2";
-            button2.Size = new Size(147, 36);
+            button2.Size = new Size(118, 36);
             button2.TabIndex = 2;
             button2.Text = "Go Back";
             button2.UseVisualStyleBackColor = false;
@@ -83,10 +83,11 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(1167, 753);
+            ClientSize = new Size(1015, 659);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(dataGridViewQuestions);
+            MinimumSize = new Size(1033, 706);
             Name = "Deleting_questions";
             Text = "Deleting_questions";
             Load += Deleting_questions_Load;

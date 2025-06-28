@@ -327,5 +327,10 @@ namespace WinFormsApp1
         {
             // (Empty handler)
         }
+
+        private void Possible_answer_1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

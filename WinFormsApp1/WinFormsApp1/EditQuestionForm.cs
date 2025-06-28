@@ -271,5 +271,25 @@ namespace WinFormsApp1
             // Close only this form and return to the caller
             this.Close();
         }
+
+        private void type_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void level_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void c_a_text_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Possible_answer_2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

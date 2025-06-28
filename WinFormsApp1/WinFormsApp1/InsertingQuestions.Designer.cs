@@ -56,7 +56,7 @@
             course.AutoSize = true;
             course.BackColor = Color.Transparent;
             course.Font = new Font("Sitka Text", 16F, FontStyle.Bold);
-            course.Location = new Point(27, 174);
+            course.Location = new Point(27, 156);
             course.Name = "course";
             course.Size = new Size(173, 39);
             course.TabIndex = 0;
@@ -70,7 +70,7 @@
             level.BackColor = Color.Transparent;
             level.Font = new Font("Sitka Text", 16F, FontStyle.Bold);
             level.ForeColor = Color.Black;
-            level.Location = new Point(18, 350);
+            level.Location = new Point(27, 305);
             level.Name = "level";
             level.Size = new Size(224, 39);
             level.TabIndex = 1;
@@ -83,7 +83,7 @@
             c_a.AutoSize = true;
             c_a.BackColor = Color.Transparent;
             c_a.Font = new Font("Sitka Text", 16F, FontStyle.Bold);
-            c_a.Location = new Point(18, 263);
+            c_a.Location = new Point(27, 229);
             c_a.Name = "c_a";
             c_a.Size = new Size(230, 39);
             c_a.TabIndex = 2;
@@ -96,7 +96,7 @@
             type.AutoSize = true;
             type.BackColor = Color.Transparent;
             type.Font = new Font("Sitka Text", 16F, FontStyle.Bold);
-            type.Location = new Point(27, 88);
+            type.Location = new Point(27, 84);
             type.Name = "type";
             type.Size = new Size(213, 39);
             type.TabIndex = 3;
@@ -109,7 +109,7 @@
             question.AutoSize = true;
             question.BackColor = Color.Transparent;
             question.Font = new Font("Sitka Text", 16F, FontStyle.Bold);
-            question.Location = new Point(27, 13);
+            question.Location = new Point(27, 9);
             question.Name = "question";
             question.Size = new Size(201, 39);
             question.TabIndex = 4;
@@ -127,7 +127,7 @@
             Deleting_questions.FlatAppearance.MouseOverBackColor = Color.Blue;
             Deleting_questions.FlatStyle = FlatStyle.Flat;
             Deleting_questions.Font = new Font("Sitka Text", 14F, FontStyle.Bold);
-            Deleting_questions.Location = new Point(18, 692);
+            Deleting_questions.Location = new Point(27, 603);
             Deleting_questions.Name = "Deleting_questions";
             Deleting_questions.Size = new Size(281, 45);
             Deleting_questions.TabIndex = 5;
@@ -143,9 +143,10 @@
             type_text.Font = new Font("Sitka Text", 14F);
             type_text.FormattingEnabled = true;
             type_text.Items.AddRange(new object[] { "Multiple Choice", "True/False", "Sentence Completion" });
-            type_text.Location = new Point(371, 86);
+            type_text.Location = new Point(371, 82);
+            type_text.MinimumSize = new Size(400, 0);
             type_text.Name = "type_text";
-            type_text.Size = new Size(388, 41);
+            type_text.Size = new Size(400, 41);
             type_text.TabIndex = 6;
             type_text.SelectedIndexChanged += type_text_SelectedIndexChanged;
             // 
@@ -157,9 +158,10 @@
             course_text.Font = new Font("Sitka Text", 14F);
             course_text.FormattingEnabled = true;
             course_text.Items.AddRange(new object[] { "Calculus", "Physics ", "Introduction to Computer Science" });
-            course_text.Location = new Point(371, 172);
+            course_text.Location = new Point(371, 154);
+            course_text.MinimumSize = new Size(400, 0);
             course_text.Name = "course_text";
-            course_text.Size = new Size(388, 41);
+            course_text.Size = new Size(400, 41);
             course_text.TabIndex = 7;
             course_text.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
             // 
@@ -167,9 +169,10 @@
             // 
             c_a_text.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             c_a_text.Font = new Font("Sitka Text", 14F);
-            c_a_text.Location = new Point(371, 265);
+            c_a_text.Location = new Point(371, 231);
+            c_a_text.MinimumSize = new Size(400, 37);
             c_a_text.Name = "c_a_text";
-            c_a_text.Size = new Size(388, 37);
+            c_a_text.Size = new Size(400, 37);
             c_a_text.TabIndex = 8;
             c_a_text.TextChanged += textBox1_TextChanged;
             // 
@@ -180,9 +183,10 @@
             level_text.Font = new Font("Sitka Text", 14F);
             level_text.FormattingEnabled = true;
             level_text.Items.AddRange(new object[] { "Easy", "Intermediate", "Advanced" });
-            level_text.Location = new Point(371, 352);
+            level_text.Location = new Point(371, 303);
+            level_text.MinimumSize = new Size(400, 0);
             level_text.Name = "level_text";
-            level_text.Size = new Size(388, 41);
+            level_text.Size = new Size(400, 41);
             level_text.TabIndex = 9;
             level_text.SelectedIndexChanged += comboBox3_SelectedIndexChanged;
             // 
@@ -191,8 +195,9 @@
             question_text.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             question_text.Font = new Font("Sitka Text", 14F);
             question_text.Location = new Point(371, 11);
+            question_text.MinimumSize = new Size(400, 37);
             question_text.Name = "question_text";
-            question_text.Size = new Size(388, 37);
+            question_text.Size = new Size(400, 37);
             question_text.TabIndex = 10;
             question_text.TextChanged += textBox2_TextChanged;
             // 
@@ -204,7 +209,7 @@
             button1.FlatAppearance.MouseOverBackColor = Color.Lime;
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Sitka Text", 9F, FontStyle.Bold);
-            button1.Location = new Point(457, 688);
+            button1.Location = new Point(451, 602);
             button1.Name = "button1";
             button1.Size = new Size(174, 46);
             button1.TabIndex = 11;
@@ -219,7 +224,7 @@
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Sitka Text", 16F, FontStyle.Bold);
-            label1.Location = new Point(12, 433);
+            label1.Location = new Point(27, 372);
             label1.Name = "label1";
             label1.Size = new Size(264, 39);
             label1.TabIndex = 12;
@@ -233,7 +238,7 @@
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Sitka Text", 16F, FontStyle.Bold);
-            label2.Location = new Point(18, 524);
+            label2.Location = new Point(27, 439);
             label2.Name = "label2";
             label2.Size = new Size(267, 39);
             label2.TabIndex = 13;
@@ -245,19 +250,22 @@
             // 
             Possible_answer_1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             Possible_answer_1.Font = new Font("Sitka Text", 14F);
-            Possible_answer_1.Location = new Point(371, 435);
+            Possible_answer_1.Location = new Point(371, 372);
+            Possible_answer_1.MinimumSize = new Size(400, 37);
             Possible_answer_1.Name = "Possible_answer_1";
-            Possible_answer_1.Size = new Size(388, 37);
+            Possible_answer_1.Size = new Size(400, 37);
             Possible_answer_1.TabIndex = 14;
             Possible_answer_1.Visible = false;
+            Possible_answer_1.TextChanged += Possible_answer_1_TextChanged;
             // 
             // Possible_answer_2
             // 
             Possible_answer_2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             Possible_answer_2.Font = new Font("Sitka Text", 14F);
-            Possible_answer_2.Location = new Point(371, 526);
+            Possible_answer_2.Location = new Point(371, 441);
+            Possible_answer_2.MinimumSize = new Size(400, 37);
             Possible_answer_2.Name = "Possible_answer_2";
-            Possible_answer_2.Size = new Size(388, 37);
+            Possible_answer_2.Size = new Size(400, 37);
             Possible_answer_2.TabIndex = 15;
             Possible_answer_2.Visible = false;
             Possible_answer_2.TextChanged += textBox2_TextChanged_1;
@@ -268,7 +276,7 @@
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Sitka Text", 16F, FontStyle.Bold);
-            label3.Location = new Point(18, 603);
+            label3.Location = new Point(18, 519);
             label3.Name = "label3";
             label3.Size = new Size(267, 39);
             label3.TabIndex = 16;
@@ -280,9 +288,10 @@
             // 
             Possible_answer_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             Possible_answer_3.Font = new Font("Sitka Text", 14F);
-            Possible_answer_3.Location = new Point(371, 605);
+            Possible_answer_3.Location = new Point(371, 519);
+            Possible_answer_3.MinimumSize = new Size(400, 37);
             Possible_answer_3.Name = "Possible_answer_3";
-            Possible_answer_3.Size = new Size(388, 37);
+            Possible_answer_3.Size = new Size(400, 37);
             Possible_answer_3.TabIndex = 17;
             Possible_answer_3.Visible = false;
             // 
@@ -294,7 +303,7 @@
             button2.FlatAppearance.MouseOverBackColor = Color.Blue;
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Sitka Text", 9F, FontStyle.Bold);
-            button2.Location = new Point(838, 688);
+            button2.Location = new Point(862, 15);
             button2.Name = "button2";
             button2.Size = new Size(116, 45);
             button2.TabIndex = 18;
@@ -308,7 +317,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(1167, 753);
+            ClientSize = new Size(1015, 659);
             Controls.Add(button2);
             Controls.Add(Possible_answer_3);
             Controls.Add(label3);
