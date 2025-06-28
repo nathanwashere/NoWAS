@@ -276,7 +276,7 @@
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Sitka Text", 16F, FontStyle.Bold);
-            label3.Location = new Point(18, 519);
+            label3.Location = new Point(27, 517);
             label3.Name = "label3";
             label3.Size = new Size(267, 39);
             label3.TabIndex = 16;
