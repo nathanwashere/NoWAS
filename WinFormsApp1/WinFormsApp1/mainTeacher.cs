@@ -98,7 +98,7 @@ namespace WinFormsApp1
             }
         }
 
-        private void Button1_click(object sender, EventArgs e)
+        private void Button1_click(object sender, EventArgs e) // student statistics
         {
             StudentStatisticsForm studentStatisticsForm = new StudentStatisticsForm(userName); // Open student stats form
             studentStatisticsForm.Show();

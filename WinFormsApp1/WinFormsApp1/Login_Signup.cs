@@ -28,6 +28,7 @@ namespace WinFormsApp1
         {
             InitializeComponent();// Initializes all the UI components defined in the Form Designer (.Designer.cs)
             this.AutoScaleMode = AutoScaleMode.Dpi;  // Scales the form's controls based on the screen's DPI (helps with high-DPI displays)
+
             this.Font = new Font("Segoe UI", 12F); // Sets the default font for the form and its controls
             this.DoubleBuffered = true;    // Reduces flickering by using double buffering (draws off-screen before displaying)
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
@@ -267,7 +268,7 @@ namespace WinFormsApp1
         }
 
 
-        private void logIn(string userName, string password)
+        private void logIn(string userName, string password) //check login state
         {
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
             {
@@ -423,7 +424,7 @@ namespace WinFormsApp1
         }
 
 
-        public bool userNameExistsExcel(IXLWorksheet worksheet, string userName)
+        public bool userNameExistsExcel(IXLWorksheet worksheet, string userName)//from exel
         {
             foreach (var row in worksheet.RowsUsed().Skip(1)) // Skip header row
             {
@@ -491,7 +492,7 @@ namespace WinFormsApp1
         }
 
 
-        private void pictureBoxLoginTogglePassword_Click(object sender, EventArgs e)
+        private void pictureBoxLoginTogglePassword_Click(object sender, EventArgs e)// visual function to toggle password visibility
         {
             isPasswordVisible = !isPasswordVisible;
 
@@ -507,7 +508,7 @@ namespace WinFormsApp1
             }
         }
 
-        private void pictureBoxSignupTogglePassword_Click(object sender, EventArgs e)
+        private void pictureBoxSignupTogglePassword_Click(object sender, EventArgs e)//visual to set password visibility in signup
         {
             isSignupPasswordVisible = !isSignupPasswordVisible; // Toggle password visibility state
 
