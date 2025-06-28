@@ -35,7 +35,7 @@ namespace WinFormsApp1
             // Optimizes drawing to further reduce flicker and control how painting is handled
             this.UpdateStyles();// Applies the above SetStyle changes
 
-   
+
             pictureBoxLoginTogglePassword.Image = ByteArrayToImage(Properties.Resources.eye_closed);// Sets the login password toggle image to a "closed eye"
             errorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;   // Prevents the error icon from blinking (makes it static when shown)
 
@@ -530,5 +530,9 @@ namespace WinFormsApp1
                 return Image.FromStream(ms); // Return image object
         }
 
+        private void labelPasswordInfo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

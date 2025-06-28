@@ -145,7 +145,7 @@
             type_text.Items.AddRange(new object[] { "Multiple Choice", "True/False", "Sentence Completion" });
             type_text.Location = new Point(371, 86);
             type_text.Name = "type_text";
-            type_text.Size = new Size(337, 41);
+            type_text.Size = new Size(388, 41);
             type_text.TabIndex = 6;
             type_text.SelectedIndexChanged += type_text_SelectedIndexChanged;
             // 
@@ -159,7 +159,7 @@
             course_text.Items.AddRange(new object[] { "Calculus", "Physics ", "Introduction to Computer Science" });
             course_text.Location = new Point(371, 172);
             course_text.Name = "course_text";
-            course_text.Size = new Size(337, 41);
+            course_text.Size = new Size(388, 41);
             course_text.TabIndex = 7;
             course_text.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
             // 
@@ -169,7 +169,7 @@
             c_a_text.Font = new Font("Sitka Text", 14F);
             c_a_text.Location = new Point(371, 265);
             c_a_text.Name = "c_a_text";
-            c_a_text.Size = new Size(337, 37);
+            c_a_text.Size = new Size(388, 37);
             c_a_text.TabIndex = 8;
             c_a_text.TextChanged += textBox1_TextChanged;
             // 
@@ -182,7 +182,7 @@
             level_text.Items.AddRange(new object[] { "Easy", "Intermediate", "Advanced" });
             level_text.Location = new Point(371, 352);
             level_text.Name = "level_text";
-            level_text.Size = new Size(337, 41);
+            level_text.Size = new Size(388, 41);
             level_text.TabIndex = 9;
             level_text.SelectedIndexChanged += comboBox3_SelectedIndexChanged;
             // 
@@ -192,7 +192,7 @@
             question_text.Font = new Font("Sitka Text", 14F);
             question_text.Location = new Point(371, 11);
             question_text.Name = "question_text";
-            question_text.Size = new Size(337, 37);
+            question_text.Size = new Size(388, 37);
             question_text.TabIndex = 10;
             question_text.TextChanged += textBox2_TextChanged;
             // 
@@ -247,7 +247,7 @@
             Possible_answer_1.Font = new Font("Sitka Text", 14F);
             Possible_answer_1.Location = new Point(371, 435);
             Possible_answer_1.Name = "Possible_answer_1";
-            Possible_answer_1.Size = new Size(337, 37);
+            Possible_answer_1.Size = new Size(388, 37);
             Possible_answer_1.TabIndex = 14;
             Possible_answer_1.Visible = false;
             // 
@@ -257,7 +257,7 @@
             Possible_answer_2.Font = new Font("Sitka Text", 14F);
             Possible_answer_2.Location = new Point(371, 526);
             Possible_answer_2.Name = "Possible_answer_2";
-            Possible_answer_2.Size = new Size(337, 37);
+            Possible_answer_2.Size = new Size(388, 37);
             Possible_answer_2.TabIndex = 15;
             Possible_answer_2.Visible = false;
             Possible_answer_2.TextChanged += textBox2_TextChanged_1;
@@ -282,7 +282,7 @@
             Possible_answer_3.Font = new Font("Sitka Text", 14F);
             Possible_answer_3.Location = new Point(371, 605);
             Possible_answer_3.Name = "Possible_answer_3";
-            Possible_answer_3.Size = new Size(337, 37);
+            Possible_answer_3.Size = new Size(388, 37);
             Possible_answer_3.TabIndex = 17;
             Possible_answer_3.Visible = false;
             // 
@@ -308,7 +308,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(1116, 775);
+            ClientSize = new Size(1167, 753);
             Controls.Add(button2);
             Controls.Add(Possible_answer_3);
             Controls.Add(label3);

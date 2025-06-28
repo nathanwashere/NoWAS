@@ -83,7 +83,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(1247, 685);
+            ClientSize = new Size(1167, 753);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(dataGridViewQuestions);

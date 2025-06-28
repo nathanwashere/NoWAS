@@ -27,12 +27,15 @@ namespace WinFormsApp1
 
             // Set the form to a fixed single border so it cannot be resized
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            // Position the form manually
+
+            /* // Position the form manually
+             this.StartPosition = FormStartPosition.Manual;
+             // Set a consistent form size of 1150x800
+             //this.Size = new Size(1150, 800);*/
+
             this.StartPosition = FormStartPosition.Manual;
-            // Set a consistent form size of 1150x800
-            this.Size = new Size(1150, 800);
             // Place the form at coordinates (100, 100) on the screen
-            this.Location = new Point(100, 100);
+            this.Location = new System.Drawing.Point(100, 100);
 
             // Disable the maximize button and enable the minimize button
             this.MaximizeBox = false;

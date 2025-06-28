@@ -360,6 +360,7 @@ namespace WinFormsApp1
             labelPasswordInfo.TabIndex = 15;
             labelPasswordInfo.Text = "\r\nPassword requirements:\r\n\r\n*8–10 characters\r\n*At least one digit\r\n*At least one letter\r\n            *At least one special               character (!@#...)\r\n";
             labelPasswordInfo.TextAlign = ContentAlignment.MiddleCenter;
+            labelPasswordInfo.Click += labelPasswordInfo_Click;
             // 
             // Login_Signup
             // 

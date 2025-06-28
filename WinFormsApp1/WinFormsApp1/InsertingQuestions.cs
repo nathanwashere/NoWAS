@@ -12,10 +12,13 @@ namespace WinFormsApp1
 
             // Fixed window size
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            /*
             // Manual positioning
             this.StartPosition = FormStartPosition.Manual;
             // Set desired size
-            this.Size = new Size(1100, 800);
+            this.Size = new Size(1100, 800);*/
+
+            this.StartPosition = FormStartPosition.Manual;
             // Set desired location on screen
             this.Location = new System.Drawing.Point(100, 100);
 

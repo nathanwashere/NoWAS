@@ -25,32 +25,37 @@ namespace WinFormsApp1
             this.back_page = back_page;
 
             // Enable DPI scaling (helps with display on high-resolution screens)
-            this.AutoScaleMode = AutoScaleMode.Dpi;
+            /*this.AutoScaleMode = AutoScaleMode.Dpi;
 
             // Preferred window size
-            int preferredWidth = 1150;
+            int preferredWidth = 800;
             int preferredHeight = 800;
 
-            // Get available screen size (excluding taskbar)
-            Size screenSize = Screen.PrimaryScreen.WorkingArea.Size;
+            // Use WorkingArea instead of Bounds to avoid overlap with taskbar
+            Rectangle workingArea = Screen.PrimaryScreen.WorkingArea;
 
-            // Adjust window size to fit within screen boundaries
-            int width = Math.Min(preferredWidth, screenSize.Width - 50);
-            int height = Math.Min(preferredHeight, screenSize.Height - 50);
+            // Adjust window size to not exceed screen working area
+            int width = Math.Min(preferredWidth, workingArea.Width - 50);  // add margin
+            int height = Math.Min(preferredHeight, workingArea.Height - 50);
             this.Size = new Size(width, height);
 
-            // Center the form on the screen
+            // Center the form within the working area
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(
-                (screenSize.Width - this.Width) / 2,
-                (screenSize.Height - this.Height) / 2
-            );
+                workingArea.X + (workingArea.Width - this.Width) / 2,
+                workingArea.Y + (workingArea.Height - this.Height) / 2
+            );*/
 
+            this.StartPosition = FormStartPosition.Manual;
+            // Place the form at coordinates (100, 100) on the screen
+            this.Location = new System.Drawing.Point(100, 100);
             // Fixed window style: non-resizable, but minimizable
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = true;
         }
+
+
 
 
         private void Deleting_questions_FormClosing(object sender, FormClosingEventArgs e)
