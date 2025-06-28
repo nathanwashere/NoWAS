@@ -484,7 +484,7 @@ namespace WinFormsApp1
             }
         }
 
-        private List<string> GetQuestionsForTest(int testId)
+        private List<string> GetQuestionsForTest(int testId)//visual for seeing the questions selected
         {
             var list = new List<string>();
             var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Database.db");
